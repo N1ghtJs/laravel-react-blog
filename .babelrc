@@ -1,5 +1,11 @@
 {
+  "presets": [
+    "react",
+    "es2017",
+    "stage-1"
+  ],
   "plugins": [
-    ["import", { "libraryName": "antd", "style": "css" }]
+    ["import", { "libraryName": "antd", "style": "css" }],
+    ["transform-object-rest-spread"]
   ]
 }

@@ -12,14 +12,18 @@
     "devDependencies": {
         "axios": "^0.16.2",
         "babel-plugin-import": "^1.6.2",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-preset-es2017": "^6.24.1",
         "babel-preset-react": "^6.23.0",
+        "babel-preset-stage-1": "^6.24.1",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.0.1",
         "jquery": "^3.1.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "react": "^15.4.2",
-        "react-dom": "^15.4.2"
+        "react-dom": "^15.4.2",
+        "react-router": "^4.2.0"
     },
     "dependencies": {
         "antd": "^2.13.10"
