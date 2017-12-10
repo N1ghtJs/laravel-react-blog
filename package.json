@@ -26,6 +26,6 @@
         "react-router": "^4.2.0"
     },
     "dependencies": {
-        "antd": "^2.13.10"
+        "antd": "^3.0.0"
     }
 }
