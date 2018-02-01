@@ -96,7 +96,7 @@ class SiderLayout extends React.Component {
                 </Dropdown>
               </div>
             </Header>
-            <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+            <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
               <Route path="/" exact component={Dashboard}/>
               <Route path="/articles" component={Article}/>
               <Route path="/users" component={User}/>
