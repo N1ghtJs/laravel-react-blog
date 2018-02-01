@@ -4,6 +4,7 @@ import { Layout, Menu, Icon, Dropdown, Avatar, message } from 'antd';
 import { BrowserRouter as Router, Route, Link, HashRouter } from 'react-router-dom'
 const { Header, Sider, Content } = Layout;
 import { Article } from './Article/Article'
+import { ArticleDetail } from './Article/ArticleDetail'
 import { Dashboard } from './Dashboard/Dashboard'
 import { User } from './User/User'
 import { Setting } from './Setting/Setting'
@@ -98,7 +99,8 @@ class SiderLayout extends React.Component {
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
               <Route path="/" exact component={Dashboard}/>
-              <Route path="/articles" component={Article}/>
+              <Route path="/articles" exact component={Article}/>
+              <Route path="/articles/:id" component={ArticleDetail}/>
               <Route path="/users" component={User}/>
               <Route path="/settings" component={Setting}/>
             </Content>

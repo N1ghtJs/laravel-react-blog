@@ -10,6 +10,7 @@ export class Article extends React.Component {
       //文章数据
       articles:[],
       articles_back:[],
+      loading:true,
       //标题搜索
       filterDropdownVisible: false,
       searchText: '',
@@ -52,6 +53,7 @@ export class Article extends React.Component {
       that.setState({
         articles:response.data,
         articles_back:response.data,
+        loading:false,
       })
     })
     .catch(function (error) {
@@ -107,7 +109,7 @@ export class Article extends React.Component {
     },];
     return (
       <div>
-        <Table dataSource={this.state.articles} columns={columns} pagination={{ pageSize: 5 }}/>
+        <Table dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
       </div>
     )
   }

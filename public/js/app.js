@@ -38543,11 +38543,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_react_router_dom__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__Article_Article__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__Dashboard_Dashboard__ = __webpack_require__(317);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__User_User__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__Setting_Setting__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__Main_css__ = __webpack_require__(326);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__Main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__Main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__Article_ArticleDetail__ = __webpack_require__(448);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__Dashboard_Dashboard__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__User_User__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__Setting_Setting__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__Main_css__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__Main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__Main_css__);
 
 
 
@@ -38612,6 +38613,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = __WEBPACK_IMPORTED_MODULE_1_antd_lib_layout___default.a.Header,
     Sider = __WEBPACK_IMPORTED_MODULE_1_antd_lib_layout___default.a.Sider,
     Content = __WEBPACK_IMPORTED_MODULE_1_antd_lib_layout___default.a.Content;
+
 
 
 
@@ -38790,10 +38792,11 @@ var SiderLayout = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(
               Content,
               { style: { margin: '24px 16px', padding: 24, background: '#fff' } },
-              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/', exact: true, component: __WEBPACK_IMPORTED_MODULE_16__Dashboard_Dashboard__["a" /* Dashboard */] }),
-              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/articles', component: __WEBPACK_IMPORTED_MODULE_15__Article_Article__["a" /* Article */] }),
-              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/users', component: __WEBPACK_IMPORTED_MODULE_17__User_User__["a" /* User */] }),
-              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_18__Setting_Setting__["a" /* Setting */] })
+              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/', exact: true, component: __WEBPACK_IMPORTED_MODULE_17__Dashboard_Dashboard__["a" /* Dashboard */] }),
+              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/articles', exact: true, component: __WEBPACK_IMPORTED_MODULE_15__Article_Article__["a" /* Article */] }),
+              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/articles/:id', component: __WEBPACK_IMPORTED_MODULE_16__Article_ArticleDetail__["a" /* ArticleDetail */] }),
+              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/users', component: __WEBPACK_IMPORTED_MODULE_18__User_User__["a" /* User */] }),
+              __WEBPACK_IMPORTED_MODULE_12_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14_react_router_dom__["c" /* Route */], { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_19__Setting_Setting__["a" /* Setting */] })
             )
           )
         )
@@ -69042,6 +69045,7 @@ var Article = function (_React$Component) {
       //文章数据
       articles: [],
       articles_back: [],
+      loading: true,
       //标题搜索
       filterDropdownVisible: false,
       searchText: '',
@@ -69059,7 +69063,8 @@ var Article = function (_React$Component) {
         //console.log(response.data);
         that.setState({
           articles: response.data,
-          articles_back: response.data
+          articles_back: response.data,
+          loading: false
         });
       }).catch(function (error) {
         console.log(error);
@@ -69131,7 +69136,7 @@ var Article = function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(
         'div',
         null,
-        __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_antd_lib_table___default.a, { dataSource: this.state.articles, columns: columns, pagination: { pageSize: 5 } })
+        __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_antd_lib_table___default.a, { dataSource: this.state.articles, loading: this.state.loading, columns: columns, pagination: { pageSize: 5 } })
       );
     }
   }]);
@@ -84785,6 +84790,548 @@ function calculateNodeHeight(uiTextNode) {
     }
     return { height: height, minHeight: minHeight, maxHeight: maxHeight, overflowY: overflowY };
 }
+
+/***/ }),
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(20);
+
+__webpack_require__(449);
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Breadcrumb = __webpack_require__(451);
+
+var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
+
+var _BreadcrumbItem = __webpack_require__(447);
+
+var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_Breadcrumb2['default'].Item = _BreadcrumbItem2['default'];
+exports['default'] = _Breadcrumb2['default'];
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(2);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classCallCheck2 = __webpack_require__(3);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(8);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(4);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(5);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var __rest = undefined && undefined.__rest || function (s, e) {
+    var t = {};
+    for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
+    }return t;
+};
+
+var BreadcrumbItem = function (_React$Component) {
+    (0, _inherits3['default'])(BreadcrumbItem, _React$Component);
+
+    function BreadcrumbItem() {
+        (0, _classCallCheck3['default'])(this, BreadcrumbItem);
+        return (0, _possibleConstructorReturn3['default'])(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).apply(this, arguments));
+    }
+
+    (0, _createClass3['default'])(BreadcrumbItem, [{
+        key: 'render',
+        value: function render() {
+            var _a = this.props,
+                prefixCls = _a.prefixCls,
+                separator = _a.separator,
+                children = _a.children,
+                restProps = __rest(_a, ["prefixCls", "separator", "children"]);
+            var link = void 0;
+            if ('href' in this.props) {
+                link = React.createElement(
+                    'a',
+                    (0, _extends3['default'])({ className: prefixCls + '-link' }, restProps),
+                    children
+                );
+            } else {
+                link = React.createElement(
+                    'span',
+                    (0, _extends3['default'])({ className: prefixCls + '-link' }, restProps),
+                    children
+                );
+            }
+            if (children) {
+                return React.createElement(
+                    'span',
+                    null,
+                    link,
+                    React.createElement(
+                        'span',
+                        { className: prefixCls + '-separator' },
+                        separator
+                    )
+                );
+            }
+            return null;
+        }
+    }]);
+    return BreadcrumbItem;
+}(React.Component);
+
+exports['default'] = BreadcrumbItem;
+
+BreadcrumbItem.__ANT_BREADCRUMB_ITEM = true;
+BreadcrumbItem.defaultProps = {
+    prefixCls: 'ant-breadcrumb',
+    separator: '/'
+};
+BreadcrumbItem.propTypes = {
+    prefixCls: _propTypes2['default'].string,
+    separator: _propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].element]),
+    href: _propTypes2['default'].string
+};
+
+/***/ }),
+/* 448 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ArticleDetail; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_antd_lib_spin_style_css__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_antd_lib_spin_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_antd_lib_spin_style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_antd_lib_spin__ = __webpack_require__(416);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_antd_lib_spin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_antd_lib_spin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_antd_lib_breadcrumb_style_css__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_antd_lib_breadcrumb_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_antd_lib_breadcrumb_style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_antd_lib_icon_style_css__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_antd_lib_icon_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_antd_lib_icon_style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_antd_lib_icon__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_antd_lib_icon___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_antd_lib_icon__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_router_dom__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ArticleDetail_css__ = __webpack_require__(452);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ArticleDetail_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__ArticleDetail_css__);
+
+
+
+
+
+
+
+
+
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var ArticleDetail = function (_React$Component) {
+  _inherits(ArticleDetail, _React$Component);
+
+  function ArticleDetail(props) {
+    _classCallCheck(this, ArticleDetail);
+
+    var _this = _possibleConstructorReturn(this, (ArticleDetail.__proto__ || Object.getPrototypeOf(ArticleDetail)).call(this));
+
+    _this.state = {
+      //文章相关
+      id: props.match.params.id,
+      article: {},
+      loading: true
+    };
+    return _this;
+  }
+
+  _createClass(ArticleDetail, [{
+    key: 'componentWillMount',
+    value: function componentWillMount(props) {
+      var that = this;
+      //获取文章数据
+      axios.get('articles/' + this.state.id).then(function (response) {
+        that.setState({
+          article: response.data,
+          loading: false
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+        'div',
+        null,
+        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb___default.a,
+          null,
+          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb___default.a.Item,
+            null,
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_7_react_router_dom__["b" /* Link */],
+              { to: '/articles' },
+              __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_antd_lib_icon___default.a, { type: 'home' }),
+              __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+                'span',
+                null,
+                ' \u6587\u7AE0\u7BA1\u7406'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3_antd_lib_breadcrumb___default.a.Item,
+            null,
+            '\u6587\u7AE0\u8BE6\u60C5'
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_1_antd_lib_spin___default.a,
+          { spinning: this.state.loading },
+          __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+            'div',
+            { className: 'content' },
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              'h4',
+              null,
+              this.state.article.title
+            ),
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement('hr', null),
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              'p',
+              null,
+              '\u53D1\u5E03\u65F6\u95F4\uFF1A',
+              this.state.article.created_at
+            ),
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              'p',
+              null,
+              '\u66F4\u65B0\u65F6\u95F4\uFF1A',
+              this.state.article.updated_at
+            ),
+            __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(
+              'p',
+              null,
+              this.state.article.content
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ArticleDetail;
+}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+
+/***/ }),
+/* 449 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(450);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(11)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../../../../css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 450 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(10)(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable no-duplicate-selectors */\n/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */\n/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */\n.ant-breadcrumb {\n  font-family: \"Monospaced Number\", \"Chinese Quote\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  line-height: 1.5;\n  color: rgba(0, 0, 0, 0.65);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  color: rgba(0, 0, 0, 0.45);\n  font-size: 14px;\n}\n.ant-breadcrumb .anticon {\n  font-size: 12px;\n}\n.ant-breadcrumb a {\n  color: rgba(0, 0, 0, 0.45);\n  -webkit-transition: color .3s;\n  transition: color .3s;\n}\n.ant-breadcrumb a:hover {\n  color: #40a9ff;\n}\n.ant-breadcrumb > span:last-child {\n  color: rgba(0, 0, 0, 0.65);\n}\n.ant-breadcrumb > span:last-child .ant-breadcrumb-separator {\n  display: none;\n}\n.ant-breadcrumb-separator {\n  margin: 0 8px;\n  color: rgba(0, 0, 0, 0.45);\n}\n.ant-breadcrumb-link > .anticon + span {\n  margin-left: 4px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 451 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(3);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(8);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(4);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(5);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _warning = __webpack_require__(105);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _BreadcrumbItem = __webpack_require__(447);
+
+var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
+
+var _classnames = __webpack_require__(7);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function getBreadcrumbName(route, params) {
+    if (!route.breadcrumbName) {
+        return null;
+    }
+    var paramsKeys = Object.keys(params).join('|');
+    var name = route.breadcrumbName.replace(new RegExp(':(' + paramsKeys + ')', 'g'), function (replacement, key) {
+        return params[key] || replacement;
+    });
+    return name;
+}
+function defaultItemRender(route, params, routes, paths) {
+    var isLastItem = routes.indexOf(route) === routes.length - 1;
+    var name = getBreadcrumbName(route, params);
+    return isLastItem ? React.createElement(
+        'span',
+        null,
+        name
+    ) : React.createElement(
+        'a',
+        { href: '#/' + paths.join('/') },
+        name
+    );
+}
+
+var Breadcrumb = function (_React$Component) {
+    (0, _inherits3['default'])(Breadcrumb, _React$Component);
+
+    function Breadcrumb() {
+        (0, _classCallCheck3['default'])(this, Breadcrumb);
+        return (0, _possibleConstructorReturn3['default'])(this, (Breadcrumb.__proto__ || Object.getPrototypeOf(Breadcrumb)).apply(this, arguments));
+    }
+
+    (0, _createClass3['default'])(Breadcrumb, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var props = this.props;
+            (0, _warning2['default'])(!('linkRender' in props || 'nameRender' in props), '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' + 'see: https://u.ant.design/item-render.');
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var crumbs = void 0;
+            var _props = this.props,
+                separator = _props.separator,
+                prefixCls = _props.prefixCls,
+                style = _props.style,
+                className = _props.className,
+                routes = _props.routes,
+                _props$params = _props.params,
+                params = _props$params === undefined ? {} : _props$params,
+                children = _props.children,
+                _props$itemRender = _props.itemRender,
+                itemRender = _props$itemRender === undefined ? defaultItemRender : _props$itemRender;
+
+            if (routes && routes.length > 0) {
+                var paths = [];
+                crumbs = routes.map(function (route) {
+                    route.path = route.path || '';
+                    var path = route.path.replace(/^\//, '');
+                    Object.keys(params).forEach(function (key) {
+                        path = path.replace(':' + key, params[key]);
+                    });
+                    if (path) {
+                        paths.push(path);
+                    }
+                    return React.createElement(
+                        _BreadcrumbItem2['default'],
+                        { separator: separator, key: route.breadcrumbName || path },
+                        itemRender(route, params, routes, paths)
+                    );
+                });
+            } else if (children) {
+                crumbs = React.Children.map(children, function (element, index) {
+                    if (!element) {
+                        return element;
+                    }
+                    (0, _warning2['default'])(element.type && element.type.__ANT_BREADCRUMB_ITEM, 'Breadcrumb only accepts Breadcrumb.Item as it\'s children');
+                    return (0, _react.cloneElement)(element, {
+                        separator: separator,
+                        key: index
+                    });
+                });
+            }
+            return React.createElement(
+                'div',
+                { className: (0, _classnames2['default'])(className, prefixCls), style: style },
+                crumbs
+            );
+        }
+    }]);
+    return Breadcrumb;
+}(React.Component);
+
+exports['default'] = Breadcrumb;
+
+Breadcrumb.defaultProps = {
+    prefixCls: 'ant-breadcrumb',
+    separator: '/'
+};
+Breadcrumb.propTypes = {
+    prefixCls: _propTypes2['default'].string,
+    separator: _propTypes2['default'].node,
+    routes: _propTypes2['default'].array,
+    params: _propTypes2['default'].object,
+    linkRender: _propTypes2['default'].func,
+    nameRender: _propTypes2['default'].func
+};
+
+/***/ }),
+/* 452 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(453);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(11)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./ArticleDetail.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./ArticleDetail.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 453 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(10)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".content{\r\n  padding-top:20px;\r\n}\r\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
