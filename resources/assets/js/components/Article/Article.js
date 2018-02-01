@@ -17,6 +17,23 @@ export class Article extends React.Component {
       filtered: false,
     };
   }
+  componentWillMount() {
+    var that = this
+    //获取文章数据
+    axios.get('articles')
+    .then(function (response) {
+      //console.log(response.data);
+      that.setState({
+        articles:response.data,
+        articles_back:response.data,
+        loading:false,
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  //标题搜索
   onInputChange = (e) => {
     this.setState({ searchText: e.target.value });
   }
@@ -44,22 +61,6 @@ export class Article extends React.Component {
       }).filter(record => !!record),
     });
   }
-  componentWillMount() {
-    var that = this
-    //获取文章数据
-    axios.get('articles')
-    .then(function (response) {
-      //console.log(response.data);
-      that.setState({
-        articles:response.data,
-        articles_back:response.data,
-        loading:false,
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
   render(){
     const columns = [{
       title: 'ID',
@@ -70,7 +71,7 @@ export class Article extends React.Component {
       key: 'title',
       render: (text, record) => (
         <span>
-            <Link to={'/articles/' + record.id}>
+            <Link to={'/articles/show/' + record.id}>
               {record.title}
             </Link>
         </span>
@@ -109,6 +110,9 @@ export class Article extends React.Component {
     },];
     return (
       <div>
+        <Link to={'/articles/create'}>
+          <Button type="primary" icon="edit" style={{marginBottom:20}}>有事没事来一篇</Button>
+        </Link>
         <Table dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
       </div>
     )
