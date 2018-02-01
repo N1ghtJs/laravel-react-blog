@@ -12,9 +12,6 @@
         <div id="root">
 
         </div>
-        <div id="example">
-
-        </div>
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
 </html>
