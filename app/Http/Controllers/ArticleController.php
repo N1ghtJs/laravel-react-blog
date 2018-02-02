@@ -14,10 +14,10 @@ class ArticleController extends Controller
    */
   public function index()
   {
-    $articles = Article::all();
+    $articles = Article::orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
-      $articles[$i]->content = str_limit($articles[$i]->content, 100);
+      $articles[$i]->content = strip_tags(str_limit($articles[$i]->content, 100));
     }
     return $articles;
   }
@@ -30,5 +30,21 @@ class ArticleController extends Controller
   {
     $article = Article::findOrFail($id);
     return $article;
+  }
+  /**
+   * 创建文章
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    $article = new Article;
+    $article->title = $request->title;
+    $article->cover = $request->cover;
+    $article->content = $request->content;
+    $article->save();
+    return response()->json([
+        'message' => '创建成功!'
+    ]);
   }
 }
