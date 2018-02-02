@@ -19,4 +19,6 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::get('/home', 'HomeController@home');
 
-Route::resource('articles', 'ArticleController');
+Route::resource('/articles', 'ArticleController');
+
+Route::post('/upload', 'UploadController@upload')->name('upload');
