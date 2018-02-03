@@ -12,7 +12,7 @@ class ArticleController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index_api()
   {
     $articles = Article::orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($articles); $i++) {
@@ -26,7 +26,7 @@ class ArticleController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show_api($id)
   {
     $article = Article::findOrFail($id);
     return $article;
@@ -36,7 +36,7 @@ class ArticleController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store_api(Request $request)
   {
     $article = new Article;
     $article->title = $request->title;

@@ -9,7 +9,7 @@ import styles from "./ArticleCreate.css"
 class CoverUploader extends React.Component {
   render() {
     const props = {
-      action: 'upload',
+      action: 'z/upload',
       listType: 'picture',
       defaultFileList: [...this.props.coverList],
       headers:{
@@ -57,7 +57,7 @@ class CreactArticleForm extends React.Component {
     })
   }
   uploadFn = (param) => {
-    const serverURL = 'upload'
+    const serverURL = 'z/upload'
     const xhr = new XMLHttpRequest
     const fd = new FormData()
     // libraryId可用于通过mediaLibrary示例来操作对应的媒体内容
@@ -107,7 +107,7 @@ class CreactArticleForm extends React.Component {
       message.error('标题不能为空');
     }else {
       //创建文章
-      axios.post('articles', {
+      axios.post('z/articles', {
         title:title,
         cover:cover,
         content:content,

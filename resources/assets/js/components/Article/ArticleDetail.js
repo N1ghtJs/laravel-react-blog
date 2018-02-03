@@ -16,7 +16,7 @@ export class ArticleDetail extends React.Component {
   componentWillMount(props) {
     var that = this
     //获取文章数据
-    axios.get('articles/' + this.state.id)
+    axios.get('z/articles/' + this.state.id)
     .then(function (response) {
       that.setState({
         article:response.data,

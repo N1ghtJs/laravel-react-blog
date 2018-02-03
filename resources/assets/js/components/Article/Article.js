@@ -20,7 +20,7 @@ export class Article extends React.Component {
   componentWillMount() {
     var that = this
     //获取文章数据
-    axios.get('articles')
+    axios.get('z/articles')
     .then(function (response) {
       //console.log(response.data);
       that.setState({

@@ -47,7 +47,7 @@
                   <p class="z-title">{{ $article->title }}</p>
                   <p class="z-intro">{{ $article->content }}</p>
                   <div class="z-center-horizontal">
-                      <a href="" class="z-button">read more..</a>
+                      <a href="{{ route('articles.show', $article->id) }}" class="z-button">read more..</a>
                   </div>
               </div>
           </div>

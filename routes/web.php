@@ -19,4 +19,9 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::resource('/articles', 'ArticleController');
 
-Route::post('/upload', 'UploadController@upload')->name('upload');
+Route::prefix('z')->group(function () {
+  Route::get('/articles', 'ArticleController@index_api');
+  Route::post('/articles', 'ArticleController@store_api');
+  Route::get('/articles/{id}', 'ArticleController@show_api');
+  Route::post('/upload', 'UploadController@upload_api');
+});
