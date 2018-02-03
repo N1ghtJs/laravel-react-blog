@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
+@charset "UTF-8";
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -1402,7 +1402,7 @@ html {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 14px;
   line-height: 1.6;
   color: #636b6f;
@@ -7499,7 +7499,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Raleway", sans-serif;
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -7633,7 +7633,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Raleway", sans-serif;
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -8348,5 +8348,195 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+.z-slide .z-inner {
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 5px #dcdcdc;
+          box-shadow: 0 1px 5px #dcdcdc;
+  background-color: white;
+}
+
+.z-slide .z-inner .z-content {
+  padding: 40px;
+}
+
+.z-slide .z-inner .z-content .z-title {
+  color: black;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.z-slide .z-inner .z-content .z-intro {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.z-slide .z-inner .z-content .z-button {
+  padding: 5px 10px 5px 10px;
+  color: gray;
+  font-size: 12px;
+  border: 1px solid #c2c2bc;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.z-slide .z-inner .z-content .z-button:hover {
+  border: 1px solid gray;
+}
+
+.z-slide .z-slide-button .z-location,
+.z-slide .z-slide-button .z-location-left,
+.z-slide .z-slide-button .z-location-right {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+}
+
+.z-slide .z-slide-button .z-location .z-button,
+.z-slide .z-slide-button .z-location-left .z-button,
+.z-slide .z-slide-button .z-location-right .z-button {
+  padding: 20px 10px 20px 10px;
+  font-size: 30px;
+  color: grey;
+  border-radius: 0 2px 2px 0;
+  background-color: #2B2B2B;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+
+.z-slide .z-slide-button .z-location .z-button:hover,
+.z-slide .z-slide-button .z-location-left .z-button:hover,
+.z-slide .z-slide-button .z-location-right .z-button:hover {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+
+.z-slide .z-slide-button .z-location-left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.z-slide .z-slide-button .z-location-right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.z-article-vertical {
+  margin-bottom: 20px;
+  border-radius: 2px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 1px 5px #dcdcdc;
+          box-shadow: 0 1px 5px #dcdcdc;
+  background-color: white;
+}
+
+.z-article-vertical .z-content {
+  padding: 40px;
+}
+
+.z-article-vertical .z-content .z-title {
+  color: black;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.z-article-vertical .z-content .z-intro {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.z-article-vertical .z-content .z-button {
+  padding: 5px 10px 5px 10px;
+  color: gray;
+  font-size: 12px;
+  border: 1px solid #c2c2bc;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.z-article-vertical .z-content .z-button:hover {
+  border: 1px solid gray;
+}
+
+.z-editor .z-editor-header {
+  background-color: #f5f5f5;
+  border-color: #d1d1d1;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+  padding-left: 10px;
+}
+
+.z-editor .z-editor-header .z-editor-icon {
+  padding: 5px 10px 5px 10px;
+}
+
+.z-editor .z-editor-header .z-editor-icon:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.z-editor .z-editor-input {
+  width: 100%;
+  resize: none;
+  border-radius: 0;
+  border-style: solid;
+}
+
+.z-footer {
+  background-color: #525252;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.z-footer .z-text {
+  color: white;
+  font-size: 10px;
+}
+
+.z-footer .z-text-big {
+  color: white;
+  font-size: 20px;
+}
+
+.z-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.z-center-horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.z-center-vertical {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 

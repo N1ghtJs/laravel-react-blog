@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Home
                     </a>
                 </div>
 
@@ -40,8 +40,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
+                    <!-- <ul class="nav navbar-nav navbar-right">
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
@@ -66,12 +65,17 @@
                                 </ul>
                             </li>
                         @endguest
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>
 
         @yield('content')
+
+        <footer class="z-footer">
+            <p class="z-text">DESIGN & CODE BY</p>
+            <p class="z-text-big">sad creeper</p>
+        </footer>
     </div>
 
     <!-- Scripts -->

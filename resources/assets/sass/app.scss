@@ -1,9 +1,166 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//----------------------------------------------------------
+//------------------     轮播
+//----------------------------------------------------------
+//z-slide 轮播
+.z-slide{
+    .z-inner{
+        border-radius: 2px;
+        box-shadow: 0 1px 5px #dcdcdc;
+        background-color: white;
+        .z-content{
+            padding:40px;
+            .z-title{
+                color: black;
+                font-size: 30px;
+                margin-bottom: 15px;
+            }
+            .z-intro{
+                color:gray;
+                margin-bottom: 20px;
+            }
+            .z-button{
+                padding: 5px 10px 5px 10px;
+                color: gray;
+                font-size: 12px;
+                border: 1px solid #c2c2bc;
+                border-radius: 15px;
+                text-decoration: none;
+            }
+            .z-button:hover{
+                border: 1px solid gray;
+            }
+        }
+    }
+    .z-slide-button{
+        .z-location{
+            position: absolute;
+            //top: 0;left: 0;bottom: 0;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            .z-button{
+              padding: 20px 10px 20px 10px;
+              font-size: 30px;
+              color: grey;
+              border-radius: 0 2px 2px 0;
+              background-color: #2B2B2B;
+              filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;
+            }
+            .z-button:hover{
+                filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity: 0.8;opacity: 0.8;
+            }
+        }
+        .z-location-left{
+            @extend .z-location;
+            top: 0;left: 0;bottom: 0;
+        }
+        .z-location-right{
+            @extend .z-location;
+            top: 0;right: 0;bottom: 0;
+        }
+    }
+}
+
+//----------------------------------------------------------
+//------------------     文章
+//----------------------------------------------------------
+//文章简介-纵向布局：图片在上，文字在下
+.z-article-vertical{
+    margin-bottom: 20px;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 5px #dcdcdc;
+    background-color: white;
+    .z-content{
+        padding:40px;
+        .z-title{
+            color: black;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+        .z-intro{
+            color:gray;
+            margin-bottom: 20px;
+        }
+        .z-button{
+            padding: 5px 10px 5px 10px;
+            color: gray;
+            font-size: 12px;
+            border: 1px solid #c2c2bc;
+            border-radius: 15px;
+            text-decoration: none;
+        }
+        .z-button:hover{
+            border: 1px solid gray;
+        }
+    }
+}
+
+//----------------------------------------------------------
+//------------------     editor
+//----------------------------------------------------------
+//markdown 编辑器
+.z-editor{
+    .z-editor-header{
+        background-color: #f5f5f5;
+        border-color: #d1d1d1;
+        border-style: solid;
+        border-width: 1px 1px 0 1px;
+        padding-left: 10px;
+        .z-editor-icon{
+            padding: 5px 10px 5px 10px;
+        }
+        .z-editor-icon:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+    .z-editor-input{
+        width: 100%;
+        resize: none;
+        border-radius: 0;
+        border-style: solid;
+    }
+}
+
+//----------------------------------------------------------
+//------------------     footer
+//----------------------------------------------------------
+.z-footer{
+    background-color: #525252;
+    text-align: center;
+    padding: 60px 0;
+    .z-text{
+        color: white;
+        font-size: 10px;
+    }
+    .z-text-big{
+        color: white;
+        font-size:20px;
+    }
+}
+
+//----------------------------------------------------------
+//------------------     居中（flex）
+//----------------------------------------------------------
+//水平和垂直居中
+.z-center{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+//水平居中
+.z-center-horizontal{
+    display: flex;
+    justify-content: center;
+}
+//垂直居中
+.z-center-vertical{
+    display: flex;
+    align-items: center;
+}
