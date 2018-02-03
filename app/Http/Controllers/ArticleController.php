@@ -8,7 +8,7 @@ use App\Article;
 class ArticleController extends Controller
 {
   /**
-   * 返回所有的文章
+   * 返回所有的文章 [API]
    *
    * @return \Illuminate\Http\Response
    */
@@ -22,7 +22,17 @@ class ArticleController extends Controller
     return $articles;
   }
   /**
-   * 返回某个文章
+   * 跳转某篇文章
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    $article = Article::findOrFail($id);
+    return view('articles.show', compact('article'));
+  }
+  /**
+   * 返回某个文章 [API]
    *
    * @return \Illuminate\Http\Response
    */
@@ -32,7 +42,7 @@ class ArticleController extends Controller
     return $article;
   }
   /**
-   * 创建文章
+   * 创建文章 [API]
    *
    * @return \Illuminate\Http\Response
    */
