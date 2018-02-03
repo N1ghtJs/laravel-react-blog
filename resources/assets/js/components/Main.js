@@ -81,6 +81,12 @@ class SiderLayout extends React.Component {
                   <span>网站管理</span>
                 </Link>
               </Menu.Item>
+              <Menu.Item key="5">
+                <a href="/">
+                  <Icon type="logout" />
+                  <span>退出后台</span>
+                </a>
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout>
