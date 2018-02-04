@@ -76,6 +76,9 @@
     overflow: hidden;
     box-shadow: 0 1px 5px #dcdcdc;
     background-color: white;
+    .z-cover{
+      width:100%
+    }
     .z-content{
         padding:40px;
         .z-title{

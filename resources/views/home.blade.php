@@ -42,7 +42,7 @@
           <!-- 最新文章 -->
           @foreach($articles as $article)
           <div class="z-article-vertical">
-              <img src="default.jpg" class="img-responsive" alt="imax1">
+              <img src="{{ $article->cover == '' ? 'default.jpg' : $article->cover }}" class="img-responsive z-cover" alt="imax1">
               <div class="z-content">
                   <p class="z-title">{{ $article->title }}</p>
                   <p class="z-intro">{{ $article->content }}</p>
