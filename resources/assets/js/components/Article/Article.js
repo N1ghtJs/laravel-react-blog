@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon } from 'antd';
+import { Table, Input, Button, Icon, Divider, message, Modal } from 'antd';
+const ButtonGroup = Button.Group;
+const confirm = Modal.confirm;
 import { Link } from 'react-router-dom';
 import styles from "./Article.css"
 
@@ -18,6 +20,9 @@ export class Article extends React.Component {
     };
   }
   componentWillMount() {
+    this.fetchData()
+  }
+  fetchData(){
     var that = this
     //获取文章数据
     axios.get('z/articles')
@@ -60,6 +65,33 @@ export class Article extends React.Component {
         };
       }).filter(record => !!record),
     });
+  }
+  handleDelete = (id) =>{
+    var that = this
+    confirm({
+      title: '确认删除',
+      content: '此操作将会永久删除此文章，确认继续？',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        //获取文章数据
+        axios.get('z/articles/delete/' + id)
+        .then(function (response) {
+          if (response.status == 200) {
+            that.fetchData()
+            message.success(response.data.message)
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+      onCancel() {
+        console.log('取消删除');
+      },
+    });
+
   }
   render(){
     const columns = [{
@@ -107,13 +139,25 @@ export class Article extends React.Component {
       title: '更新时间',
       dataIndex: 'updated_at',
       key: 'updated_at',
+    },{
+      title: '操作',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <ButtonGroup>
+            <Button icon="to-top"/>
+            <Button icon="lock"/>
+            <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
+          </ButtonGroup>
+        </span>
+      ),
     },];
     return (
       <div>
         <Link to={'/articles/create'}>
           <Button type="primary" icon="edit" style={{marginBottom:20}}>有事没事来一篇</Button>
         </Link>
-        <Table dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
+        <Table size="middle" dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
       </div>
     )
   }

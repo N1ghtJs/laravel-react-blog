@@ -57,4 +57,17 @@ class ArticleController extends Controller
         'message' => '创建成功!'
     ]);
   }
+  /**
+   * 删除文章 [API]
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy_api($id)
+  {
+    $article = Article::findOrFail($id);
+    $article->delete();
+    return response()->json([
+        'message' => '删除成功!'
+    ]);
+  }
 }
