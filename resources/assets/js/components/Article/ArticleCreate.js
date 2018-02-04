@@ -129,13 +129,19 @@ class CreactArticleForm extends React.Component {
       wrapperCol: { offset: 4, span: 16 },
     };
     const editorProps = {
-      height: 300,
+      height: 350,
       initialContent: this.props.content,
       onChange: this.handleChange,
       onHTMLChange: this.handleHTMLChange,
       media:{
         uploadFn:this.uploadFn
       },
+      controls:[
+        'undo', 'redo', 'split', 'font-size', 'font-family', 'text-color',
+        'bold', 'italic', 'underline', 'strike-through', 'emoji', 'superscript',
+        'subscript', 'text-align', 'split', 'headings', 'list_ul', 'list_ol',
+        'blockquote', 'code', 'split', 'link', 'split', 'media'
+      ],
       extendControls: [{
         type: 'modal',
         text: '封面',
