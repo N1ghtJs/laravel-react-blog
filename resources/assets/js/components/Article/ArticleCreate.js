@@ -157,7 +157,7 @@ class CreactArticleForm extends React.Component {
       }]
     };
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <FormItem
           {...formItemLayout}>
           <Input
@@ -172,7 +172,7 @@ class CreactArticleForm extends React.Component {
           </div>
         </FormItem>
         <FormItem {...formItemLayout} style={{textAlign:'right'}}>
-          <Button type="primary" htmlType="submit" icon="form">发表</Button>
+          <Button onClick={this.handleSubmit} type="primary" htmlType="submit" icon="form">发表</Button>
         </FormItem>
       </Form>
     )

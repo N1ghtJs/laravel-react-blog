@@ -13,7 +13,7 @@ class UploadController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function upload(Request $request)
+  public function upload_api(Request $request)
   {
     $cosClient = new Client(array('region' => env('COS_REGION'),
     'credentials'=> array(
