@@ -17,7 +17,7 @@ class ArticleController extends Controller
     $articles = Article::orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
-      $articles[$i]->content = strip_tags(str_limit($articles[$i]->content, 100));
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 100);
     }
     return $articles;
   }
