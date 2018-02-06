@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Breadcrumb, Icon, Spin } from 'antd';
+import { Breadcrumb, Icon, Spin, message} from 'antd';
 import { Link } from 'react-router-dom';
+import { ArticleForm } from './ArticleForm';
 import styles from "./ArticleDetail.css"
 
 export class ArticleDetail extends React.Component {
@@ -13,7 +14,7 @@ export class ArticleDetail extends React.Component {
       loading:true,
     };
   }
-  componentWillMount(props) {
+  componentDidMount(props) {
     var that = this
     //获取文章数据
     axios.get('z/articles/' + this.state.id)
@@ -27,10 +28,34 @@ export class ArticleDetail extends React.Component {
       console.log(error);
     });
   }
+  handleSubmit(article) {
+    console.log(article);
+    var that = this
+    if (article.title == '') {
+      message.error('标题不能为空');
+    }else {
+      //更新文章
+      axios.post('z/articles', {
+        id:this.state.id,
+        title:article.title,
+        cover:article.cover,
+        content:article.content,
+      })
+      .then(function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          message.success(response.data.message)
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
   render(){
     return (
       <div>
-        <Breadcrumb>
+        <Breadcrumb style={{ marginBottom:20 }}>
           <Breadcrumb.Item>
             <Link to="/articles">
             <Icon type="home" />
@@ -38,17 +63,11 @@ export class ArticleDetail extends React.Component {
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            文章详情
+            文章编辑
           </Breadcrumb.Item>
         </Breadcrumb>
         <Spin spinning={this.state.loading}>
-          <div className="content">
-            <h4>{this.state.article.title}</h4>
-            <hr/>
-            <p>发布时间：{this.state.article.created_at}</p>
-            <p>更新时间：{this.state.article.updated_at}</p>
-            <p>{this.state.article.content}</p>
-          </div>
+          <ArticleForm article={this.state.article} handleSubmit={this.handleSubmit.bind(this)}/>
         </Spin>
       </div>
     )

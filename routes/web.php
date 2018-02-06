@@ -22,6 +22,7 @@ Route::resource('/articles', 'ArticleController');
 Route::prefix('z')->group(function () {
   Route::get('/articles', 'ArticleController@index_api');
   Route::post('/articles', 'ArticleController@store_api');
+  Route::post('/articles/update', 'ArticleController@update_api');
   Route::get('/articles/delete/{id}', 'ArticleController@destroy_api');
   Route::get('/articles/{id}', 'ArticleController@show_api');
   Route::post('/upload', 'UploadController@upload_api');

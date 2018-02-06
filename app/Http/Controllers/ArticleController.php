@@ -42,20 +42,31 @@ class ArticleController extends Controller
     return $article;
   }
   /**
-   * 创建文章 [API]
+   * 创建或更新文章 [API]
    *
    * @return \Illuminate\Http\Response
    */
   public function store_api(Request $request)
   {
-    $article = new Article;
-    $article->title = $request->title;
-    $article->cover = $request->cover;
-    $article->content = $request->content;
-    $article->save();
-    return response()->json([
-        'message' => '创建成功!'
-    ]);
+    if ($request->id) {
+      $article = Article::findOrFail($request->id);
+      $article->title = $request->title;
+      $article->cover = $request->cover;
+      $article->content = $request->content;
+      $article->save();
+      return response()->json([
+          'message' => '更新成功!'
+      ]);
+    }else{
+      $article = new Article;
+      $article->title = $request->title;
+      $article->cover = $request->cover;
+      $article->content = $request->content;
+      $article->save();
+      return response()->json([
+          'message' => '创建成功!'
+      ]);
+    }
   }
   /**
    * 删除文章 [API]
