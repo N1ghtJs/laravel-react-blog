@@ -53,7 +53,7 @@
                                 <ul class="dropdown-menu">
                                     @if (Auth::check())
                                         @if (Auth::id() === 1)
-                                          <li><a href="admin">管理后台</a></li>
+                                          <li><a href="/admin">管理后台</a></li>
                                           <li role="separator" class="divider"></li>
                                         @endif
                                     @endif

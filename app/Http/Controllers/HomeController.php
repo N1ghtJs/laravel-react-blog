@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
       $articles = Article::orderBy('created_at', 'desc')->limit(5)->get();
       for ($i=0; $i < sizeof($articles); $i++) {
-        $articles[$i]->content = strip_tags(str_limit($articles[$i]->content, 100));
+        $articles[$i]->content = strip_tags(str_limit($articles[$i]->content, 200));
       }
       return view('home', compact('articles'));
     }
