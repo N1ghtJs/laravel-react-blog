@@ -28,8 +28,9 @@ class ArticleController extends Controller
    */
   public function show($id)
   {
-    $article = Article::findOrFail($id);
     Article::update_view($id);
+    $article = Article::findOrFail($id);
+    $article->created_at_date = $article->created_at->toDateString();
     return view('articles.show', compact('article'));
   }
   /**
