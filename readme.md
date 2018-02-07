@@ -1,3 +1,11 @@
+# Laravel-blog-v2
+
+基于 Laravel 5.5 和 react 的个人博客系统
+
+演示地址：[http://dmmylove.cn](http://dmmylove.cn)
+
+如果你喜欢这个开源项目，记得在右上角点个 star 哦，谢谢：）
+
 # 如何部署到自己的服务器？
 
 ## 首先你需要一台服务器
