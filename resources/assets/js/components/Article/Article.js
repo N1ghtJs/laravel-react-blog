@@ -122,7 +122,7 @@ export class Article extends React.Component {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      width: 30,
+      width: 50,
     },{
       title: '封面',
       key: 'cover',
