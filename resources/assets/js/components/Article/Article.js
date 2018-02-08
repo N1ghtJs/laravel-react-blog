@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Divider, message, Modal } from 'antd';
+import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 import { Link } from 'react-router-dom';
@@ -145,9 +145,15 @@ export class Article extends React.Component {
       render: (text, record) => (
         <span>
           <ButtonGroup>
-            <Button icon="to-top"/>
-            <Button icon="lock"/>
-            <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
+            <Tooltip title="发表">
+              <Button icon="book"/>
+            </Tooltip>
+            <Tooltip title="置顶">
+              <Button icon="up-circle"/>
+            </Tooltip>
+            <Tooltip title="删除">
+              <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
+            </Tooltip>
           </ButtonGroup>
         </span>
       ),
