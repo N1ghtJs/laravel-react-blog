@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip } from 'antd';
+import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 import { Link } from 'react-router-dom';
@@ -98,6 +98,7 @@ export class Article extends React.Component {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      width: 30,
     },{
       title: '标题',
       key: 'title',
@@ -132,16 +133,30 @@ export class Article extends React.Component {
       dataIndex: 'content',
       key: 'content',
     },{
+      title: '状态',
+      key: 'is_hidden',
+      render: (text, record) => {
+        if (record.is_hidden)
+          return <Badge status="warning" text="笔记" />
+        else
+          return <Badge status="processing" text="已发表" />
+      }
+    },{
+      title: '浏览量',
+      dataIndex: 'view',
+      key: 'view',
+    },{
+      title: '最后访问',
+      dataIndex: 'updated_at_diff',
+      key: 'updated_at',
+    },{
       title: '发表时间',
       dataIndex: 'created_at',
       key: 'created_at',
     },{
-      title: '更新时间',
-      dataIndex: 'updated_at',
-      key: 'updated_at',
-    },{
       title: '操作',
       key: 'action',
+      width: 110,
       render: (text, record) => (
         <span>
           <ButtonGroup>

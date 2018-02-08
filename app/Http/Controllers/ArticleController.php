@@ -18,6 +18,7 @@ class ArticleController extends Controller
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
       $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 100);
+      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
     return $articles;
   }

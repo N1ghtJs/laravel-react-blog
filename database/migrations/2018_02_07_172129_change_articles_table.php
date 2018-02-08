@@ -26,6 +26,9 @@ class ChangeArticlesTable extends Migration
      */
     public function down()
     {
-        //
+      Schema::table('articles', function (Blueprint $table) {
+          $table->dropColumn('view');
+          $table->dropColumn('comment');
+      });
     }
 }
