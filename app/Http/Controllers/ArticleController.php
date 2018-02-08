@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use EasyWeChat\Factory;
 use App\Article;
 
 class ArticleController extends Controller
@@ -32,7 +33,17 @@ class ArticleController extends Controller
     Article::update_view($id);
     $article = Article::findOrFail($id);
     $article->created_at_date = $article->created_at->toDateString();
-    return view('articles.show', compact('article'));
+
+    $config = [
+    'app_id' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
+    'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
+    'log' => [
+        'level' => 'debug',
+        'file' => __DIR__.'/wechat.log'],
+    ];
+    $app = Factory::officialAccount($config);
+
+    return view('articles.show', compact('article', 'app'));
   }
   /**
    * 返回某个文章 [API]

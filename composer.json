@@ -10,6 +10,7 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "overtrue/laravel-wechat": "~4.0",
         "qcloud/cos-sdk-v5": "^1.1"
     },
     "require-dev": {
