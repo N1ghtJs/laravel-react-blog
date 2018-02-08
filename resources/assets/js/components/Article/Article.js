@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge } from 'antd';
+import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge, Avatar } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 import { Link } from 'react-router-dom';
@@ -17,6 +17,8 @@ export class Article extends React.Component {
       filterDropdownVisible: false,
       searchText: '',
       filtered: false,
+      //Model
+      coverModelVisible: false,
     };
   }
   componentWillMount() {
@@ -66,6 +68,16 @@ export class Article extends React.Component {
       }).filter(record => !!record),
     });
   }
+  showCover = () =>{
+    this.setState({
+      coverModelVisible: true,
+    });
+  }
+  handleCancelCoverModel = () =>{
+    this.setState({
+      coverModelVisible: false,
+    });
+  }
   handlePublish = (id) =>{
     var that = this
     axios.get('z/articles/publish/' + id)
@@ -111,6 +123,24 @@ export class Article extends React.Component {
       dataIndex: 'id',
       key: 'id',
       width: 30,
+    },{
+      title: '封面',
+      key: 'cover',
+      render: (text, record) => (
+        <div>
+          <Avatar shape="square" src={record.cover || 'default.jpg'} onClick={this.showCover} style={{ cursor:'pointer' }}/>
+          <Modal
+            title="封面图片"
+            visible={this.state.coverModelVisible}
+            onCancel={this.handleCancelCoverModel}
+            footer={null}
+            width="80%"
+            style={{ textAlign:'center' }}
+          >
+            <img src={record.cover} style={{ maxWidth:'100%' }}/>
+          </Modal>
+        </div>
+      )
     },{
       title: '标题',
       key: 'title',
