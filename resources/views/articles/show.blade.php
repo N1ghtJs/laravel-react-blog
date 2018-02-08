@@ -25,20 +25,20 @@
     wx.config(<?php echo $app->jssdk->buildConfig(array('onMenuShareAppMessage', 'onMenuShareTimeline'), true) ?>);
     wx.ready(function(res) {
         wx.onMenuShareAppMessage({
-            title: <?php $article->title ?>,
+            title: '<?php echo $article->title ?>',
             desc: '23333',
-            link: res.url,
-            imgUrl: <?php $article->cover ?>,
+            link: location.href,
+            imgUrl: '<?php echo $article->cover ?>',
             trigger: function(res) {},
             success: function(res) {},
             cancel: function(res) {},
             fail: function(res) {}
         });
         wx.onMenuShareTimeline({
-            title: <?php $article->title ?>,
+            title: '<?php echo $article->title ?>',
             desc: '23333',
-            link: res.url,
-            imgUrl: <?php $article->cover ?>,
+            link: location.href,
+            imgUrl: '<?php echo $article->cover ?>',
             trigger: function(res) {},
             success: function(res) {},
             cancel: function(res) {},
