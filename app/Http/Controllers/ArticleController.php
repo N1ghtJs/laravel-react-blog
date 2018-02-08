@@ -35,11 +35,12 @@ class ArticleController extends Controller
     $article->created_at_date = $article->created_at->toDateString();
 
     $config = [
-    'app_id' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
-    'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
-    'log' => [
-        'level' => 'debug',
-        'file' => __DIR__.'/wechat.log'],
+      'app_id' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
+      'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
+      'log' => [
+          'level' => 'debug',
+          'file' => base_path('storage/logs').'/wechat.log',
+      ]
     ];
     $app = Factory::officialAccount($config);
 
