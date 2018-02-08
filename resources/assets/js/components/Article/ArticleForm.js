@@ -51,6 +51,7 @@ export class ArticleForm extends React.Component {
     this.setState({title: title})
   }
   handleHTMLChange = (html) => {
+    console.log(html);
     this.setState({content: html})
   }
   uploadFn = (param) => {
@@ -123,7 +124,11 @@ export class ArticleForm extends React.Component {
   }
   render() {
     const formItemLayout = {
-      wrapperCol: { offset: 4, span: 16 },
+      wrapperCol: {
+        sm:{ span:24 },
+        md:{ span:24 },
+        lg:{ span: 20, offset: 2 }
+      },
     };
     const editorProps = {
       height: 350,
