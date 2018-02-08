@@ -177,6 +177,7 @@ export class Article extends React.Component {
     },{
       title: '状态',
       key: 'is_hidden',
+      width: 80,
       render: (text, record) => {
         if (record.is_hidden)
           return <Badge status="warning" text="笔记" />
@@ -198,7 +199,7 @@ export class Article extends React.Component {
     },{
       title: '操作',
       key: 'action',
-      width: 110,
+      width: 120,
       render: (text, record) => (
         <span>
           <ButtonGroup>

@@ -79,7 +79,7 @@
         @yield('content')
 
         <footer class="z-footer">
-            <p class="z-text">DESIGN & CODE BY</p>
+            <p class="z-text">DESIGN & FRONT-END CODE BY</p>
             <p class="z-text-big">sad creeper</p>
         </footer>
     </div>
