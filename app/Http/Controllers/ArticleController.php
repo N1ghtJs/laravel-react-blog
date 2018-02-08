@@ -72,6 +72,28 @@ class ArticleController extends Controller
     }
   }
   /**
+   * 发表（或隐藏）文章 [API]
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function publish_api($id)
+  {
+    $article = Article::findOrFail($id);
+    if ($article->is_hidden) {
+      $article->is_hidden = 0;
+      $article->save();
+      return response()->json([
+          'message' => '文章已发表！'
+      ]);
+    }else {
+      $article->is_hidden = 1;
+      $article->save();
+      return response()->json([
+          'message' => '文章已切换为笔记！'
+      ]);
+    }
+  }
+  /**
    * 删除文章 [API]
    *
    * @return \Illuminate\Http\Response

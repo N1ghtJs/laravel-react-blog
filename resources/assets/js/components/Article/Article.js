@@ -66,6 +66,19 @@ export class Article extends React.Component {
       }).filter(record => !!record),
     });
   }
+  handlePublish = (id) =>{
+    var that = this
+    axios.get('z/articles/publish/' + id)
+    .then(function (response) {
+      if (response.status == 200) {
+        that.fetchData()
+        message.success(response.data.message)
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   handleDelete = (id) =>{
     var that = this
     confirm({
@@ -91,7 +104,6 @@ export class Article extends React.Component {
         console.log('取消删除');
       },
     });
-
   }
   render(){
     const columns = [{
@@ -161,7 +173,7 @@ export class Article extends React.Component {
         <span>
           <ButtonGroup>
             <Tooltip title="发表">
-              <Button icon="book"/>
+              <Button icon="book" onClick={this.handlePublish.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="置顶">
               <Button icon="up-circle"/>
