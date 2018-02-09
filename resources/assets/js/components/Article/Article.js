@@ -78,6 +78,9 @@ export class Article extends React.Component {
       coverModelVisible: false,
     });
   }
+  handleView = (id) =>{
+    window.open('/articles/' + id)
+  }
   handlePublish = (id) =>{
     var that = this
     axios.get('z/articles/publish/' + id)
@@ -199,15 +202,18 @@ export class Article extends React.Component {
     },{
       title: '操作',
       key: 'action',
-      width: 120,
+      width: 150,
       render: (text, record) => (
         <span>
           <ButtonGroup>
+            <Tooltip title="预览">
+              <Button icon="link" onClick={this.handleView.bind(this, record.id)}/>
+            </Tooltip>
             <Tooltip title="发表">
               <Button icon="book" onClick={this.handlePublish.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="置顶">
-              <Button icon="up-circle"/>
+              <Button icon="up-square-o"/>
             </Tooltip>
             <Tooltip title="删除">
               <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
