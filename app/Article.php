@@ -17,6 +17,14 @@ class Article extends Model
   ];
 
   /**
+     * 获得此博客文章的评论
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+  /**
    * 更新浏览量
    * @var [int]
    */

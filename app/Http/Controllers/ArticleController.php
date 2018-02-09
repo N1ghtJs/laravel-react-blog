@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Session\DatabaseSessionHandler;
 use League\HTMLToMarkdown\HtmlConverter;
-use App\Common\Common;
 use App\Article;
 
 class ArticleController extends Controller
@@ -35,7 +34,11 @@ class ArticleController extends Controller
     Article::update_view($id);
     $article = Article::findOrFail($id);
     $article->created_at_date = $article->created_at->toDateString();
-    return view('articles.show', compact('article'));
+    $comments = $article->comments()->orderBy('created_at', 'desc')->get();
+    for ($i=0; $i < sizeof($comments); $i++) {
+      $comments[$i]->created_at_diff = $comments[$i]->created_at->diffForHumans();
+    }
+    return view('articles.show', compact('article', 'comments'));
   }
   /**
    * 返回某个文章 [API]

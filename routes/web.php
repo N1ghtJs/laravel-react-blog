@@ -18,6 +18,7 @@ Route::get('/', 'HomeController@home')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::resource('/articles', 'ArticleController');
+Route::resource('/comments', 'CommentController');
 
 Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::get('/articles', 'ArticleController@index_api');
