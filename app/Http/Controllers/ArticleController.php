@@ -30,10 +30,11 @@ class ArticleController extends Controller
    */
   public function show($id)
   {
+    $ip = $_SERVER["REMOTE_ADDR"];
     Article::update_view($id);
     $article = Article::findOrFail($id);
     $article->created_at_date = $article->created_at->toDateString();
-    return view('articles.show', compact('article'));
+    return view('articles.show', compact('article', 'ip'));
   }
   /**
    * 返回某个文章 [API]
