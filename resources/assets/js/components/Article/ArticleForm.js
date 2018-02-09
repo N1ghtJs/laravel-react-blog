@@ -118,7 +118,7 @@ export class ArticleForm extends React.Component {
         console.log(response);
         that.setState({
           share_content: response.data,
-          share_type: 'markdown',
+          share_type: 'markdown'
         })
       })
       .catch(function (error) {
