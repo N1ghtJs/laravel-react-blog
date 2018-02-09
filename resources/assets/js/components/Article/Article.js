@@ -140,7 +140,7 @@ export class Article extends React.Component {
             width="80%"
             style={{ textAlign:'center' }}
           >
-            <img src={record.cover} style={{ maxWidth:'100%' }}/>
+            <img src={record.cover || 'default.jpg'} style={{ maxWidth:'100%' }}/>
           </Modal>
         </div>
       )
