@@ -6,8 +6,6 @@
 
 博客介绍：[我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
 
-管理后台：![](http://images-1253193383.cosbj.myqcloud.com/laravel-blog-v2-admin.png)
-
 如果你喜欢这个开源项目，记得在右上角点个 star 哦，谢谢：）
 
 # 如何部署到自己的服务器？
