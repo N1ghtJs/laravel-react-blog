@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Form, Input, Button, Upload, message } from 'antd';
+import { Icon, Form, Input, Button, Upload, message, Modal, Badge } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 import BraftEditor from 'braft-editor'
@@ -38,8 +38,10 @@ export class ArticleForm extends React.Component {
       title: props.article ? props.article.title : '',
       cover: props.article ? props.article.cover : '',
       content: props.article ? props.article.content : '',
+      //分享Modal
       share_content: props.article ? props.article.content : '',
-      share_type: 'html'
+      share_type: 'html',
+      shareContentModalvisible: false
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -126,6 +128,14 @@ export class ArticleForm extends React.Component {
       });
     }
   }
+  showShareContentModal = () => {
+    this.setState({
+      shareContentModalvisible: true,
+    });
+  }
+  handleShareContentCancel = (e) => {
+    this.setState({shareContentModalvisible: false});
+  }
   handleSubmit = (e) => {
     var that = this
     e.preventDefault();
@@ -194,20 +204,11 @@ export class ArticleForm extends React.Component {
             )
           }
         },{
-          type: 'modal',
+          type: 'button',
           text: (<Icon type="share-alt" />),
           title: '导出 Html 或 Markdown 格式内容',
-          modal: {
-            title: '导出 Html 或 Markdown 格式内容',
-            showClose: true,
-            showCancel: false,
-            showConfirm: false,
-            children: (
-              <div style={{width: 480, height: 210, padding: 20}}>
-                <TextArea autosize={{ minRows: 2, maxRows: 6 }} value={this.state.share_content} />
-                <Button type="primary" onClick={this.shareContent.bind(this)} icon="swap" style={{ float:'right', marginTop:10}}>转换</Button>
-              </div>
-            )
+          onClick: () => {
+            this.showShareContentModal()
           }
         }]
     };
@@ -225,6 +226,18 @@ export class ArticleForm extends React.Component {
         <FormItem {...formItemLayout}>
           <div  style={{ borderRadius: 5, boxShadow: 'inset 0 0 0 0.5px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.1)'}}>
             <BraftEditor {...editorProps}/>
+            <Modal
+              title="导出 Html 或 Markdown 格式内容"
+              visible={this.state.shareContentModalvisible}
+              onCancel={this.handleShareContentCancel}
+              footer={null}
+            >
+              <TextArea autosize={{ minRows: 2, maxRows: 6 }} value={this.state.share_content} style={{marginBottom:10}} />
+              <div>
+                <Badge status="success" text={this.state.share_type} />
+                <Button type="primary" onClick={this.shareContent.bind(this)} icon="swap" style={{float:'right'}}>转换</Button>
+              </div>
+            </Modal>
           </div>
         </FormItem>
         <FormItem {...formItemLayout} style={{textAlign:'right'}}>
