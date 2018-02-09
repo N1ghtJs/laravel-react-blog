@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Form, Input, Button, Upload, message } from 'antd';
 const FormItem = Form.Item;
+const { TextArea } = Input;
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/braft.css'
 import styles from "./ArticleForm.css"
@@ -36,7 +37,9 @@ export class ArticleForm extends React.Component {
       //表单
       title: props.article ? props.article.title : '',
       cover: props.article ? props.article.cover : '',
-      content: props.article ? props.article.content : ''
+      content: props.article ? props.article.content : '',
+      share_content: props.article ? props.article.content : '',
+      share_type: 'html'
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -44,6 +47,7 @@ export class ArticleForm extends React.Component {
         title: nextProps.article.title,
         cover: nextProps.article.cover,
         content: nextProps.article.content,
+        share_content: nextProps.article.content,
       });
   }
   handelTitleChange = (e) => {
@@ -52,7 +56,10 @@ export class ArticleForm extends React.Component {
   }
   handleHTMLChange = (html) => {
     console.log(html);
-    this.setState({content: html})
+    this.setState({
+      content: html,
+      share_content:html
+    })
   }
   uploadFn = (param) => {
     const serverURL = 'z/upload'
@@ -93,6 +100,30 @@ export class ArticleForm extends React.Component {
         coverList:event.fileList,
         cover:event.file.response.ObjectURL
       })
+    }
+  }
+  shareContent() {
+    var that = this
+    if (this.state.share_type == 'markdown') {
+      this.setState({
+        share_content:this.state.content,
+        share_type:'html'
+      })
+    }else {
+      //html 转 markdown
+      axios.post('z/articles/markdown', {
+        content:this.state.content,
+      })
+      .then(function (response) {
+        console.log(response);
+        that.setState({
+          share_content: response.data,
+          share_type: 'markdown',
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
   handleSubmit = (e) => {
@@ -145,24 +176,40 @@ export class ArticleForm extends React.Component {
         'blockquote', 'code', 'split', 'link', 'split', 'media'
       ],
       extendControls: [{
-        type: 'modal',
-        text: '更新封面',
-        modal: {
-          title: '上传文章封面图片',
-          showClose: true,
-          showCancel: true,
-          showConfirm: true,
-          confirmable: true,
-          onConfirm: () => console.log(1),
-          onCancel: () => console.log(2),
-          onClose: () => console.log(3),
-          children: (
-            <div style={{width: 480, height: 160, padding: 30}}>
-              <CoverUploader coverList={this.state.coverList} coverChanged={this.coverChanged.bind(this)} />
-            </div>
-          )
-        }
-      }]
+          type: 'split'
+        },{
+          type: 'modal',
+          text: '封面',
+          title: '更新封面图片',
+          onClick: () => console.log(4),
+          modal: {
+            title: '上传文章封面图片',
+            showClose: true,
+            showCancel: false,
+            showConfirm: false,
+            children: (
+              <div style={{width: 480, height: 160, padding: 20}}>
+                <CoverUploader coverList={this.state.coverList} coverChanged={this.coverChanged.bind(this)} />
+              </div>
+            )
+          }
+        },{
+          type: 'modal',
+          text: (<Icon type="share-alt" />),
+          title: '导出 Html 或 Markdown 格式内容',
+          modal: {
+            title: '导出 Html 或 Markdown 格式内容',
+            showClose: true,
+            showCancel: false,
+            showConfirm: false,
+            children: (
+              <div style={{width: 480, height: 210, padding: 20}}>
+                <TextArea autosize={{ minRows: 2, maxRows: 6 }} value={this.state.share_content} />
+                <Button type="primary" onClick={this.shareContent.bind(this)} icon="swap" style={{ float:'right', marginTop:10}}>转换</Button>
+              </div>
+            )
+          }
+        }]
     };
     return (
       <Form>

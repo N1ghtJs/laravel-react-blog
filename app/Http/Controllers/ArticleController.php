@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\HTMLToMarkdown\HtmlConverter;
 use App\Article;
 
 class ArticleController extends Controller
@@ -105,5 +106,15 @@ class ArticleController extends Controller
     return response()->json([
         'message' => '删除成功!'
     ]);
+  }
+  /**
+   * html 转 markdown [API]
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function markdown_api(Request $request)
+  {
+    $converter = new HtmlConverter();
+    return $converter->convert($request->content);
   }
 }
