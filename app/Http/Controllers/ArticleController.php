@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Session\DatabaseSessionHandler;
 use League\HTMLToMarkdown\HtmlConverter;
+use App\Common\Common;
 use App\Article;
 
 class ArticleController extends Controller
@@ -28,13 +30,12 @@ class ArticleController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show(Request $request, $id)
   {
-    $ip = $_SERVER["REMOTE_ADDR"];
     Article::update_view($id);
     $article = Article::findOrFail($id);
     $article->created_at_date = $article->created_at->toDateString();
-    return view('articles.show', compact('article', 'ip'));
+    return view('articles.show', compact('article'));
   }
   /**
    * 返回某个文章 [API]

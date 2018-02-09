@@ -7,7 +7,6 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="z-article-show">
-            {{ $ip }}
             <h1 class="z-title">{{ $article->title }}</h1>
             <p class="z-info"><span style="margin-right:20px">{{$article->created_at_date}}</span>sad creeper</p>
             <div class="z-content">
