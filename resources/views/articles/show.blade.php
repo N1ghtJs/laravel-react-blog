@@ -21,13 +21,21 @@
               阅读 {{ $article->view }}
               <a href="" onclick="return false" style="float:right" data-toggle="modal" data-target="#commentModal"><span class="glyphicon glyphicon-pencil"></span> 评论</a>
             </p>
-            @foreach ($comments as $comment)
-              <hr>
-              <div style="height:30px;width:30px;border-radius:15px;background-color:gray;float:left"></div>
-              <p style="line-height:30px;margin-left:40px"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
-              <p style="margin-left:40px">{{ $comment->content }}</p>
-              <p style="margin-left:40px;font-size:13px;color:#c8c8c8">{{ $comment->created_at_diff }} · {{ $comment->city }}</p>
-            @endforeach
+            <div class="z-comments">
+              @foreach ($comments as $comment)
+                <hr>
+                <p class="z-avatar-text"><?php echo $comment['avatar_text'] ? $comment['avatar_text'] : '匿' ?></p>
+                @if( $comment->website )
+                  <a href="{{ $comment->website }}" target="_blank">
+                    <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
+                  </a>
+                @else
+                  <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
+                @endif
+                <p class="z-content">{{ $comment->content }}</p>
+                <p class="z-info">{{ $comment->created_at_diff }} · {{ $comment->city }}</p>
+              @endforeach
+            </div>
           </div>
         </div>
     </div>

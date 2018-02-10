@@ -128,6 +128,38 @@
     margin-top: 20px;
   }
 }
+
+//----------------------------------------------------------
+//------------------     评论
+//----------------------------------------------------------
+.z-comments{
+  .z-avatar-text{
+    height:30px;
+    width:30px;
+    border-radius:15px;
+    background-color:gray;
+    float:left;
+    text-align:center;
+    line-height:30px;
+    color:white;
+    font-size:15px
+  }
+  .z-name{
+    line-height:30px;
+    margin-left:40px;
+    font-weight:bold;
+    font-size:17px;
+  }
+  .z-content{
+    margin-left:40px;
+  }
+  .z-info{
+    margin-left:40px;
+    font-size:13px;
+    color:#c8c8c8;
+  }
+}
+
 //----------------------------------------------------------
 //------------------     editor
 //----------------------------------------------------------

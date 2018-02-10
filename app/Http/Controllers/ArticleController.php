@@ -37,6 +37,7 @@ class ArticleController extends Controller
     $comments = $article->comments()->orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($comments); $i++) {
       $comments[$i]->created_at_diff = $comments[$i]->created_at->diffForHumans();
+      $comments[$i]->avatar_text = $comments[$i]->name[0];
     }
     return view('articles.show', compact('article', 'comments'));
   }

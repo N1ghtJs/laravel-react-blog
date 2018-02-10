@@ -15,7 +15,7 @@ class CommentController extends Controller
    */
   public function store(Request $request)
   {
-    $city = Common::getCity('117.173.132.98');
+    $city = Common::getCity($request->ip());
     $comment = new Comment;
     $comment->article_id = $request->article_id;
     $comment->content = $request->content;
