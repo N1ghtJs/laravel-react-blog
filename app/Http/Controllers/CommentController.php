@@ -29,4 +29,18 @@ class CommentController extends Controller
     $comment->save();
     return back()->with('message', '留言成功！');
   }
+  /**
+   * 返回所有的评论 [API]
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index_api()
+  {
+    $comments = Comment::orderBy('created_at', 'desc')->get();
+    for ($i=0; $i < sizeof($comments); $i++) {
+      $comments[$i]->key = $comments[$i]->id;
+      $comments[$i]->content = str_limit($comments[$i]->content, 100);
+    }
+    return $comments;
+  }
 }

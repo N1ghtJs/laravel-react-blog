@@ -6,6 +6,7 @@ const { Header, Sider, Content } = Layout;
 import { Article } from './Article/Article'
 import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleDetail } from './Article/ArticleDetail'
+import { Comment } from './Comment/Comment'
 import { Dashboard } from './Dashboard/Dashboard'
 import { User } from './User/User'
 import { Setting } from './Setting/Setting'
@@ -70,18 +71,24 @@ class SiderLayout extends React.Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
+                <Link to="/comments">
+                  <Icon type="message" />
+                  <span>留言管理</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="4">
                 <Link to="/users">
                   <Icon type="user" />
                   <span>用户管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4">
+              <Menu.Item key="5">
                 <Link to="/settings">
                   <Icon type="setting" />
                   <span>网站管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5">
+              <Menu.Item key="6">
                 <a href="/">
                   <Icon type="logout" />
                   <span>退出后台</span>
@@ -109,6 +116,7 @@ class SiderLayout extends React.Component {
               <Route path="/articles" exact component={Article}/>
               <Route path="/articles/create" exact component={ArticleCreate}/>
               <Route path="/articles/show/:id" component={ArticleDetail}/>
+              <Route path="/comments" exact component={Comment}/>
               <Route path="/users" component={User}/>
               <Route path="/settings" component={Setting}/>
             </Content>
