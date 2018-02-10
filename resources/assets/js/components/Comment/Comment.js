@@ -101,7 +101,7 @@ export class Comment extends React.Component {
       render: (text, record) => (
         <span>
           <ButtonGroup>
-            <Tooltip title="预览">
+            <Tooltip title="跳转">
               <Button icon="link" onClick={this.handleView.bind(this, record.location)}/>
             </Tooltip>
             <Tooltip title="删除">

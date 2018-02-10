@@ -191,14 +191,17 @@ export class Article extends React.Component {
       title: '浏览量',
       dataIndex: 'view',
       key: 'view',
+      width:60
     },{
       title: '最后访问',
       dataIndex: 'updated_at_diff',
       key: 'updated_at',
+      width:80
     },{
       title: '发表时间',
       dataIndex: 'created_at',
       key: 'created_at',
+      width:90
     },{
       title: '操作',
       key: 'action',
