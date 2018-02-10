@@ -23,7 +23,7 @@
             </p>
             <div class="z-comments">
               @foreach ($comments as $comment)
-                <hr>
+                <hr id="comment{{ $comment->id }}">
                 @if( $comment->user_id == 1 )
                   <img src="/v.jpg" class="img-circle" style="float:left;height:30px;width:30px">
                   <p class="z-name z-center-vertical">sad creeper <span class="label label-info z-label">作 者</span></p>

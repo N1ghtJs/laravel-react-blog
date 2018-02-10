@@ -29,5 +29,6 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::post('/articles/markdown', 'ArticleController@markdown_api');
   Route::get('/articles/{id}', 'ArticleController@show_api');
   Route::get('/comments', 'CommentController@index_api');
+  Route::get('/comments/delete/{id}', 'CommentController@destroy_api');
   Route::post('/upload', 'UploadController@upload_api');
 });

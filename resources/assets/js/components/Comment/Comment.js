@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { Table, Tooltip, Button, Modal, message } from 'antd';
+const ButtonGroup = Button.Group;
+const confirm = Modal.confirm;
 import styles from "./Comment.css"
 
 export class Comment extends React.Component {
@@ -30,6 +32,34 @@ export class Comment extends React.Component {
       console.log(error);
     });
   }
+  handleView = (location) =>{
+    window.open(location)
+  }
+  handleDelete = (id) =>{
+    var that = this
+    confirm({
+      title: '确认删除',
+      content: '此操作将会永久删除此评论，确认继续？',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        axios.get('z/comments/delete/' + id)
+        .then(function (response) {
+          if (response.status == 200) {
+            that.fetchData()
+            message.success(response.data.message)
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+      onCancel() {
+        console.log('取消删除');
+      },
+    });
+  }
   render(){
     const columns = [{
       title: 'ID',
@@ -37,13 +67,17 @@ export class Comment extends React.Component {
       key: 'id',
       width: 50,
     },{
-      title: '昵称',
-      dataIndex: 'name',
-      key: 'name',
+      title: '文章',
+      dataIndex: 'article_name',
+      key: 'article_name',
     },{
       title: '内容',
       dataIndex: 'content',
       key: 'content',
+    },{
+      title: '昵称',
+      dataIndex: 'name',
+      key: 'name',
     },{
       title: '邮箱',
       dataIndex: 'email',
@@ -66,6 +100,14 @@ export class Comment extends React.Component {
       width: 150,
       render: (text, record) => (
         <span>
+          <ButtonGroup>
+            <Tooltip title="预览">
+              <Button icon="link" onClick={this.handleView.bind(this, record.location)}/>
+            </Tooltip>
+            <Tooltip title="删除">
+              <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
+            </Tooltip>
+          </ButtonGroup>
         </span>
       ),
     },];
