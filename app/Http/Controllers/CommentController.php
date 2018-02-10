@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Common\Common;
+use App\Common\MyFunction;
 use App\Comment;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -15,8 +16,9 @@ class CommentController extends Controller
    */
   public function store(Request $request)
   {
-    $city = Common::getCity($request->ip());
+    $city = MyFunction::getCity($request->ip());
     $comment = new Comment;
+    $comment->user_id = Auth::id() ? Auth::id() : 0;
     $comment->article_id = $request->article_id;
     $comment->content = $request->content;
     $comment->name = $request->name;

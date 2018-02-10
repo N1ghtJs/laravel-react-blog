@@ -24,12 +24,16 @@
             <div class="z-comments">
               @foreach ($comments as $comment)
                 <hr>
-                <p class="z-avatar-text"><?php echo $comment['avatar_text'] ? $comment['avatar_text'] : '匿' ?></p>
-                @if( $comment->website )
+                @if( $comment->user_id == 1 )
+                  <img src="/v.jpg" class="img-circle" style="float:left;height:30px;width:30px">
+                  <p class="z-name z-center-vertical">sad creeper <span class="label label-info z-label">作 者</span></p>
+                @elseif( $comment->website )
+                  <p class="z-avatar-text"><?php echo $comment['avatar_text'] ? $comment['avatar_text'] : '匿' ?></p>
                   <a href="{{ $comment->website }}" target="_blank">
                     <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
                   </a>
                 @else
+                  <p class="z-avatar-text"><?php echo $comment['avatar_text'] ? $comment['avatar_text'] : '匿' ?></p>
                   <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
                 @endif
                 <p class="z-content">{{ $comment->content }}</p>
@@ -58,15 +62,15 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">昵称</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="[选填] 怎么称呼？">
+            <input type="text" class="form-control" id="name" name="name" placeholder="[选填] 怎么称呼？" value="{{ $inputs->name }}">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">邮箱</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="[选填] 如果有人回复，会收到邮件提醒">
+            <input type="email" class="form-control" id="email" name="email" placeholder="[选填] 如果有人回复，会收到邮件提醒" value="{{ $inputs->email }}">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">个人网站</label>
-            <input type="text" class="form-control" id="website" name="website" placeholder="[选填] 包含 http:// 或 https:// 的完整域名">
+            <input type="text" class="form-control" id="website" name="website" placeholder="[选填] 包含 http:// 或 https:// 的完整域名" value="{{ $inputs->website }}">
           </div>
           <input type="text" name="parent_id" style="display:none">
           <input type="text" name="article_id" value="{{ $article->id }}" style="display:none">

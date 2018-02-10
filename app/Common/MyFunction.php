@@ -2,7 +2,7 @@
 
 namespace App\Common;
 
-class Common
+class MyFunction
 {
   /**
    * 获取 IP  地理位置

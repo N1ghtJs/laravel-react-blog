@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Session\DatabaseSessionHandler;
 use League\HTMLToMarkdown\HtmlConverter;
 use App\Article;
+use App\Comment;
+use Auth;
 
 class ArticleController extends Controller
 {
@@ -39,7 +41,20 @@ class ArticleController extends Controller
       $comments[$i]->created_at_diff = $comments[$i]->created_at->diffForHumans();
       $comments[$i]->avatar_text = $comments[$i]->name[0];
     }
-    return view('articles.show', compact('article', 'comments'));
+    $inputs = new CommentInputs;
+    if (Auth::id()) {
+      $inputs->name = Auth::user()->name;
+      $inputs->email = Auth::user()->email;
+      $inputs->website = Auth::user()->website;
+    }else {
+      $comment = Comment::where('ip', $request->ip())->orderBy('created_at', 'desc')->first();
+      if ($comment) {
+        $inputs->name = $comment->name;
+        $inputs->email = $comment->email;
+        $inputs->website = $comment->website;
+      }
+    }
+    return view('articles.show', compact('article', 'comments', 'inputs'));
   }
   /**
    * 返回某个文章 [API]
@@ -123,4 +138,10 @@ class ArticleController extends Controller
     $converter = new HtmlConverter();
     return $converter->convert($request->content);
   }
+}
+
+class CommentInputs {
+  public $name = '';
+  public $email = '';
+  public $website = '';
 }
