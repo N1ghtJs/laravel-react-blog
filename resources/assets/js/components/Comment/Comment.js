@@ -10,9 +10,6 @@ class ExpandedRowRender extends React.Component {
     this.state = {
     };
   }
-  handleDelete(id){
-
-  }
   render(){
     const columns = [
       { title: '内容', dataIndex: 'content', key: 'content' },

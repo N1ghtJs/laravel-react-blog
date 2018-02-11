@@ -4,7 +4,10 @@
 
 演示地址：[http://dmmylove.cn](http://dmmylove.cn)
 
-博客介绍：[我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
+博客介绍：
+
+02-06 [我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
+02-11 [评论功能完成，顺便总结下开发评论的经验](http://dmmylove.cn/articles/7)
 
 如果你喜欢这个开源项目，记得在右上角点个 star 哦，谢谢：）
 
