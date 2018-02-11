@@ -15,7 +15,6 @@ class ExpandedRowRender extends React.Component {
   }
   render(){
     const columns = [
-      { title: 'ID', dataIndex: 'id', key: 'id' },
       { title: '内容', dataIndex: 'content', key: 'content' },
       { title: '昵称', dataIndex: 'name', key: 'name' },
       { title: '邮箱', dataIndex: 'email', key: 'eamil' },

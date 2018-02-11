@@ -38,16 +38,14 @@ class CommentController extends Controller
    */
   public function index_api()
   {
-    $comments = Comment::orderBy('created_at', 'desc')->get();
+    $comments = Comment::where('parent_id', 0)->orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($comments); $i++) {
       $comments[$i]->key = $comments[$i]->id;
-      $comments[$i]->content = str_limit($comments[$i]->content, 100);
       $comments[$i]->article_name = $comments[$i]->article->title;
       $comments[$i]->location = '/articles/' . $comments[$i]->article_id . '#comment' .$comments[$i]->id;
       $replys = $comments[$i]->replys;
       for ($j=0; $j < sizeof($replys); $j++) {
         $replys[$j]->key = $replys[$j]->id;
-        $replys[$j]->content = str_limit($replys[$j]->content, 100);
       }
       $comments[$i]->replys = $replys;
       $comments[$i]->replysCount = sizeof($replys);
