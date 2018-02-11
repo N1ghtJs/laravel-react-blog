@@ -108,15 +108,21 @@
 @section('scripts')
 <script type="text/javascript">
   $('#commentModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var replyid = button.data('replyid') // Extract info from data-* attributes
-  var replyname = button.data('replyname') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('#parent_id').val(replyid)
-  modal.find('#target_name').val(replyname)
-  modal.find('#content').attr("placeholder", "回复 @"+replyname)
+    var button = $(event.relatedTarget)
+    if (button.data('replyid')) {
+      var replyid = button.data('replyid')
+      var replyname = button.data('replyname') ? button.data('replyname') : '匿名'
+
+      var modal = $(this)
+      modal.find('#parent_id').val(replyid)
+      modal.find('#target_name').val(replyname)
+      modal.find('#content').attr("placeholder", "回复 @"+replyname)
+    }else {
+      var modal = $(this)
+      modal.find('#parent_id').val(0)
+      modal.find('#target_name').val('')
+      modal.find('#content').attr("placeholder", "")
+    }
   })
 </script>
 @endsection
