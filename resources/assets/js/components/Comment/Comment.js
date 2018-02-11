@@ -109,10 +109,10 @@ export class Comment extends React.Component {
   }
   render(){
     const columns = [{
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      width: 50,
+      key: 'replysCount',
+      render:(text, record)=>(
+        <Badge count={record.replysCount} style={{ backgroundColor:'#36cbbf' }} />
+      )
     },{
       title: '文章',
       dataIndex: 'article_name',

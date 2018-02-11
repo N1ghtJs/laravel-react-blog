@@ -50,6 +50,7 @@ class CommentController extends Controller
         $replys[$j]->content = str_limit($replys[$j]->content, 100);
       }
       $comments[$i]->replys = $replys;
+      $comments[$i]->replysCount = sizeof($replys);
     }
     return $comments;
   }
