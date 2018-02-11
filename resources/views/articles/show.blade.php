@@ -25,7 +25,7 @@
               @foreach ($comments as $comment)
                 <hr id="comment{{ $comment->id }}">
                 @if( $comment->user_id == 1 )
-                  <img src="/v.jpg" class="img-circle" style="float:left;height:30px;width:30px">
+                  <img src="/v.jpg" class="img-circle z-avatar">
                   <p class="z-name z-center-vertical">sad creeper <span class="label label-info z-label">作 者</span></p>
                 @elseif( $comment->website )
                   <p class="z-avatar-text"><?php echo $comment['avatar_text'] ? $comment['avatar_text'] : '匿' ?></p>
@@ -37,11 +37,11 @@
                   <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
                 @endif
                 <p class="z-content">{{ $comment->content }}</p>
-                <p class="z-info">{{ $comment->created_at_diff }} · {{ $comment->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $comment->name }}" class="glyphicon glyphicon-share-alt" style="float:right;font-size:16px"></span></p>
-                <div class="" style="margin-left:40px">
+                <p class="z-info">{{ $comment->created_at_diff }} · {{ $comment->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $comment->name }}" class="glyphicon glyphicon-share-alt z-reply-btn"></span></p>
+                <div class="z-reply">
                   @foreach( $comment->replys as $reply )
                     @if( $reply->user_id == 1 )
-                      <img src="/v.jpg" class="img-circle" style="float:left;height:30px;width:30px">
+                      <img src="/v.jpg" class="img-circle z-avatar">
                       <p class="z-name z-center-vertical">sad creeper <span class="label label-info z-label">作 者</span></p>
                     @elseif( $reply->website )
                       <p class="z-avatar-text"><?php echo $reply['avatar_text'] ? $reply['avatar_text'] : '匿' ?></p>
@@ -53,7 +53,7 @@
                       <p class="z-name"><?php echo $reply['name'] ? $reply['name'] : '匿名' ?></p>
                     @endif
                     <p class="z-content">回复 <b>{{ $reply->target_name }}</b>：{{ $reply->content }}</p>
-                    <p class="z-info">{{ $reply->created_at_diff }} · {{ $reply->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $reply->name }}" class="glyphicon glyphicon-share-alt" style="float:right;font-size:16px"></span></p>
+                    <p class="z-info">{{ $reply->created_at_diff }} · {{ $reply->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $reply->name }}" class="glyphicon glyphicon-share-alt z-reply-btn"></span></p>
                   @endforeach
                 </div>
               @endforeach

@@ -133,6 +133,11 @@
 //------------------     评论
 //----------------------------------------------------------
 .z-comments{
+  .z-avatar{
+    float:left;
+    height:30px;
+    width:30px;
+  }
   .z-avatar-text{
     height:30px;
     width:30px;
@@ -164,7 +169,17 @@
     font-size:13px;
     color:#c8c8c8;
   }
-
+  .z-reply-btn{
+    float:right;
+    font-size:16px;
+    cursor: pointer;
+  }
+  .z-reply-btn:hover{
+    color:black;
+  }
+  .z-reply{
+    margin-left:40px;
+  }
 }
 
 //----------------------------------------------------------
