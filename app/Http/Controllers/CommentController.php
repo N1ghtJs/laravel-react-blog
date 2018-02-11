@@ -19,6 +19,7 @@ class CommentController extends Controller
     $city = MyFunction::getCity($request->ip());
     $comment = new Comment;
     $comment->user_id = Auth::id() ? Auth::id() : 0;
+    $comment->parent_id = $request->parent_id ? $request->parent_id : 0;
     $comment->article_id = $request->article_id;
     $comment->content = $request->content;
     $comment->name = $request->name;
@@ -26,6 +27,7 @@ class CommentController extends Controller
     $comment->website = $request->website;
     $comment->ip = $request->ip();
     $comment->city = $city['region'].' '.$city['city'];
+    $comment->target_name = $request->target_name;
     $comment->save();
     return back()->with('message', '留言成功！');
   }

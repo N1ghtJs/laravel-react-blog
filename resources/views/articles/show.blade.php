@@ -37,7 +37,25 @@
                   <p class="z-name"><?php echo $comment['name'] ? $comment['name'] : '匿名' ?></p>
                 @endif
                 <p class="z-content">{{ $comment->content }}</p>
-                <p class="z-info">{{ $comment->created_at_diff }} · {{ $comment->city }}</p>
+                <p class="z-info">{{ $comment->created_at_diff }} · {{ $comment->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $comment->name }}" class="glyphicon glyphicon-share-alt" style="float:right;font-size:16px"></span></p>
+                <div class="" style="margin-left:40px">
+                  @foreach( $comment->replys as $reply )
+                    @if( $reply->user_id == 1 )
+                      <img src="/v.jpg" class="img-circle" style="float:left;height:30px;width:30px">
+                      <p class="z-name z-center-vertical">sad creeper <span class="label label-info z-label">作 者</span></p>
+                    @elseif( $reply->website )
+                      <p class="z-avatar-text"><?php echo $reply['avatar_text'] ? $reply['avatar_text'] : '匿' ?></p>
+                      <a href="{{ $reply->website }}" target="_blank">
+                        <p class="z-name"><?php echo $reply['name'] ? $reply['name'] : '匿名' ?></p>
+                      </a>
+                    @else
+                      <p class="z-avatar-text"><?php echo $reply['avatar_text'] ? $reply['avatar_text'] : '匿' ?></p>
+                      <p class="z-name"><?php echo $reply['name'] ? $reply['name'] : '匿名' ?></p>
+                    @endif
+                    <p class="z-content">回复 <b>{{ $reply->target_name }}</b>：{{ $reply->content }}</p>
+                    <p class="z-info">{{ $reply->created_at_diff }} · {{ $reply->city }} <span data-toggle="modal" data-target="#commentModal" data-replyid="{{ $comment->id }}" data-replyname="{{ $reply->name }}" class="glyphicon glyphicon-share-alt" style="float:right;font-size:16px"></span></p>
+                  @endforeach
+                </div>
               @endforeach
             </div>
           </div>
@@ -72,7 +90,8 @@
             <label for="exampleInputPassword1">个人网站</label>
             <input type="text" class="form-control" id="website" name="website" placeholder="[选填] 包含 http:// 或 https:// 的完整域名" value="{{ $inputs->website }}">
           </div>
-          <input type="text" name="parent_id" style="display:none">
+          <input type="text" id="parent_id" name="parent_id" style="display:none">
+          <input type="text" id="target_name" name="target_name" style="display:none">
           <input type="text" name="article_id" value="{{ $article->id }}" style="display:none">
           <input type="submit" id="commentFormBtn"  style="display:none">
         </form>
@@ -84,4 +103,20 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+  $('#commentModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var replyid = button.data('replyid') // Extract info from data-* attributes
+  var replyname = button.data('replyname') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('#parent_id').val(replyid)
+  modal.find('#target_name').val(replyname)
+  modal.find('#content').attr("placeholder", "回复 @"+replyname)
+  })
+</script>
 @endsection

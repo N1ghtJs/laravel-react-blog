@@ -21,7 +21,7 @@ class ArticleController extends Controller
     $articles = Article::orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 100);
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 60);
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
     return $articles;
@@ -36,10 +36,15 @@ class ArticleController extends Controller
     Article::update_view($id);
     $article = Article::findOrFail($id);
     $article->created_at_date = $article->created_at->toDateString();
-    $comments = $article->comments()->orderBy('created_at', 'desc')->get();
+    $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($comments); $i++) {
       $comments[$i]->created_at_diff = $comments[$i]->created_at->diffForHumans();
       $comments[$i]->avatar_text = $comments[$i]->name[0];
+      $replys = $comments[$i]->replys;
+      for ($j=0; $j < sizeof($replys); $j++) {
+        $replys[$j]->created_at_diff = $replys[$j]->created_at->diffForHumans();
+        $replys[$j]->avatar_text = $replys[$j]->name[0];
+      }
     }
     $inputs = new CommentInputs;
     if (Auth::id()) {
