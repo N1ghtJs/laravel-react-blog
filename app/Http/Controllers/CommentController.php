@@ -44,6 +44,12 @@ class CommentController extends Controller
       $comments[$i]->content = str_limit($comments[$i]->content, 100);
       $comments[$i]->article_name = $comments[$i]->article->title;
       $comments[$i]->location = '/articles/' . $comments[$i]->article_id . '#comment' .$comments[$i]->id;
+      $replys = $comments[$i]->replys;
+      for ($j=0; $j < sizeof($replys); $j++) {
+        $replys[$j]->key = $replys[$j]->id;
+        $replys[$j]->content = str_limit($replys[$j]->content, 100);
+      }
+      $comments[$i]->replys = $replys;
     }
     return $comments;
   }
