@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Article;
 
 class Article extends Model
 {
@@ -19,23 +18,23 @@ class Article extends Model
   /**
      * 获得此博客文章的评论
      */
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
-    }
+  public function comments()
+  {
+      return $this->hasMany('App\Comment');
+  }
 
   /**
    * 更新浏览量
    * @var [int]
    */
-   static public function update_view($id)
-   {
-       $article = Article::findOrFail($id);
-       $article->view = $article->view + 1;
-       $article->update([
-           'view' => $article->view,
-       ]);
-   }
+  static public function update_view($id)
+  {
+     $article = Article::findOrFail($id);
+     $article->view = $article->view + 1;
+     $article->update([
+         'view' => $article->view,
+     ]);
+  }
 
    /**
     * 更新评论量
