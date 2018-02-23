@@ -80,7 +80,7 @@ class SiderLayout extends React.Component {
               <Menu.Item key="4">
                 <Link to="/visits">
                   <Icon type="rocket" />
-                  <span>访问统计</span>
+                  <span>访客记录</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="5">
