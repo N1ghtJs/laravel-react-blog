@@ -36,10 +36,12 @@ export class Visit extends React.Component {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      width: 60
     },{
       title: '路径',
       dataIndex: 'path',
       key: 'path',
+      width: 80
     },{
       title: '页面',
       dataIndex: 'page',
@@ -58,8 +60,10 @@ export class Visit extends React.Component {
       key: 'city',
     },{
       title: '客户端',
-      dataIndex: 'client',
       key: 'client',
+      render:(text, record)=>(
+        <p title={record.client}>{ record.client_limit }</p>
+      )
     },{
       title: 'USER_ID',
       dataIndex: 'user_id',
