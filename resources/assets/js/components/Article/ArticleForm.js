@@ -56,6 +56,9 @@ export class ArticleForm extends React.Component {
     let title = this.refs.title.input.value
     this.setState({title: title})
   }
+  handleChange = (content) => {
+    console.log(content);
+  }
   handleHTMLChange = (html) => {
     console.log(html);
     this.setState({
@@ -175,6 +178,7 @@ export class ArticleForm extends React.Component {
       height: 350,
       contentFormat:'html',
       initialContent: this.state.content,
+      onChange: this.handleChange,
       onHTMLChange: this.handleHTMLChange,
       media:{
         uploadFn:this.uploadFn
@@ -210,7 +214,7 @@ export class ArticleForm extends React.Component {
           onClick: () => {
             this.showShareContentModal()
           }
-        }]
+        }] 
     };
     return (
       <Form>
