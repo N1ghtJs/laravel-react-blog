@@ -18,7 +18,7 @@
 
 后台截图：
 
-![](http://images-1253193383.cos.ap-beijing.myqcloud.com/adfed07cb6fa3f3c366362aa4ab9beba.png)
+![image](https://user-images.githubusercontent.com/19741140/36642407-edee821e-1a79-11e8-8d7f-ef55c1fd3eaf.png)
 
 更新日志：
 
