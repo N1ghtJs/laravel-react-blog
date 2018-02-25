@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Icon, Form, Input, Button, Upload, message, Modal, Badge } from 'antd';
+import { Icon, Form, Input, Button, Upload, message, Modal, Badge, Select } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
+const Option = Select.Option;
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/braft.css'
 import styles from "./ArticleForm.css"
@@ -45,16 +46,21 @@ export class ArticleForm extends React.Component {
     };
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.article) {
       this.setState({
         title: nextProps.article.title,
         cover: nextProps.article.cover,
         content: nextProps.article.content,
         share_content: nextProps.article.content,
       });
+    }
   }
   handelTitleChange = (e) => {
     let title = this.refs.title.input.value
     this.setState({title: title})
+  }
+  handleTagsChange(value) {
+    console.log(`selected ${value}`);
   }
   handleChange = (content) => {
     console.log(content);
@@ -214,8 +220,12 @@ export class ArticleForm extends React.Component {
           onClick: () => {
             this.showShareContentModal()
           }
-        }] 
+        }]
     };
+    const children = [];
+    for (let i = 10; i < 36; i++) {
+      children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    }
     return (
       <Form>
         <FormItem
@@ -226,6 +236,17 @@ export class ArticleForm extends React.Component {
             ref="title"
             value={this.state.title}
             onChange={this.handelTitleChange} />
+        </FormItem>
+        <FormItem
+          {...formItemLayout}>
+          <Select
+            mode="tags"
+            style={{ width: '100%' }}
+            placeholder="添加标签"
+            onChange={this.handleTagsChange}
+          >
+            {children}
+          </Select>
         </FormItem>
         <FormItem {...formItemLayout}>
           <div  style={{ borderRadius: 5, boxShadow: 'inset 0 0 0 0.5px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.1)'}}>
