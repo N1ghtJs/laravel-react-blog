@@ -22,11 +22,11 @@
 
 更新日志：
 
-02-06 | 基础功能完成 [我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
+02-06 | 基础功能完成 | [我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
 
-02-11 | 增加评论功能 [评论功能完成，顺便总结下开发评论的经验](http://dmmylove.cn/articles/7)
+02-11 | 增加评论功能 | [评论功能完成，顺便总结下开发评论的经验](http://dmmylove.cn/articles/7)
 
-02-24 | 增加访客记录 [日访问量破百，分享关于IP的一点有趣的事](http://dmmylove.cn/articles/8)
+02-24 | 增加访客记录 | [日访问量破百，分享关于IP的一点有趣的事](http://dmmylove.cn/articles/8)
 
 如果你喜欢这个开源项目，按照下面操作部署到本地或者服务器就可以轻松拥有，顺便点个 star 拉，谢谢：）
 
