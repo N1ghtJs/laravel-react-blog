@@ -4,15 +4,31 @@
 
 演示地址：[http://dmmylove.cn](http://dmmylove.cn)
 
-博客介绍：
+如果你喜欢这个开源项目，记得在右上角点个 star 哦，谢谢：）
+
+首页介绍：首页采用极简风格制作，注重移动端显示，只使用了最基础的 bootstrap，加载速度快：
+
+- 文章浏览，浏览量统计
+- 文章评论
+
+后台介绍：管理后台使用 React + Ant Design 设计：
+
+- 【文章管理】集成富文本编辑器，图片使用云存储，一键导出 HTML/Markdown
+- 【文章管理】新建文章默认为笔记，发表后才能在首页显示
+- 【留言管理】管理收到的文章评论及回复
+- 【访客记录】记录网站的访客信息
+
+后台截图：
+
+![](http://images-1253193383.cos.ap-beijing.myqcloud.com/adfed07cb6fa3f3c366362aa4ab9beba.png)
+
+更新日志：
 
 02-06 [我是 sad creeper ，好久不见咯](http://dmmylove.cn/articles/3)
 
 02-11 [评论功能完成，顺便总结下开发评论的经验](http://dmmylove.cn/articles/7)
 
 02-24 [日访问量破百，分享关于IP的一点有趣的事](http://dmmylove.cn/articles/8)
-
-如果你喜欢这个开源项目，记得在右上角点个 star 哦，谢谢：）
 
 # 如何部署到自己的服务器？
 
