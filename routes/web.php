@@ -32,4 +32,5 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::get('/comments/delete/{id}', 'CommentController@destroy_api');
   Route::get('/visits', 'VisitController@index_api');
   Route::post('/upload', 'UploadController@upload_api');
+  Route::get('/tags', 'TagController@index_api');
 });

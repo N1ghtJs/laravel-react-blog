@@ -36,22 +36,31 @@ export class ArticleForm extends React.Component {
       //封面文件列表缓存
       coverList:[],
       //表单
-      title: props.article ? props.article.title : '',
-      cover: props.article ? props.article.cover : '',
-      content: props.article ? props.article.content : '',
+      title: '',
+      tags: [],
+      cover: '',
+      content: '',
       //分享Modal
-      share_content: props.article ? props.article.content : '',
+      share_content: '',
       share_type: 'html',
-      shareContentModalvisible: false
+      shareContentModalvisible: false,
+      //可选标签
+      tags_arr: [],
     };
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.article) {
       this.setState({
         title: nextProps.article.title,
+        tags: nextProps.article.tags,
         cover: nextProps.article.cover,
         content: nextProps.article.content,
         share_content: nextProps.article.content,
+      });
+    }
+    if (nextProps.tags_arr) {
+      this.setState({
+        tags_arr: nextProps.tags_arr,
       });
     }
   }
@@ -59,8 +68,8 @@ export class ArticleForm extends React.Component {
     let title = this.refs.title.input.value
     this.setState({title: title})
   }
-  handleTagsChange(value) {
-    console.log(`selected ${value}`);
+  handleTagsChange = (value) => {
+    this.setState({tags: value})
   }
   handleChange = (content) => {
     console.log(content);
@@ -145,33 +154,6 @@ export class ArticleForm extends React.Component {
   handleShareContentCancel = (e) => {
     this.setState({shareContentModalvisible: false});
   }
-  handleSubmit = (e) => {
-    var that = this
-    e.preventDefault();
-    let title = this.state.title
-    let cover = this.state.cover
-    let content = this.state.content
-    if (title == '') {
-      message.error('标题不能为空');
-    }else {
-      //创建文章
-      axios.post('z/articles', {
-        title:title,
-        cover:cover,
-        content:content,
-      })
-      .then(function (response) {
-        console.log(response);
-        if (response.status == 200) {
-          message.success(response.data.message)
-          location.replace('#/articles')
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
-  }
   render() {
     const formItemLayout = {
       wrapperCol: {
@@ -222,9 +204,11 @@ export class ArticleForm extends React.Component {
           }
         }]
     };
+    //可选标签
     const children = [];
-    for (let i = 10; i < 36; i++) {
-      children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    var tags_arr = this.state.tags_arr;
+    for (var i = 0; i < tags_arr.length; i++) {
+      children.push(<Option key={tags_arr[i]}>{tags_arr[i]}</Option>);
     }
     return (
       <Form>
@@ -243,6 +227,7 @@ export class ArticleForm extends React.Component {
             mode="tags"
             style={{ width: '100%' }}
             placeholder="添加标签"
+            value={this.state.tags}
             onChange={this.handleTagsChange}
           >
             {children}
@@ -269,8 +254,9 @@ export class ArticleForm extends React.Component {
           <Button
             onClick={this.props.handleSubmit.bind(this, {
               title:this.state.title,
+              tags:this.state.tags,
               cover:this.state.cover,
-              content:this.state.content
+              content:this.state.content,
             })}
             type="primary"
             htmlType="submit"

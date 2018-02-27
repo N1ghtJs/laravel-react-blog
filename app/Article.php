@@ -24,6 +24,14 @@ class Article extends Model
   }
 
   /**
+     * 获得此博客文章的标签
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
+  /**
    * 更新浏览量
    * @var [int]
    */
