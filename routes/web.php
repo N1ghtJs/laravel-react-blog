@@ -21,6 +21,7 @@ Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
 
 Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
+  Route::get('/dashboard', 'AdminController@dashboard_api');
   Route::get('/articles', 'ArticleController@index_api');
   Route::post('/articles', 'ArticleController@store_api');
   Route::post('/articles/update', 'ArticleController@update_api');
