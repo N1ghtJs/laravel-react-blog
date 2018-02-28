@@ -185,6 +185,7 @@ export class ArticleForm extends React.Component {
           title: '更新封面图片',
           onClick: () => console.log(4),
           modal: {
+            id: 'cover-modal',
             title: '上传文章封面图片',
             showClose: true,
             showCancel: false,
