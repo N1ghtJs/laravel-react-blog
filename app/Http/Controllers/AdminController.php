@@ -61,11 +61,20 @@ class AdminController extends Controller
         $visits_day_max->save();
       }
 
+      $articles_count = DB::table('articles')->count();
+      $articles_today = DB::table('articles')->whereDate('created_at', Carbon::today()->toDateString())->count();
+      $comments_count = DB::table('comments')->count();
+      $comments_today = DB::table('comments')->whereDate('created_at', Carbon::today()->toDateString())->count();
+
       return response()->json([
         'visits_count' => $visits_count,
         'visits_arr' => (array)$visits_arr,
         'visits_today' => $visits_today,
-        'visits_day_max' => $visits_day_max->value
+        'visits_day_max' => $visits_day_max->value,
+        'articles_count' => $articles_count,
+        'articles_today' => $articles_today,
+        'comments_count' => $comments_count,
+        'comments_today' => $comments_today,
       ]);
     }
 }
