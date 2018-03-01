@@ -40,7 +40,7 @@
           @endif
         </div>
         <div class="col-md-3">
-          <div class="" style="height:500px;width:100%">
+          <div class="">
 
           </div>
         </div>
