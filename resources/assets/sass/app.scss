@@ -108,6 +108,42 @@
         }
     }
 }
+//文章简介-横布局：图片在右，文字在左
+.z-article-horizontal{
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+    .z-title{
+      color:black;
+      margin-bottom: 4px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .z-info{
+      font-size: 13px;
+      color: #969696;
+    }
+    .z-intro{
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+      line-height: 24px;
+      height:48px;
+      overflow: hidden;
+      @media screen and (orientation: landscape) {
+        height: 72px;
+      }
+    }
+    .z-cover{
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      border: 1px solid #f0f0f0;
+    }
+    .z-content{
+
+    }
+}
 .z-article-show{
   margin-bottom: 20px;
   .z-title{

@@ -49,11 +49,19 @@ var _hmt = _hmt || [];
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="{{ route('articles.list') }}">全部文章</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li style="margin-top:6px">
+                            <form class="navbar-form navbar-left search" role="search" action="" method="get">
+                                <div class="form-group">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <input type="text" name="key" style="border: none;margin-left:5px;width:100px" placeholder="search..">
+                                </div>
+                            </form>
+                        </li>
                         @guest
                             <!-- <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li> -->

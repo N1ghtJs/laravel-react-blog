@@ -28,6 +28,22 @@ class ArticleController extends Controller
     }
     return $articles;
   }
+
+  /**
+   * 跳转全部文章页
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function list()
+  {
+    $articles = Article::where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
+    for ($i=0; $i < sizeof($articles); $i++) {
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
+      $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
+      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
+    }
+    return view('articles.list', compact('articles'));
+  }
   /**
    * 跳转某篇文章
    *

@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@home')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 
+Route::get('/articles/list', 'ArticleController@list')->name('articles.list');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
 
