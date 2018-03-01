@@ -34,4 +34,5 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::get('/visits', 'VisitController@index_api');
   Route::post('/upload', 'UploadController@upload_api');
   Route::get('/tags', 'TagController@index_api');
+  Route::get('/tags/delete/{id}', 'TagController@destroy_api');
 });

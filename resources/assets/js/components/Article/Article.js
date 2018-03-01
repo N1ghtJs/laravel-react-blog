@@ -230,6 +230,9 @@ export class Article extends React.Component {
         <Link to={'/articles/create'}>
           <Button type="primary" icon="edit" style={{marginBottom:20}}>有事没事来一篇</Button>
         </Link>
+        <Link to={'/tags'}>
+          <Button type="primary" icon="tag" style={{marginBottom:20}} style={{float:'right'}}>标签管理</Button>
+        </Link>
         <Table size="middle" dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
       </div>
     )

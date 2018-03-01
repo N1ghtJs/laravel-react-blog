@@ -6,6 +6,7 @@ const { Header, Sider, Content } = Layout;
 import { Article } from './Article/Article'
 import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleDetail } from './Article/ArticleDetail'
+import { Tag } from './Tag/Tag'
 import { Comment } from './Comment/Comment'
 import { Visit } from './Visit/Visit'
 import { Dashboard } from './Dashboard/Dashboard'
@@ -123,6 +124,7 @@ class SiderLayout extends React.Component {
               <Route path="/articles" exact component={Article}/>
               <Route path="/articles/create" exact component={ArticleCreate}/>
               <Route path="/articles/show/:id" component={ArticleDetail}/>
+              <Route path="/tags" component={Tag}/>
               <Route path="/comments" exact component={Comment}/>
               <Route path="/visits" exact component={Visit}/>
               <Route path="/users" component={User}/>
