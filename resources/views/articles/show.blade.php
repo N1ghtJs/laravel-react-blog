@@ -103,6 +103,15 @@
     </div>
   </div>
 </div>
+
+<!-- img Modal -->
+<div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <img id="imgModalImage" src="" alt="" style="max-width:100%">
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -124,5 +133,10 @@
       modal.find('#content').attr("placeholder", "")
     }
   })
+
+  $("img").click(function(){
+    $('#imgModalImage').attr('src', this.src)
+    $('#imgModal').modal('show')
+  });
 </script>
 @endsection
