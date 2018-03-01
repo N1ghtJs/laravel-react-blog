@@ -44,9 +44,17 @@
           <div class="z-article-vertical">
               <img src="{{ $article->cover == '' ? 'default.jpg' : $article->cover }}" class="img-responsive z-cover" alt="imax1">
               <div class="z-content">
+                  @if(count($article->tags))
+                    <p>
+                    @foreach($article->tags as $tag)
+                      <span class="label label-info">{{ $tag->name }}</span>
+                    @endforeach
+                    </p>
+                  @endif
                   <p class="z-title">{{ $article->title }}</p>
                   <p class="z-info">- 发表于 {{ $article->created_at_date }} · 最后访问 {{ $article->updated_at_diff }} -</span>
                   <p class="z-intro">{{ $article->content }}</p>
+
                   <div class="z-center-horizontal">
                       <a href="{{ route('articles.show', $article->id) }}" class="z-button">read more..</a>
                   </div>
