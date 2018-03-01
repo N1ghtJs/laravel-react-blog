@@ -17,9 +17,11 @@ Route::get('/', 'HomeController@home')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 
+Route::post('/articles/search', 'ArticleController@search')->name('articles.search');
 Route::get('/articles/list', 'ArticleController@list')->name('articles.list');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
+Route::resource('/tags', 'TagController');
 
 Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::get('/dashboard', 'AdminController@dashboard_api');

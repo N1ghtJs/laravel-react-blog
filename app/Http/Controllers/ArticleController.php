@@ -42,8 +42,30 @@ class ArticleController extends Controller
       $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
-    return view('articles.list', compact('articles'));
+    $tags = Tag::all();
+    return view('articles.list', compact('articles', 'tags'));
   }
+
+  /**
+   * 搜索文章
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function search(Request $request)
+  {
+    $key = $request->key;
+    $articles = Article::when($key, function($query) use ($key){
+      return $query->where('title', 'like', '%'.$key.'%');
+    })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
+    for ($i=0; $i < sizeof($articles); $i++) {
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
+      $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
+      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
+    }
+    $tags = Tag::all();
+    return view('articles.list', compact('articles', 'tags'));
+  }
+
   /**
    * 跳转某篇文章
    *

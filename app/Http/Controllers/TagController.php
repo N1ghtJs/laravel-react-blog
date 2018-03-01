@@ -8,6 +8,23 @@ use App\Tag;
 class TagController extends Controller
 {
   /**
+   * 返回标签对应的文章
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    $articles = Tag::findOrFail($id)->articles()->paginate(10);
+    for ($i=0; $i < sizeof($articles); $i++) {
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
+      $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
+      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
+    }
+    $tags = Tag::all();
+    return view('articles.list', compact('articles', 'tags'));
+  }
+
+  /**
    * 返回所有的标签 [API]
    *
    * @return \Illuminate\Http\Response
