@@ -3,7 +3,7 @@
 @section('title', '全部文章')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-bottom:20px">
     <div class="row">
         <div class="col-md-7 col-md-offset-1">
           <div class="">
