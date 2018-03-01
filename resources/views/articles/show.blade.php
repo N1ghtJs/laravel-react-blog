@@ -105,9 +105,9 @@
 </div>
 
 <!-- img Modal -->
-<div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+<div class="modal fade bs-example-modal-lg" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="max-width:100%">
+  <div class="modal-dialog" style="width:100%" role="document">
+    <div class="modal-content" style="text-align:center;background-color:rgba(0,0,0,0.5)">
       <img id="imgModalImage" src="" alt="" style="max-width:100%">
     </div>
   </div>
@@ -138,5 +138,8 @@
     $('#imgModalImage').attr('src', this.src)
     $('#imgModal').modal('show')
   });
+  $('#imgModal').click(function(){
+    $('#imgModal').modal('hide')
+  })
 </script>
 @endsection
