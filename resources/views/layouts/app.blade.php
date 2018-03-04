@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-@if(env('APP_DEBUG') == false)
+@if(env('APP_NAME') == 'sadcreeper' && env('APP_DEBUG') == false)
   <script>
   var _hmt = _hmt || [];
   (function() {
