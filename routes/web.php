@@ -29,6 +29,7 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::post('/articles', 'ArticleController@store_api');
   Route::post('/articles/update', 'ArticleController@update_api');
   Route::get('/articles/publish/{id}', 'ArticleController@publish_api');
+  Route::get('/articles/top/{id}', 'ArticleController@top_api');
   Route::get('/articles/delete/{id}', 'ArticleController@destroy_api');
   Route::post('/articles/markdown', 'ArticleController@markdown_api');
   Route::get('/articles/{id}', 'ArticleController@show_api');

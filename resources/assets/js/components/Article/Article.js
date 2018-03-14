@@ -94,6 +94,19 @@ export class Article extends React.Component {
       console.log(error);
     });
   }
+  handleTop = (id) =>{
+    var that = this
+    axios.get('z/articles/top/' + id)
+    .then(function (response) {
+      if (response.status == 200) {
+        that.fetchData()
+        message.success(response.data.message)
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   handleDelete = (id) =>{
     var that = this
     confirm({
@@ -216,7 +229,7 @@ export class Article extends React.Component {
               <Button icon="book" onClick={this.handlePublish.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="置顶">
-              <Button icon="up-square-o"/>
+              <Button icon={record.is_top?"up-square":"up-square-o"} onClick={this.handleTop.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="删除">
               <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>

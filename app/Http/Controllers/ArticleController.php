@@ -183,6 +183,28 @@ class ArticleController extends Controller
     }
   }
   /**
+   * 置顶文章 [API]
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function top_api($id)
+  {
+    $article = Article::findOrFail($id);
+    if ($article->is_top) {
+      $article->is_top = 0;
+      $article->save();
+      return response()->json([
+          'message' => '文章已取消置顶！'
+      ]);
+    }else {
+      $article->is_top = 1;
+      $article->save();
+      return response()->json([
+          'message' => '文章已置顶！'
+      ]);
+    }
+  }
+  /**
    * 删除文章 [API]
    *
    * @return \Illuminate\Http\Response
