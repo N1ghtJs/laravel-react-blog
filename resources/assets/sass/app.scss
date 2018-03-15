@@ -144,6 +144,7 @@
 
     }
 }
+//文章详情页
 .z-article-show{
   margin-bottom: 20px;
   .z-title{
@@ -159,6 +160,17 @@
     img{
       max-width:100%;
       max-height: 100vh;
+    }
+    pre{
+      border:0;
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      background-color: #f6f8fa;
+      border-radius: 3px;
+      code{
+        white-space: pre;
+      }
     }
   }
   .z-counter{
