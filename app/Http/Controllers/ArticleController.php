@@ -75,7 +75,7 @@ class ArticleController extends Controller
   {
     $article = Article::findOrFail($id);
     $article->increment('view');
-    Visit::record($request, '文章', $article->title);
+    //Visit::record($request, '文章', $article->title);
     $article->created_at_date = $article->created_at->toDateString();
     $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($comments); $i++) {
