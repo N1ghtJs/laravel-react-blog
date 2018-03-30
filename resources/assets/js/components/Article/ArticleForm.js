@@ -36,6 +36,7 @@ export class ArticleForm extends React.Component {
       //封面文件列表缓存
       coverList:[],
       //表单
+      id: 0,
       title: '',
       tags: [],
       cover: '',
@@ -51,6 +52,7 @@ export class ArticleForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.article) {
       this.setState({
+        id: nextProps.article.id,
         title: nextProps.article.title,
         tags: nextProps.article.tags,
         cover: nextProps.article.cover,
@@ -166,6 +168,7 @@ export class ArticleForm extends React.Component {
       height: 350,
       contentFormat:'html',
       initialContent: this.state.content,
+      contentId: this.state.id,
       onChange: this.handleChange,
       onHTMLChange: this.handleHTMLChange,
       media:{
