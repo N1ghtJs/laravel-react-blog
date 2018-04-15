@@ -45,7 +45,7 @@
 
 服务器系统建议使用 Ubuntu 16.04
 
-运行环境是经典的lnmp环境，可以参考我的文章完成配置：[在阿里云（Ubuntu）上部署 Laravel 5.3 （LNMP 环境）步骤](http://dmmylove.cn:8080/article/9)
+运行环境是经典的lnmp环境，可以参考我的文章完成配置：[Laravel 部署到阿里云/腾讯云](http://dmmylove.cn/articles/12)
 
 ## 配置完环境后登录服务器，按照如下步骤完成部署
 
