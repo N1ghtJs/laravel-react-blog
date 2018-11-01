@@ -4,6 +4,12 @@
 
 交流加群 3113961
 
+---
+
+css 命名规则：BEM规范
+
+---
+
 基于 Laravel 5.5 和 react 的个人博客系统
 
 演示地址：[http://dmmylove.cn](http://dmmylove.cn)

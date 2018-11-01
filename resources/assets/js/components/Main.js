@@ -48,9 +48,9 @@ class SiderLayout extends React.Component {
   render() {
     return (
       <HashRouter>
-        <Layout className="sider-layout">
+        <Layout className="layout">
           <Sider collapsible >
-            <div className="logo" />
+            <div className="layout__logo" />
             <Menu theme="dark" defaultSelectedKeys={this.menuAutoSelect()}>
               <Menu.Item key="dashboard">
                 <Link to="/">
@@ -97,8 +97,8 @@ class SiderLayout extends React.Component {
             </Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', padding: 0 }}>
-              <div style={{ float:'right', height:'100%', padding: '0 20px' }}>
+            <Header className="layout__header">
+              <div className="right" style={{ float:'right', height:'100%', padding: '0 20px' }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                   <a className="ant-dropdown-link" href="#">
                     <Avatar icon="user" style={{ verticalAlign: 'middle' }}/>

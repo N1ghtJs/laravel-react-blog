@@ -1,21 +1,15 @@
-.sider-layout{
+.layout{
   height: 100vh;
 }
-.trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 16px;
-  cursor: pointer;
-  transition: color .3s;
-}
 
-.trigger:hover {
-  color: #108ee9;
-}
-
-.logo {
+.layout__logo {
   height: 32px;
   background: #444;
   border-radius: 6px;
   margin: 16px;
+}
+
+.layout__header{
+  background-color: #fff;
+  padding: 0;
 }
