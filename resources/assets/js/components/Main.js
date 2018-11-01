@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Dropdown, Avatar, message } from 'antd';
-import { BrowserRouter as Router, Route, Link, HashRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom'
 const { Header, Sider, Content } = Layout;
 import { Article } from './Article/Article'
 import { ArticleCreate } from './Article/ArticleCreate'
@@ -39,64 +39,56 @@ const menu = (
   </Menu>
 );
 
+
+
 class SiderLayout extends React.Component {
   state = {
-    collapsed: false,
   };
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
 
   render() {
     return (
       <HashRouter>
         <Layout className="sider-layout">
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-          >
+          <Sider collapsible >
             <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">
+            <Menu theme="dark" defaultSelectedKeys={this.menuAutoSelect()}>
+              <Menu.Item key="dashboard">
                 <Link to="/">
                   <Icon type="dashboard" />
                   <span>后台首页</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2">
+              <Menu.Item key="articles">
                 <Link to="/articles">
                   <Icon type="edit" />
                   <span>文章管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3">
+              <Menu.Item key="comments">
                 <Link to="/comments">
                   <Icon type="message" />
                   <span>留言管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4">
+              <Menu.Item key="visits">
                 <Link to="/visits">
                   <Icon type="rocket" />
                   <span>访客记录</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5">
+              <Menu.Item key="users">
                 <Link to="/users">
                   <Icon type="user" />
                   <span>用户管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6">
+              <Menu.Item key="settings">
                 <Link to="/settings">
                   <Icon type="setting" />
                   <span>网站管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="7">
+              <Menu.Item key="exit">
                 <a href="/">
                   <Icon type="logout" />
                   <span>退出后台</span>
@@ -106,11 +98,6 @@ class SiderLayout extends React.Component {
           </Sider>
           <Layout>
             <Header style={{ background: '#fff', padding: 0 }}>
-              <Icon
-                className="trigger"
-                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggle}
-              />
               <div style={{ float:'right', height:'100%', padding: '0 20px' }}>
                 <Dropdown overlay={menu} trigger={['click']}>
                   <a className="ant-dropdown-link" href="#">
@@ -120,21 +107,33 @@ class SiderLayout extends React.Component {
               </div>
             </Header>
             <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
-              <Route path="/" exact component={Dashboard}/>
-              <Route path="/articles" exact component={Article}/>
-              <Route path="/articles/create" exact component={ArticleCreate}/>
-              <Route path="/articles/show/:id" component={ArticleDetail}/>
-              <Route path="/tags" component={Tag}/>
-              <Route path="/comments" exact component={Comment}/>
-              <Route path="/visits" exact component={Visit}/>
-              <Route path="/users" component={User}/>
-              <Route path="/settings" component={Setting}/>
+              <Switch>
+                <Route path="/" exact component={Dashboard}/>
+                <Route path="/articles" exact component={Article}/>
+                <Route path="/articles/create" exact component={ArticleCreate}/>
+                <Route path="/articles/show/:id" component={ArticleDetail}/>
+                <Route path="/tags" exact component={Tag}/>
+                <Route path="/comments" exact component={Comment}/>
+                <Route path="/visits" exact component={Visit}/>
+                <Route path="/users" exact component={User}/>
+                <Route path="/settings" exact component={Setting}/>
+                <Redirect to="/" />
+              </Switch>
             </Content>
           </Layout>
         </Layout>
       </HashRouter>
     );
   }
+  //左侧菜单选中状态根据 url 自动转换
+  menuAutoSelect() {
+    let key = window.location.hash.split('/')[1];
+    if (key=='' || !key) {
+      key = 'dashboard';
+    }
+    return new Array(key);
+  }
+  //new function
 }
 
 if (document.getElementById('root')) {
