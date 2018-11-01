@@ -24,7 +24,6 @@
         "react-router": "^4.2.0"
     },
     "dependencies": {
-        "ant-design-pro": "^1.2.1",
         "antd": "^3.3.3",
         "braft-editor": "^1.8.3",
         "react": "^16.3.0",
