@@ -56,7 +56,7 @@ class SettingWebForm extends React.Component {
       )
     }else {
       return (
-        <Form onSubmit={this.handleSubmit} style={{ paddingTop:20 }} display={!this.state.loading}>
+        <Form onSubmit={this.handleSubmit} style={{ paddingTop:20 }}>
           <FormItem {...formItemLayout} label="网站名称">
             {getFieldDecorator('web_name', {
               rules: [{

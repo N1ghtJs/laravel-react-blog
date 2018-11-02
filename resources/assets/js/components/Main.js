@@ -111,8 +111,11 @@ class SiderLayout extends React.Component {
 }
 
 //头像下拉菜单处理
-const avatarOnClick = function ({ key }) {
+const avatarOnClick = function({key}){
   switch (key) {
+    case 'personal':
+      location.hash = '#/settings/personal';
+      break;
     case 'logout':
       axios.post('logout')
       .then(function (response) {
@@ -129,13 +132,13 @@ const avatarOnClick = function ({ key }) {
 const menu = (
   <Menu onClick={avatarOnClick}>
     <Menu.Item key="personal">
-      <Link to="/settings/personal">
-        个人设置
-      </Link>
+      <Icon type="user" />
+      <span>博主设置</span>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="logout">
-      <Icon type="logout" /> 退出登录
+      <Icon type="logout" />
+      <span>退出登录</span>
     </Menu.Item>
   </Menu>
 );

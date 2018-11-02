@@ -11,22 +11,22 @@ export class Setting extends React.Component {
   render(){
     return (
       <div>
-            <Menu
-              mode="horizontal"
-              selectedKeys={[this.props.match.params.module]}>
-              <Menu.Item key="web">
-                <Link to="/settings/web">
-                  网站设置
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="personal">
-                <Link to="/settings/personal">
-                  个人设置
-                </Link>
-              </Menu.Item>
-            </Menu>
-            <Route path="/settings/web" exact component={SettingWeb}/>
-            <Route path="/settings/personal" exact component={SettingPersonal}/>
+        <Menu
+          mode="horizontal"
+          selectedKeys={[this.props.match.params.module]}>
+          <Menu.Item key="web">
+            <Link to="/settings/web">
+              网站设置
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="personal">
+            <Link to="/settings/personal">
+              博主设置
+            </Link>
+          </Menu.Item>
+        </Menu>
+        <Route path="/settings/web" exact component={SettingWeb}/>
+        <Route path="/settings/personal" exact component={SettingPersonal}/>
       </div>
     )
   }
