@@ -24,6 +24,7 @@
   height: 64px;
   padding: 0 20px;
   color: #595959;
+  text-decoration: none;
 }
 
 .layout__header__right a:hover{

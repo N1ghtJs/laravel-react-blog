@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Dropdown, Avatar, message } from 'antd';
-import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom'
 const { Header, Sider, Content } = Layout;
+import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } from 'react-router-dom'
 import { Article } from './Article/Article'
 import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleDetail } from './Article/ArticleDetail'
@@ -12,11 +12,10 @@ import { Visit } from './Visit/Visit'
 import { Dashboard } from './Dashboard/Dashboard'
 import { User } from './User/User'
 import { Setting } from './Setting/Setting'
+import { PersonalSetting } from './Setting/PersonalSetting'
 import styles from "./Main.css"
 
 class SiderLayout extends React.Component {
-  state = {
-  };
 
   render() {
     return (
@@ -24,7 +23,9 @@ class SiderLayout extends React.Component {
         <Layout className="layout">
           <Sider collapsible >
             <div className="layout__logo" />
-            <Menu theme="dark" defaultSelectedKeys={this.menuAutoSelect()}>
+            <Menu
+              theme="dark"
+              defaultSelectedKeys={this.menuAutoSelect()}>
               <Menu.Item key="dashboard">
                 <Link to="/">
                   <Icon type="dashboard" />
@@ -56,9 +57,9 @@ class SiderLayout extends React.Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="settings">
-                <Link to="/settings">
+                <Link to="/settings/web">
                   <Icon type="setting" />
-                  <span>网站管理</span>
+                  <span>设置中心</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="exit">
@@ -75,7 +76,7 @@ class SiderLayout extends React.Component {
                 <Dropdown overlay={menu}>
                   <a href="#">
                     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    SadCreeper
+                    <span>SadCreeper</span>
                   </a>
                 </Dropdown>
               </div>
@@ -90,7 +91,7 @@ class SiderLayout extends React.Component {
                 <Route path="/comments" exact component={Comment}/>
                 <Route path="/visits" exact component={Visit}/>
                 <Route path="/users" exact component={User}/>
-                <Route path="/settings" exact component={Setting}/>
+                <Route path="/settings/:module" exact component={Setting}/>
                 <Redirect to="/" />
               </Switch>
             </Content>
@@ -110,23 +111,28 @@ class SiderLayout extends React.Component {
   //new function
 }
 
+//头像下拉菜单处理
 const avatarOnClick = function ({ key }) {
   switch (key) {
-    case 'personal':
-      message.info(`TODO 个人设置`);
-      //TODO 退出登录
-      break;
     case 'logout':
-    message.info(`TODO 退出登录`);
-    //TODO 退出登录
+      axios.post('logout')
+      .then(function (response) {
+        location.reload()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       break;
     default: break;
   }
 };
+//头像下拉菜单
 const menu = (
   <Menu onClick={avatarOnClick}>
     <Menu.Item key="personal">
-      个人设置
+      <Link to="/settings/personal">
+        个人设置
+      </Link>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="logout">
@@ -135,6 +141,7 @@ const menu = (
   </Menu>
 );
 
+//挂载根节点
 if (document.getElementById('root')) {
     ReactDOM.render(<SiderLayout />, document.getElementById('root'));
 }
