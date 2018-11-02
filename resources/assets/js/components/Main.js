@@ -12,7 +12,6 @@ import { Visit } from './Visit/Visit'
 import { Dashboard } from './Dashboard/Dashboard'
 import { User } from './User/User'
 import { Setting } from './Setting/Setting'
-import { PersonalSetting } from './Setting/PersonalSetting'
 import styles from "./Main.css"
 
 class SiderLayout extends React.Component {
