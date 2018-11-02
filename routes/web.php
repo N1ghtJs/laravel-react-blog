@@ -39,4 +39,6 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::post('/upload', 'UploadController@upload_api');
   Route::get('/tags', 'TagController@index_api');
   Route::get('/tags/delete/{id}', 'TagController@destroy_api');
+  Route::get('/settings', 'SettingController@index_api');
+  Route::post('/settings', 'SettingController@store_api');
 });
