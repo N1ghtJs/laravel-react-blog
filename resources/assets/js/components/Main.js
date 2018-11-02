@@ -80,7 +80,7 @@ class SiderLayout extends React.Component {
                 </Dropdown>
               </div>
             </Header>
-            <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
+            <Content className="layout__content">
               <Switch>
                 <Route path="/" exact component={Dashboard}/>
                 <Route path="/articles" exact component={Article}/>
@@ -120,8 +120,7 @@ const avatarOnClick = function ({ key }) {
     message.info(`TODO 退出登录`);
     //TODO 退出登录
       break;
-    default:
-      break;
+    default: break;
   }
 };
 const menu = (

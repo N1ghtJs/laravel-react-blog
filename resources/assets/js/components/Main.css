@@ -29,3 +29,10 @@
 .layout__header__right a:hover{
   background-color: #fafafa;
 }
+
+.layout__content{
+  margin: 24px 16px;
+  padding: 24;
+  background: #fff;
+  min-height: auto;
+}
