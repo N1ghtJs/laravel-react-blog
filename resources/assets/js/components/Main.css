@@ -13,3 +13,19 @@
   background-color: #fff;
   padding: 0;
 }
+
+.layout__header__right{
+  float: right;
+}
+
+.layout__header__right a{
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 20px;
+  color: #595959;
+}
+
+.layout__header__right a:hover{
+  background-color: #fafafa;
+}

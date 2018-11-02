@@ -14,33 +14,6 @@ import { User } from './User/User'
 import { Setting } from './Setting/Setting'
 import styles from "./Main.css"
 
-const avatarOnClick = function ({ key }) {
-  switch (key) {
-    case 'logout':
-      message.info(`TODO 退出登录`);
-      //TODO 退出登录
-      break;
-    default:
-      break;
-  }
-};
-const menu = (
-  <Menu onClick={avatarOnClick}>
-    <Menu.Item key="0">
-      <a href="http://www.alipay.com/">支付宝</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="http://www.taobao.com/">淘宝</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="logout">
-      <Icon type="logout" /> 退出登录
-    </Menu.Item>
-  </Menu>
-);
-
-
-
 class SiderLayout extends React.Component {
   state = {
   };
@@ -98,10 +71,11 @@ class SiderLayout extends React.Component {
           </Sider>
           <Layout>
             <Header className="layout__header">
-              <div className="right" style={{ float:'right', height:'100%', padding: '0 20px' }}>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <a className="ant-dropdown-link" href="#">
-                    <Avatar icon="user" style={{ verticalAlign: 'middle' }}/>
+              <div className="layout__header__right">
+                <Dropdown overlay={menu}>
+                  <a href="#">
+                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    SadCreeper
                   </a>
                 </Dropdown>
               </div>
@@ -135,6 +109,32 @@ class SiderLayout extends React.Component {
   }
   //new function
 }
+
+const avatarOnClick = function ({ key }) {
+  switch (key) {
+    case 'personal':
+      message.info(`TODO 个人设置`);
+      //TODO 退出登录
+      break;
+    case 'logout':
+    message.info(`TODO 退出登录`);
+    //TODO 退出登录
+      break;
+    default:
+      break;
+  }
+};
+const menu = (
+  <Menu onClick={avatarOnClick}>
+    <Menu.Item key="personal">
+      个人设置
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item key="logout">
+      <Icon type="logout" /> 退出登录
+    </Menu.Item>
+  </Menu>
+);
 
 if (document.getElementById('root')) {
     ReactDOM.render(<SiderLayout />, document.getElementById('root'));
