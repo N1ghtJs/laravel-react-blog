@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Visit;
 use App\Count;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -28,7 +29,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        $master = User::findOrFail(1);
+        return view('admin', compact('master'));
     }
 
     /**

@@ -15,7 +15,6 @@ import { Setting } from './Setting/Setting'
 import styles from "./Main.css"
 
 class SiderLayout extends React.Component {
-
   render() {
     return (
       <HashRouter>
@@ -75,7 +74,7 @@ class SiderLayout extends React.Component {
                 <Dropdown overlay={menu}>
                   <a href="#">
                     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    <span>SadCreeper</span>
+                    <span>{master.name||''}</span>
                   </a>
                 </Dropdown>
               </div>
