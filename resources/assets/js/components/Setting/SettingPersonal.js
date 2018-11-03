@@ -39,8 +39,6 @@ class SettingPersonalForm extends React.Component {
         loading: false,
         formData: response.data.data
       });
-      console.log(response);
-      // message.success(response.data.data);
     })
     .catch((error) => {
       console.log(error);
