@@ -31,6 +31,10 @@
   background-color: #fafafa;
 }
 
+.layout__header__right__name{
+    margin-left: 5px;
+}
+
 .layout__content{
   margin: 24px 16px;
   padding: 24;

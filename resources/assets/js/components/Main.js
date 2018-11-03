@@ -73,8 +73,8 @@ class SiderLayout extends React.Component {
               <div className="layout__header__right">
                 <Dropdown overlay={menu}>
                   <a href="#">
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    <span>{master.name||''}</span>
+                    <Avatar src={master.avatar||'images/default-avatar.png'} />
+                    <span className="layout__header__right__name">{master.name||''}</span>
                   </a>
                 </Dropdown>
               </div>
