@@ -13,7 +13,7 @@ class UploadController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function upload_api(Request $request)
+  static public function uploadFileToCOS($file)
   {
     $cosClient = new Client(array('region' => env('COS_REGION'),
     'credentials'=> array(
@@ -21,18 +21,13 @@ class UploadController extends Controller
         'secretId' => env('COS_KEY'),
         'secretKey' => env('COS_SECRET'))));
 
-    try {
-        $result = $cosClient->putObject(array(
-            'Bucket' => 'images-1253193383',
-            'Key' => md5_file($request->file).'.'.$request->file->extension(),
-            'Body' => file_get_contents($request->file),
-            'ServerSideEncryption' => 'AES256'));
-        return response()->json([
-            'message' => '上传成功!',
-            'ObjectURL' => $result['ObjectURL']
-        ]);
-    } catch (\Exception $e) {
-        echo "$e\n";
-    }
+    $key = md5_file($file).'.'.$file->extension();
+    $result = $cosClient->putObject(array(
+        'Bucket' => 'images-1253193383',
+        'Key' => $key,
+        'Body' => file_get_contents($file),
+        'ServerSideEncryption' => 'AES256'));
+    return $key; //图片名称
+    //return $result['ObjectURL']; //图片地址
   }
 }

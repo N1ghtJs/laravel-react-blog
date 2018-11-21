@@ -25,6 +25,11 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+//生成图片服务器地址
+window.imageURL = function(url){
+    return 'http://images-1253193383.cosbj.myqcloud.com/' + url;
+}
+
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
