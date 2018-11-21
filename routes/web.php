@@ -43,6 +43,6 @@ Route::middleware(['auth', 'super'])->prefix('z')->group(function () {
   Route::get('/settings', 'SettingController@index_api');
   Route::post('/settings', 'SettingController@store_api');
 
-  Route::get('/users/{id}', 'UserController@show_api');
-  Route::post('/users/{id}', 'UserController@update_api');
+  Route::get('/users/{id}', 'Admin/UserController@show');
+  Route::post('/users/{id}', 'Admin/UserController@update');
 });
