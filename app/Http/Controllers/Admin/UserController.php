@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\UploadController;
 use App\User;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->avatar) {
-            $user->avatar = UploadController::uploadFileToCOS($request->avatar);
+            $user->avatar = UploadController::uploadFile($request->avatar);
         }
         $user->save();
         return response()->json([
