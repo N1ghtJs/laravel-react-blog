@@ -180,7 +180,7 @@ export class Article extends React.Component {
               <Button icon="book" onClick={this.handlePublish.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="置顶">
-              <Button icon={record.is_top?"up-square":"up-square-o"} onClick={this.handleTop.bind(this, record.id)}/>
+              <Button style={{ backgroundColor: record.is_top?'gray':'white'}} icon="up-square" onClick={this.handleTop.bind(this, record.id)}/>
             </Tooltip>
             <Tooltip title="删除">
               <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
@@ -190,12 +190,15 @@ export class Article extends React.Component {
       ),
     },];
     return (
-      <div>
+      <div style={{padding:20}}>
         <Link to={'/articles/create'}>
-          <Button type="primary" icon="edit" style={{marginBottom:20}}>有事没事来一篇</Button>
+          <Button type="primary" icon="edit">写文章</Button>
+        </Link>
+        <Link to={'/articles/create'}>
+          <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
         </Link>
         <Link to={'/tags'}>
-          <Button type="primary" icon="tag" style={{marginBottom:20}} style={{float:'right'}}>标签管理</Button>
+          <Button type="primary" icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
         </Link>
         <Table size="middle" dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
       </div>
