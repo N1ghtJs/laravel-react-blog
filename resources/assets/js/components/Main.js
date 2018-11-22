@@ -10,7 +10,6 @@ import { Tag } from './Tag/Tag'
 import { Comment } from './Comment/Comment'
 import { Visit } from './Visit/Visit'
 import { Dashboard } from './Dashboard/Dashboard'
-import { User } from './User/User'
 import { Setting } from './Setting/Setting'
 import styles from "./Main.css"
 
@@ -48,12 +47,6 @@ class SiderLayout extends React.Component {
                   <span>访客记录</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="users">
-                <Link to="/users">
-                  <Icon type="user" />
-                  <span>用户管理</span>
-                </Link>
-              </Menu.Item>
               <Menu.Item key="settings">
                 <Link to="/settings/web">
                   <Icon type="setting" />
@@ -88,7 +81,6 @@ class SiderLayout extends React.Component {
                 <Route path="/tags" exact component={Tag}/>
                 <Route path="/comments" exact component={Comment}/>
                 <Route path="/visits" exact component={Visit}/>
-                <Route path="/users" exact component={User}/>
                 <Route path="/settings/:module" exact component={Setting}/>
                 <Redirect to="/" />
               </Switch>
