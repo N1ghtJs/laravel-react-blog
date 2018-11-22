@@ -13,10 +13,7 @@ export class Article extends React.Component {
       articles:[],
       articles_back:[],
       loading:true,
-      //标题搜索
-      filterDropdownVisible: false,
-      searchText: '',
-      filtered: false,
+
       //Model
       coverModelVisible: false,
     };
@@ -40,34 +37,7 @@ export class Article extends React.Component {
       console.log(error);
     });
   }
-  //标题搜索
-  onInputChange = (e) => {
-    this.setState({ searchText: e.target.value });
-  }
-  onSearch = () => {
-    const { searchText } = this.state;
-    const reg = new RegExp(searchText, 'gi');
-    this.setState({
-      filterDropdownVisible: false,
-      filtered: !!searchText,
-      articles: this.state.articles_back.map((record) => {
-        const match = record.title.match(reg);
-        if (!match) {
-          return null;
-        }
-        return {
-          ...record,
-          title: (
-            <span>
-              {record.title.split(reg).map((text, i) => (
-                i > 0 ? [<span className="highlight">{match[0]}</span>, text] : text
-              ))}
-            </span>
-          ),
-        };
-      }).filter(record => !!record),
-    });
-  }
+
   showCover = () =>{
     this.setState({
       coverModelVisible: true,
@@ -166,26 +136,7 @@ export class Article extends React.Component {
               {record.title}
             </Link>
         </span>
-      ),
-      filterDropdown: (
-        <div className="custom-filter-dropdown">
-          <Input
-            ref={ele => this.searchInput = ele}
-            placeholder="Search name"
-            value={this.state.searchText}
-            onChange={this.onInputChange}
-            onPressEnter={this.onSearch}
-          />
-          <Button type="primary" onClick={this.onSearch}>搜索</Button>
-        </div>
-      ),
-      filterIcon: <Icon type="search" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
-      filterDropdownVisible: this.state.filterDropdownVisible,
-      onFilterDropdownVisibleChange: (visible) => {
-        this.setState({
-          filterDropdownVisible: visible,
-        }, () => this.searchInput && this.searchInput.focus());
-      },
+      )
     },{
       title: '内容',
       dataIndex: 'content',
