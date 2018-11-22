@@ -140,3 +140,19 @@ composer install
 
 php artisan migrate
 ```
+
+## COS配置
+
+根目录下的 .env文件中加入下列几行：
+
+```
+COS_REGION= <你的COS区域>
+COS_APPID=  <你的腾讯云API ID>
+COS_KEY=    <你的腾讯云API KEY>
+COS_SECRET= <你的腾讯云API SECRET>
+COS_BUCKET= <你的腾讯云存储桶>
+```
+
+其中 COS区域和存储桶是在创建存储桶后，要使用的存储桶的基础配置中查看
+
+API ID/KEY/SECRET 这三项是在密钥管理里查看
