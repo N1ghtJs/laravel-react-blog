@@ -34,7 +34,7 @@ class AdminController extends Controller
         $master = User::findOrFail(1);
 
         //挂载存储盘信息
-        $file_disk = Setting::where('key', 'file_disk')->value('value')||'local';
+        $file_disk = Setting::where('key', 'file_disk')->value('value');
 
         return view('admin', [
             'master' => $master,
