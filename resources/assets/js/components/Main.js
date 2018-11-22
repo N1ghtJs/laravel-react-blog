@@ -8,7 +8,6 @@ import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleDetail } from './Article/ArticleDetail'
 import { Tag } from './Tag/Tag'
 import { Comment } from './Comment/Comment'
-import { Visit } from './Visit/Visit'
 import { Dashboard } from './Dashboard/Dashboard'
 import { Setting } from './Setting/Setting'
 import styles from "./Main.css"
@@ -39,12 +38,6 @@ class SiderLayout extends React.Component {
                 <Link to="/comments">
                   <Icon type="message" />
                   <span>留言管理</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="visits">
-                <Link to="/visits">
-                  <Icon type="rocket" />
-                  <span>访客记录</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="settings">
@@ -80,7 +73,6 @@ class SiderLayout extends React.Component {
                 <Route path="/articles/show/:id" component={ArticleDetail}/>
                 <Route path="/tags" exact component={Tag}/>
                 <Route path="/comments" exact component={Comment}/>
-                <Route path="/visits" exact component={Visit}/>
                 <Route path="/settings/:module" exact component={Setting}/>
                 <Redirect to="/" />
               </Switch>
