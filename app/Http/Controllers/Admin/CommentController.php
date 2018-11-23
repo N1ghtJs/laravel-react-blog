@@ -15,19 +15,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $comments = Comment::where('parent_id', 0)->orderBy('created_at', 'desc')->get();
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(2);
         for ($i=0; $i < sizeof($comments); $i++) {
             $comments[$i]->key = $comments[$i]->id;
             $comments[$i]->article_name = $comments[$i]->article->title;
             $comments[$i]->location = '/articles/' . $comments[$i]->article_id . '#comment' .$comments[$i]->id;
-            $replys = $comments[$i]->replys;
-            for ($j=0; $j < sizeof($replys); $j++) {
-                $replys[$j]->key = $replys[$j]->id;
-            }
-            $comments[$i]->replys = $replys;
-            $comments[$i]->replysCount = sizeof($replys);
         }
         return $comments;
     }
