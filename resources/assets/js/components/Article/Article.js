@@ -3,6 +3,7 @@ import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge, Av
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 const Option = Select.Option;
+const Search = Input.Search;
 import { Link } from 'react-router-dom';
 import styles from "./Article.css"
 
@@ -18,6 +19,8 @@ export class Article extends React.Component {
         defaultCurrent:1,
         defaultPageSize:10
       },
+      order:'created_at',
+      status:null,
       loading:true,
 
       //Model
@@ -25,7 +28,7 @@ export class Article extends React.Component {
     };
   }
   componentWillMount() {
-    this.fetchData(this.state.pagination.defaultCurrent, this.state.pagination.defaultPageSize);
+    this.fetchData();
   }
   render(){
     //表格行配置
@@ -116,10 +119,21 @@ export class Article extends React.Component {
     },];
     return (
       <div style={{padding:20}}>
-        <Select placeholder="按状态筛选" style={{ width: 120 }} onChange={this.handleChange} allowClear>
+        <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
+          <Option value="created_at">最新发表</Option>
+          <Option value="view">最多浏览</Option>
+          <Option value="comment">最多留言</Option>
+        </Select>
+        <Select placeholder="按状态筛选" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
           <Option value={0}>已发表</Option>
           <Option value={1}>笔记</Option>
         </Select>
+        <Search
+          placeholder="搜索标题"
+          onSearch={this.handleSearch}
+          style={{ width: 200, marginRight: 10 }}
+        />
+
         <Link to={'/articles/create'}>
           <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
         </Link>
@@ -138,9 +152,16 @@ export class Article extends React.Component {
       </div>
     )
   }
-  fetchData = (currentPage, pagesize) =>{
+  fetchData = (currentPage=this.state.pagination.defaultCurrent, pageSize=this.state.pagination.defaultPageSize) =>{
     this.setState({ loading:true });
-    axios.get('z/articles?page=' + currentPage + '&pagesize=' + pagesize)
+    let url = 'z/articles?order=' + this.state.order + '&pagesize=' + pageSize + '&page=' + currentPage;
+    if (this.state.status) {
+      url = url + '&status=' + this.state.status;
+    }
+    if (this.state.search) {
+      url = url + '&search=' + this.state.search;
+    }
+    axios.get(url)
     .then((response) => {
       console.log(response.data);
       const pager = { ...this.state.pagination };
@@ -220,8 +241,14 @@ export class Article extends React.Component {
       },
     });
   }
-  handleChange = (value) =>{
-
+  handleChangeOrder = (value) =>{
+    this.setState({ order:value }, () => this.fetchData());
+  }
+  handleChangeStatus = (value) =>{
+    this.setState({ status:value }, () => this.fetchData());
+  }
+  handleSearch = (value) => {
+    this.setState({ search:value }, () => this.fetchData());
   }
   handleTableChange = (pagination, filters, sorter) => {
     const pager = { ...this.state.pagination };

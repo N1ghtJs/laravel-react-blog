@@ -20,7 +20,17 @@ class ArticleController extends Controller
    */
   public function index_api(Request $request)
   {
-    $articles = Article::orderBy('created_at', 'desc')->paginate($request->pagesize);
+    $order = $request->order;
+    $status = $request->status;
+    $search = $request->search;
+    $articles = Article::when($status, function ($query) use ($status) {
+                    return $query->where('is_hidden', $status);
+                })->when($search, function ($query) use ($search) {
+                    return $query->where('title', 'like', '%'.$search.'%');
+                })->when($order, function ($query) use ($order) {
+                    return $query->orderBy($order, 'desc');
+                })->paginate($request->pagesize);
+
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
       $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 60);
