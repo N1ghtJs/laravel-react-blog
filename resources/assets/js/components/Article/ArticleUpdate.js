@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Breadcrumb, Icon, Spin, message} from 'antd';
 import { Link } from 'react-router-dom';
 import { ArticleForm } from './ArticleForm';
-import styles from "./ArticleUpdate.css"
 
 export class ArticleUpdate extends React.Component {
   constructor(props) {
@@ -17,23 +16,20 @@ export class ArticleUpdate extends React.Component {
     };
   }
   componentDidMount(props) {
-    var that = this
     //获取文章数据
     axios.get('z/articles/' + this.state.id)
-    .then(function (response) {
-      that.setState({
+    .then((response) => {
+      this.setState({
         article:response.data.article,
         loading:false,
         tags_arr:response.data.tags_arr,
       })
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
   handleSubmit(article) {
-    console.log(article);
-    var that = this
     if (article.title == '') {
       message.error('标题不能为空');
     }else {
@@ -45,20 +41,20 @@ export class ArticleUpdate extends React.Component {
         cover:article.cover,
         content:article.content,
       })
-      .then(function (response) {
+      .then((response) => {
         console.log(response);
         if (response.status == 200) {
           message.success(response.data.message)
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
     }
   }
   render(){
     return (
-      <div>
+      <div style={{padding:20}}>
         <Breadcrumb style={{ marginBottom:20 }}>
           <Breadcrumb.Item>
             <Link to="/articles">
