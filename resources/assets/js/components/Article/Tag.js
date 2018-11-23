@@ -3,7 +3,6 @@ import { Breadcrumb, Icon, Table, Button, Tooltip, Modal, message } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 import { Link } from 'react-router-dom';
-import styles from "./Tag.css"
 
 export class Tag extends React.Component {
   constructor() {
@@ -18,22 +17,20 @@ export class Tag extends React.Component {
     this.fetchData()
   }
   fetchData(){
-    var that = this
     //获取文章数据
     axios.get('z/tags')
-    .then(function (response) {
+    .then((response) => {
       console.log(response.data);
-      that.setState({
+      this.setState({
         tags:response.data.tags,
         loading:false,
       })
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
   handleDelete = (id) =>{
-    var that = this
     confirm({
       title: '确认删除',
       content: '此操作将会永久删除此标签，确认继续？',
@@ -44,14 +41,14 @@ export class Tag extends React.Component {
         console.log(2);
         //删除标签
         axios.get('z/tags/delete/' + id)
-        .then(function (response) {
+        .then((response) => {
           console.log(response);
           if (response.status == 200) {
-            that.fetchData()
+            this.fetchData()
             message.success(response.data.message)
           }
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
       },

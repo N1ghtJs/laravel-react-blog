@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link, HashRouter, Redirect, Switch } fr
 import { Article } from './Article/Article'
 import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleUpdate } from './Article/ArticleUpdate'
-import { Tag } from './Tag/Tag'
+import { Tag } from './Article/Tag'
 import { Comment } from './Comment/Comment'
 import { Dashboard } from './Dashboard/Dashboard'
 import { Setting } from './Setting/Setting'
