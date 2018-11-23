@@ -14,7 +14,6 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@home')->name('home');
-
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::post('/articles/search', 'ArticleController@search')->name('articles.search');
@@ -23,25 +22,26 @@ Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
 Route::resource('/tags', 'TagController');
 
-Route::middleware(['auth', 'super'])->prefix('admin-api')->group(function () {
-  Route::get('/dashboard', 'AdminController@dashboard_api');
-  Route::get('/articles', 'ArticleController@index_api');
-  Route::post('/articles', 'ArticleController@store_api');
-  Route::post('/articles/update', 'ArticleController@update_api');
-  Route::get('/articles/publish/{id}', 'ArticleController@publish_api');
-  Route::get('/articles/top/{id}', 'ArticleController@top_api');
-  Route::get('/articles/delete/{id}', 'ArticleController@destroy_api');
-  Route::post('/articles/markdown', 'ArticleController@markdown_api');
-  Route::get('/articles/{id}', 'ArticleController@show_api');
-  Route::get('/comments', 'CommentController@index_api');
-  Route::get('/comments/delete/{id}', 'CommentController@destroy_api');
-  Route::post('/upload', 'UploadController@uploadFileApi');
-  Route::get('/tags', 'TagController@index_api');
-  Route::get('/tags/delete/{id}', 'TagController@destroy_api');
+Route::middleware(['auth', 'super'])->namespace('Admin')->prefix('admin-api')->group(function () {
 
-  Route::get('/settings', 'SettingController@index_api');
-  Route::post('/settings', 'SettingController@store_api');
+  Route::get('/articles', 'ArticleController@index');
+  Route::post('/articles', 'ArticleController@store');
+  Route::get('/articles/publish/{id}', 'ArticleController@publish');
+  Route::get('/articles/top/{id}', 'ArticleController@top');
+  Route::get('/articles/delete/{id}', 'ArticleController@destroy');
+  Route::post('/articles/markdown', 'ArticleController@markdown');
+  Route::get('/articles/{id}', 'ArticleController@show');
+  Route::post('/upload', 'ArticleController@uploadFileApi');
 
-  Route::get('/users/{id}', 'Admin\UserController@show');
-  Route::post('/users/{id}', 'Admin\UserController@update');
+  Route::get('/comments', 'CommentController@index');
+  Route::get('/comments/delete/{id}', 'CommentController@destroy');
+
+  Route::get('/tags', 'TagController@index');
+  Route::get('/tags/delete/{id}', 'TagController@destroy');
+
+  Route::get('/settings', 'SettingController@index');
+  Route::post('/settings', 'SettingController@store');
+
+  Route::get('/users/{id}', 'UserController@show');
+  Route::post('/users/{id}', 'UserController@update');
 });
