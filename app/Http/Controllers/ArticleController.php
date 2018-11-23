@@ -22,12 +22,15 @@ class ArticleController extends Controller
   {
     $order = $request->order;
     $status = $request->status;
+    $top = $request->top;
     $search = $request->search;
-    $articles = Article::when($status, function ($query) use ($status) {
+    $articles = Article::when(isset($status), function ($query) use ($status) {
                     return $query->where('is_hidden', $status);
-                })->when($search, function ($query) use ($search) {
+                })->when(isset($top), function ($query) use ($top) {
+                    return $query->where('is_top', $top);
+                })->when(isset($search), function ($query) use ($search) {
                     return $query->where('title', 'like', '%'.$search.'%');
-                })->when($order, function ($query) use ($order) {
+                })->when(isset($order), function ($query) use ($order) {
                     return $query->orderBy($order, 'desc');
                 })->paginate($request->pagesize);
 

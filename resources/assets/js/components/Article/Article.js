@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge, Avatar, Select } from 'antd';
+import { Table, Input, Button, Icon, message, Modal, Tooltip, Badge, Avatar, Select, Popover } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 const Option = Select.Option;
 const Search = Input.Search;
 import { Link } from 'react-router-dom';
-import styles from "./Article.css"
 
 export class Article extends React.Component {
   constructor() {
@@ -21,10 +20,9 @@ export class Article extends React.Component {
       },
       order:'created_at',
       status:null,
+      top:null,
+      key:null,
       loading:true,
-
-      //Model
-      coverModelVisible: false,
     };
   }
   componentWillMount() {
@@ -41,26 +39,16 @@ export class Article extends React.Component {
       title: '封面',
       key: 'cover',
       render: (text, record) => (
-        <div>
-          <Avatar shape="square" src={record.cover || 'default.jpg'} onClick={this.showCover} style={{ cursor:'pointer' }}/>
-          <Modal
-            title="封面图片"
-            visible={this.state.coverModelVisible}
-            onCancel={this.handleCancelCoverModel}
-            footer={null}
-            width="80%"
-            style={{ textAlign:'center' }}
-          >
-            <img src={record.cover || 'default.jpg'} style={{ maxWidth:'100%' }}/>
-          </Modal>
-        </div>
+        <Popover content={<img src={record.cover || 'default.jpg'} style={{maxWidth:500}}/>} placement="right">
+          <Avatar shape="square" src={record.cover || 'default.jpg'} style={{ cursor:'pointer' }}/>
+        </Popover>
       )
     },{
       title: '标题',
       key: 'title',
       render: (text, record) => (
         <span>
-            <Link to={'/articles/show/' + record.id}>
+            <Link to={'/articles/update/' + record.id}>
               {record.title}
             </Link>
         </span>
@@ -120,13 +108,17 @@ export class Article extends React.Component {
     return (
       <div style={{padding:20}}>
         <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
-          <Option value="created_at">最新发表</Option>
+          <Option value="created_at">最新创建</Option>
           <Option value="view">最多浏览</Option>
           <Option value="comment">最多留言</Option>
         </Select>
-        <Select placeholder="按状态筛选" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
+        <Select placeholder="按发表状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
           <Option value={0}>已发表</Option>
           <Option value={1}>笔记</Option>
+        </Select>
+        <Select placeholder="按置顶状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeTop} allowClear>
+          <Option value={0}>未置顶</Option>
+          <Option value={1}>置顶</Option>
         </Select>
         <Search
           placeholder="搜索标题"
@@ -152,13 +144,24 @@ export class Article extends React.Component {
       </div>
     )
   }
-  fetchData = (currentPage=this.state.pagination.defaultCurrent, pageSize=this.state.pagination.defaultPageSize) =>{
+  //获取数据
+  fetchData = (currentPage=null, pageSize=null) =>{
+    const pager = { ...this.state.pagination };
+    if (!currentPage) {
+      currentPage = pager.current ? pager.current : pager.defaultCurrent;
+    }
+    if (!pageSize) {
+      pageSize = pager.pageSize ? pager.pageSize : pager.defaultPageSize;
+    }
     this.setState({ loading:true });
     let url = 'z/articles?order=' + this.state.order + '&pagesize=' + pageSize + '&page=' + currentPage;
-    if (this.state.status) {
+    if (this.state.status != null) {
       url = url + '&status=' + this.state.status;
     }
-    if (this.state.search) {
+    if (this.state.top != null) {
+      url = url + '&top=' + this.state.top;
+    }
+    if (this.state.search != null) {
       url = url + '&search=' + this.state.search;
     }
     axios.get(url)
@@ -166,6 +169,8 @@ export class Article extends React.Component {
       console.log(response.data);
       const pager = { ...this.state.pagination };
       pager.total = response.data.total;
+      pager.current = response.data.current_page;
+      pager.pageSize = Number(response.data.per_page);
       this.setState({
         articles:response.data.data,
         pagination: pager,
@@ -176,19 +181,11 @@ export class Article extends React.Component {
       console.log(error);
     });
   }
-  showCover = () =>{
-    this.setState({
-      coverModelVisible: true,
-    });
-  }
-  handleCancelCoverModel = () =>{
-    this.setState({
-      coverModelVisible: false,
-    });
-  }
+  //文章预览
   handleView = (id) =>{
     window.open('/articles/' + id)
   }
+  //文章发表
   handlePublish = (id) =>{
     var that = this
     axios.get('z/articles/publish/' + id)
@@ -202,6 +199,7 @@ export class Article extends React.Component {
       console.log(error);
     });
   }
+  //文章置顶
   handleTop = (id) =>{
     var that = this
     axios.get('z/articles/top/' + id)
@@ -215,6 +213,7 @@ export class Article extends React.Component {
       console.log(error);
     });
   }
+  //文章删除
   handleDelete = (id) =>{
     var that = this
     confirm({
@@ -241,15 +240,23 @@ export class Article extends React.Component {
       },
     });
   }
+  //文章排序
   handleChangeOrder = (value) =>{
     this.setState({ order:value }, () => this.fetchData());
   }
+  //文章按发表状态筛选
   handleChangeStatus = (value) =>{
     this.setState({ status:value }, () => this.fetchData());
   }
+  //文章按置顶状态筛选
+  handleChangeTop = (value) =>{
+    this.setState({ top:value }, () => this.fetchData());
+  }
+  //文章搜索
   handleSearch = (value) => {
     this.setState({ search:value }, () => this.fetchData());
   }
+  //操作表格触发函数
   handleTableChange = (pagination, filters, sorter) => {
     const pager = { ...this.state.pagination };
     pager.current = pagination.current;

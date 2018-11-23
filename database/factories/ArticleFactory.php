@@ -18,6 +18,5 @@ $factory->define(App\Article::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(),
         'content' => $faker->text(5000),
-        'cover' => 'default.jpg'
     ];
 });
