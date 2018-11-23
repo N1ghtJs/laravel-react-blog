@@ -8,7 +8,7 @@ export class Tag extends React.Component {
   constructor() {
     super();
     this.state = {
-      //标签数据
+      //表格数据
       tags:[],
       loading:true,
     };
@@ -16,48 +16,8 @@ export class Tag extends React.Component {
   componentWillMount() {
     this.fetchData()
   }
-  fetchData(){
-    //获取文章数据
-    axios.get(window.apiURL + 'tags')
-    .then((response) => {
-      console.log(response.data);
-      this.setState({
-        tags:response.data.tags,
-        loading:false,
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-  handleDelete = (id) =>{
-    confirm({
-      title: '确认删除',
-      content: '此操作将会永久删除此标签，确认继续？',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        console.log(2);
-        //删除标签
-        axios.get(window.apiURL + 'tags/delete/' + id)
-        .then((response) => {
-          console.log(response);
-          if (response.status == 200) {
-            this.fetchData()
-            message.success(response.data.message)
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      },
-      onCancel() {
-        console.log('取消删除');
-      },
-    });
-  }
   render (){
+    //表格行配置
     const columns = [{
       title: 'ID',
       dataIndex: 'id',
@@ -90,7 +50,7 @@ export class Tag extends React.Component {
       ),
     },];
     return (
-      <div>
+      <div style={{padding:20}}>
         <Breadcrumb style={{ marginBottom:20 }}>
           <Breadcrumb.Item>
             <Link to="/articles">
@@ -102,8 +62,57 @@ export class Tag extends React.Component {
             标签管理
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Table size="middle" dataSource={this.state.tags} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
+        <Table
+          size="small"
+          bordered
+          dataSource={this.state.tags}
+          loading={this.state.loading}
+          columns={columns}
+          pagination={{
+            showSizeChanger:true,
+            showQuickJumper:true
+          }}/>
       </div>
     )
   }
+  //获取数据
+  fetchData(){
+    this.setState({ loading:true });
+    axios.get(window.apiURL + 'tags')
+    .then((response) => {
+      this.setState({
+        tags:response.data.tags,
+        loading:false,
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  //删除标签
+  handleDelete = (id) =>{
+    confirm({
+      title: '确认删除',
+      content: '此操作将会永久删除此标签，确认继续？',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk:() => {
+        axios.get(window.apiURL + 'tags/delete/' + id)
+        .then((response) => {
+          if (response.status == 200) {
+            this.fetchData()
+            message.success(response.data.message)
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      onCancel:() => {
+        console.log('取消删除');
+      },
+    });
+  }
+  //new function
 }

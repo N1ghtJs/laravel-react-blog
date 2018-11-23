@@ -12,16 +12,14 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        for ($i=0; $i < sizeof($tags); $i++) {
-            $tags[$i]->key = $tags[$i]->id;
-        }
-        $tags_arr = array();
-        for ($i=0; $i < sizeof($tags); $i++) {
-            array_push($tags_arr, $tags[$i]->name);
+        $tagsArr = array();
+        foreach ($tags as $tag) {
+            $tag->key = $tag->id;
+            array_push($tagsArr, $tag->name);
         }
         return response()->json([
             'tags' => $tags,
-            'tags_arr' => $tags_arr,
+            'tagsArr' => $tagsArr,
         ]);
     }
 

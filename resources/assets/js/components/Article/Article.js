@@ -166,7 +166,6 @@ export class Article extends React.Component {
     }
     axios.get(url)
     .then((response) => {
-      console.log(response.data);
       const pager = { ...this.state.pagination };
       pager.total = response.data.total;
       pager.current = response.data.current_page;
