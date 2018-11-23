@@ -7,7 +7,7 @@ export class ArticleCreate extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      tags_arr:[]
+      tagsArr:[]
     };
   }
   componentDidMount(props) {
@@ -15,7 +15,7 @@ export class ArticleCreate extends React.Component {
     axios.get('z/tags')
     .then((response) => {
       this.setState({
-        tags_arr:response.data.tags_arr,
+        tagsArr:response.data.tagsArr,
       })
     })
     .catch(function (error) {
@@ -31,7 +31,8 @@ export class ArticleCreate extends React.Component {
         title:article.title,
         tags:article.tags,
         cover:article.cover,
-        content:article.content,
+        content_raw:article.content_raw,
+        content_html:article.content_html,
       })
       .then((response) => {
         console.log(response);
@@ -59,7 +60,7 @@ export class ArticleCreate extends React.Component {
             文章创建
           </Breadcrumb.Item>
         </Breadcrumb>
-        <ArticleForm tags_arr={this.state.tags_arr} handleSubmit={this.handleSubmit} />
+        <ArticleForm tagsArr={this.state.tagsArr} handleSubmit={this.handleSubmit} />
       </div>
     )
   }

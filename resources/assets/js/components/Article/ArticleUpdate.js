@@ -12,7 +12,7 @@ export class ArticleUpdate extends React.Component {
       article:{},
       loading:true,
       //标签
-      tags_arr:[],
+      tagsArr:[],
     };
   }
   componentDidMount(props) {
@@ -22,7 +22,7 @@ export class ArticleUpdate extends React.Component {
       this.setState({
         article:response.data.article,
         loading:false,
-        tags_arr:response.data.tags_arr,
+        tagsArr:response.data.tagsArr,
       })
     })
     .catch((error) => {
@@ -39,7 +39,8 @@ export class ArticleUpdate extends React.Component {
         title:article.title,
         tags:article.tags,
         cover:article.cover,
-        content:article.content,
+        content_raw:article.content_raw,
+        content_html:article.content_html,
       })
       .then((response) => {
         console.log(response);
@@ -67,7 +68,7 @@ export class ArticleUpdate extends React.Component {
           </Breadcrumb.Item>
         </Breadcrumb>
         <Spin spinning={this.state.loading}>
-          <ArticleForm article={this.state.article} tags_arr={this.state.tags_arr} handleSubmit={this.handleSubmit.bind(this)}/>
+          <ArticleForm article={this.state.article} tagsArr={this.state.tagsArr} handleSubmit={this.handleSubmit.bind(this)}/>
         </Spin>
       </div>
     )

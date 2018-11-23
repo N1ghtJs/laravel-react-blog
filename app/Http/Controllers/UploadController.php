@@ -38,19 +38,8 @@ class UploadController extends Controller
 
         return $fileName;
     }
-    /**
-    * 使用腾讯云静态存储
-    */
-    public function uploadFileToCOS($file)
+    public function uploadFileApi(Request $request)
     {
-
-    }
-
-    /**
-    * 使用 Storage local 存储
-    */
-    public function uploadFileToLocal($file)
-    {
-
+        return $this->uploadFile($request->file);
     }
 }

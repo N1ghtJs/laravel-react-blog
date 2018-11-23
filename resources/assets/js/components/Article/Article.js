@@ -55,8 +55,8 @@ export class Article extends React.Component {
       )
     },{
       title: '内容',
-      dataIndex: 'content',
-      key: 'content',
+      dataIndex: 'content_html',
+      key: 'content_html',
     },{
       title: '状态',
       key: 'is_hidden',

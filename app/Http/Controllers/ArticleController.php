@@ -36,7 +36,7 @@ class ArticleController extends Controller
 
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 60);
+      $articles[$i]->content_html = str_limit(strip_tags($articles[$i]->content_html), 60);
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
     return $articles;
@@ -51,7 +51,7 @@ class ArticleController extends Controller
   {
     $articles = Article::where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
     for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
+      $articles[$i]->content_html = str_limit(strip_tags($articles[$i]->content_html), 150);
       $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
@@ -71,7 +71,7 @@ class ArticleController extends Controller
       return $query->where('title', 'like', '%'.$key.'%');
     })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
     for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
+      $articles[$i]->content_html = str_limit(strip_tags($articles[$i]->content_html), 150);
       $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
@@ -145,14 +145,15 @@ class ArticleController extends Controller
   {
     if ($request->id) {
       $article = Article::findOrFail($request->id);
-      $message = '更新成功！';
+      $message = '保存成功！';
     }else{
       $article = new Article;
       $message = '创建成功！';
     }
     $article->title = $request->title;
     $article->cover = $request->cover;
-    $article->content = $request->content;
+    $article->content_raw = $request->content_raw;
+    $article->content_html = $request->content_html;
     $article->save();
     //处理标签
     //先删除文章关联的所有标签

@@ -17,7 +17,8 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('cover')->nullable();
-            $table->longText('content')->nullable();
+            $table->longText('content_raw')->nullable();
+            $table->longText('content_html')->nullable();
             $table->boolean('is_top')->default(0);
             $table->boolean('is_hidden')->default(0);
             $table->timestamps();
