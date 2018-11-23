@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge, Avatar } from 'antd';
+import { Table, Input, Button, Icon, Divider, message, Modal, Tooltip, Badge, Avatar, Select } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
+const Option = Select.Option;
 import { Link } from 'react-router-dom';
 import styles from "./Article.css"
 
@@ -9,9 +10,14 @@ export class Article extends React.Component {
   constructor() {
     super();
     this.state = {
-      //文章数据
+      //表格数据
       articles:[],
-      articles_back:[],
+      pagination: {
+        showSizeChanger:true,
+        showQuickJumper:true,
+        defaultCurrent:1,
+        defaultPageSize:10
+      },
       loading:true,
 
       //Model
@@ -19,91 +25,10 @@ export class Article extends React.Component {
     };
   }
   componentWillMount() {
-    this.fetchData()
-  }
-  fetchData(){
-    var that = this
-    //获取文章数据
-    axios.get('z/articles')
-    .then(function (response) {
-      //console.log(response.data);
-      that.setState({
-        articles:response.data,
-        articles_back:response.data,
-        loading:false,
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
-  showCover = () =>{
-    this.setState({
-      coverModelVisible: true,
-    });
-  }
-  handleCancelCoverModel = () =>{
-    this.setState({
-      coverModelVisible: false,
-    });
-  }
-  handleView = (id) =>{
-    window.open('/articles/' + id)
-  }
-  handlePublish = (id) =>{
-    var that = this
-    axios.get('z/articles/publish/' + id)
-    .then(function (response) {
-      if (response.status == 200) {
-        that.fetchData()
-        message.success(response.data.message)
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  handleTop = (id) =>{
-    var that = this
-    axios.get('z/articles/top/' + id)
-    .then(function (response) {
-      if (response.status == 200) {
-        that.fetchData()
-        message.success(response.data.message)
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  handleDelete = (id) =>{
-    var that = this
-    confirm({
-      title: '确认删除',
-      content: '此操作将会永久删除此文章，确认继续？',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        //获取文章数据
-        axios.get('z/articles/delete/' + id)
-        .then(function (response) {
-          if (response.status == 200) {
-            that.fetchData()
-            message.success(response.data.message)
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      onCancel() {
-        console.log('取消删除');
-      },
-    });
+    this.fetchData(this.state.pagination.defaultCurrent, this.state.pagination.defaultPageSize);
   }
   render(){
+    //表格行配置
     const columns = [{
       title: 'ID',
       dataIndex: 'id',
@@ -191,17 +116,120 @@ export class Article extends React.Component {
     },];
     return (
       <div style={{padding:20}}>
-        <Link to={'/articles/create'}>
-          <Button type="primary" icon="edit">写文章</Button>
-        </Link>
+        <Select placeholder="按状态筛选" style={{ width: 120 }} onChange={this.handleChange} allowClear>
+          <Option value={0}>已发表</Option>
+          <Option value={1}>笔记</Option>
+        </Select>
         <Link to={'/articles/create'}>
           <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
         </Link>
         <Link to={'/tags'}>
-          <Button type="primary" icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
+          <Button icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
         </Link>
-        <Table size="middle" dataSource={this.state.articles} loading={this.state.loading} columns={columns} pagination={{ pageSize: 5 }}/>
+        <Table
+          size="small"
+          bordered
+          dataSource={this.state.articles}
+          loading={this.state.loading}
+          columns={columns}
+          pagination={this.state.pagination}
+          onChange={this.handleTableChange}
+          style={{marginTop:10}}/>
       </div>
     )
   }
+  fetchData = (currentPage, pagesize) =>{
+    this.setState({ loading:true });
+    axios.get('z/articles?page=' + currentPage + '&pagesize=' + pagesize)
+    .then((response) => {
+      console.log(response.data);
+      const pager = { ...this.state.pagination };
+      pager.total = response.data.total;
+      this.setState({
+        articles:response.data.data,
+        pagination: pager,
+        loading:false,
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  showCover = () =>{
+    this.setState({
+      coverModelVisible: true,
+    });
+  }
+  handleCancelCoverModel = () =>{
+    this.setState({
+      coverModelVisible: false,
+    });
+  }
+  handleView = (id) =>{
+    window.open('/articles/' + id)
+  }
+  handlePublish = (id) =>{
+    var that = this
+    axios.get('z/articles/publish/' + id)
+    .then(function (response) {
+      if (response.status == 200) {
+        that.fetchData()
+        message.success(response.data.message)
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  handleTop = (id) =>{
+    var that = this
+    axios.get('z/articles/top/' + id)
+    .then(function (response) {
+      if (response.status == 200) {
+        that.fetchData()
+        message.success(response.data.message)
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  handleDelete = (id) =>{
+    var that = this
+    confirm({
+      title: '确认删除',
+      content: '此操作将会永久删除此文章，确认继续？',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        //获取文章数据
+        axios.get('z/articles/delete/' + id)
+        .then(function (response) {
+          if (response.status == 200) {
+            that.fetchData()
+            message.success(response.data.message)
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+      onCancel() {
+        console.log('取消删除');
+      },
+    });
+  }
+  handleChange = (value) =>{
+
+  }
+  handleTableChange = (pagination, filters, sorter) => {
+    const pager = { ...this.state.pagination };
+    pager.current = pagination.current;
+    this.setState({
+      pagination: pager,
+    });
+    this.fetchData(pagination.current, pagination.pageSize);
+  }
+  // new function
 }

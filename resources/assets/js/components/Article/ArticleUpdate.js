@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Breadcrumb, Icon, Spin, message} from 'antd';
 import { Link } from 'react-router-dom';
 import { ArticleForm } from './ArticleForm';
-import styles from "./ArticleDetail.css"
+import styles from "./ArticleUpdate.css"
 
-export class ArticleDetail extends React.Component {
+export class ArticleUpdate extends React.Component {
   constructor(props) {
     super();
     this.state = {

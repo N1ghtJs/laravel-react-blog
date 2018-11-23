@@ -18,9 +18,9 @@ class ArticleController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index_api()
+  public function index_api(Request $request)
   {
-    $articles = Article::orderBy('created_at', 'desc')->get();
+    $articles = Article::orderBy('created_at', 'desc')->paginate($request->pagesize);
     for ($i=0; $i < sizeof($articles); $i++) {
       $articles[$i]->key = $articles[$i]->id;
       $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 60);

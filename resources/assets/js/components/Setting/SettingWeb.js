@@ -111,6 +111,7 @@ class SettingWebForm extends React.Component {
       )
     }
   }
+  //表单提交
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
