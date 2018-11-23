@@ -12,7 +12,7 @@ export class ArticleCreate extends React.Component {
   }
   componentDidMount(props) {
     //获取标签
-    axios.get('z/tags')
+    axios.get(window.apiURL + 'tags')
     .then((response) => {
       this.setState({
         tagsArr:response.data.tagsArr,
@@ -27,7 +27,7 @@ export class ArticleCreate extends React.Component {
       message.error('标题不能为空');
     }else {
       //创建文章
-      axios.post('z/articles', {
+      axios.post(window.apiURL + 'articles', {
         title:article.title,
         tags:article.tags,
         cover:article.cover,

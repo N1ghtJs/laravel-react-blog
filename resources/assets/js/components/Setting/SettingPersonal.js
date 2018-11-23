@@ -143,7 +143,7 @@ class SettingPersonalForm extends React.Component {
                 }
             }
         })
-        axios.post('z/users/1', formData)
+        axios.post(window.apiURL + 'users/1', formData)
         .then(function (response) {
           message.success(response.data.message);
           location.reload();

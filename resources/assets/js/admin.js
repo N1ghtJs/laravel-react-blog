@@ -25,6 +25,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+//管理后台 API 地址
+window.apiURL = 'admin-api/';
+
 //根据存储盘生成图片地址
 window.imageURL = function(url){
     if (file_disk == 'cos') {

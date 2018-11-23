@@ -35,7 +35,7 @@ class SettingWebForm extends React.Component {
     for(let i in this.state.formData){
       keys.push(i);
     }
-    axios.get('z/settings?keys='+ keys.join(','))
+    axios.get(window.apiURL + 'settings?keys='+ keys.join(','))
     .then((response) => {
       this.setState({
         loading: false,
@@ -116,7 +116,7 @@ class SettingWebForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post('z/settings', values)
+        axios.post(window.apiURL + 'settings', values)
         .then(function (response) {
           message.success(response.data.message);
           location.reload();

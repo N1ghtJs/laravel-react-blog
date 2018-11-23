@@ -154,7 +154,7 @@ export class Article extends React.Component {
       pageSize = pager.pageSize ? pager.pageSize : pager.defaultPageSize;
     }
     this.setState({ loading:true });
-    let url = 'z/articles?order=' + this.state.order + '&pagesize=' + pageSize + '&page=' + currentPage;
+    let url = window.apiURL + 'articles?order=' + this.state.order + '&pagesize=' + pageSize + '&page=' + currentPage;
     if (this.state.status != null) {
       url = url + '&status=' + this.state.status;
     }
@@ -188,7 +188,7 @@ export class Article extends React.Component {
   //文章发表
   handlePublish = (id) =>{
     var that = this
-    axios.get('z/articles/publish/' + id)
+    axios.get(window.apiURL + 'articles/publish/' + id)
     .then(function (response) {
       if (response.status == 200) {
         that.fetchData()
@@ -202,7 +202,7 @@ export class Article extends React.Component {
   //文章置顶
   handleTop = (id) =>{
     var that = this
-    axios.get('z/articles/top/' + id)
+    axios.get(window.apiURL + 'articles/top/' + id)
     .then(function (response) {
       if (response.status == 200) {
         that.fetchData()
@@ -224,7 +224,7 @@ export class Article extends React.Component {
       cancelText: 'No',
       onOk() {
         //获取文章数据
-        axios.get('z/articles/delete/' + id)
+        axios.get(window.apiURL + 'articles/delete/' + id)
         .then(function (response) {
           if (response.status == 200) {
             that.fetchData()

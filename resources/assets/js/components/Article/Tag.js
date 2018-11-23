@@ -18,7 +18,7 @@ export class Tag extends React.Component {
   }
   fetchData(){
     //获取文章数据
-    axios.get('z/tags')
+    axios.get(window.apiURL + 'tags')
     .then((response) => {
       console.log(response.data);
       this.setState({
@@ -40,7 +40,7 @@ export class Tag extends React.Component {
       onOk() {
         console.log(2);
         //删除标签
-        axios.get('z/tags/delete/' + id)
+        axios.get(window.apiURL + 'tags/delete/' + id)
         .then((response) => {
           console.log(response);
           if (response.status == 200) {

@@ -130,7 +130,7 @@ export class ArticleForm extends React.Component {
   }
   //上传图片函数
   uploadFn = (param) => {
-    const serverURL = 'z/upload'
+    const serverURL = window.apiURL + 'upload'
     const xhr = new XMLHttpRequest
     const fd = new FormData()
 

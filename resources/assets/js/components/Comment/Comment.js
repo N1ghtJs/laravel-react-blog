@@ -62,7 +62,7 @@ export class Comment extends React.Component {
   fetchData(){
     var that = this
     //获取文章数据
-    axios.get('z/comments')
+    axios.get(window.apiURL + 'comments')
     .then(function (response) {
       console.log(response.data);
       that.setState({
@@ -87,7 +87,7 @@ export class Comment extends React.Component {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        axios.get('z/comments/delete/' + id)
+        axios.get(window.apiURL + 'comments/delete/' + id)
         .then(function (response) {
           if (response.status == 200) {
             that.fetchData()
