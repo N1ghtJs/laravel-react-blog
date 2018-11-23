@@ -4,7 +4,7 @@ const FormItem = Form.Item;
 const { TextArea } = Input;
 const Option = Select.Option;
 import BraftEditor from 'braft-editor'
-import 'braft-editor/dist/braft.css'
+import 'braft-editor/dist/index.css'
 
 class CoverUploader extends React.Component {
   render() {
