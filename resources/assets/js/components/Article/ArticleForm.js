@@ -166,11 +166,11 @@ export class ArticleForm extends React.Component {
   handleTagsChange = (value) => {
     this.setState({tags: value})
   }
-  //编辑器改变处理
+  //editor 改变处理
   handleEditorChange = (editorState) => {
       this.setState({ editorState })
   }
-  //上传图片函数
+  //editor 上传图片函数
   uploadFn = (param) => {
     const serverURL = window.apiURL + 'upload'
     const xhr = new XMLHttpRequest
