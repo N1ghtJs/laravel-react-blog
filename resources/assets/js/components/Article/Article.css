@@ -1,0 +1,5 @@
+/* ArticleForm.js */
+
+.article__cover-uploader > .ant-upload {
+  width: 100% !important;
+}

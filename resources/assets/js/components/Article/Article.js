@@ -5,6 +5,7 @@ const confirm = Modal.confirm;
 const Option = Select.Option;
 const Search = Input.Search;
 import { Link } from 'react-router-dom';
+import styles from "./Article.css"
 
 export class Article extends React.Component {
   constructor() {
@@ -39,8 +40,8 @@ export class Article extends React.Component {
       title: '封面',
       key: 'cover',
       render: (text, record) => (
-        <Popover content={<img src={record.cover || 'default.jpg'} style={{maxWidth:500}}/>} placement="right">
-          <Avatar shape="square" src={record.cover || 'default.jpg'} style={{ cursor:'pointer' }}/>
+        <Popover content={<img src={record.cover? imageURL(record.cover) : 'default.jpg'} style={{maxWidth:500}}/>} placement="right">
+          <Avatar shape="square" src={record.cover? imageURL(record.cover) : 'default.jpg'} style={{ cursor:'pointer' }}/>
         </Popover>
       )
     },{

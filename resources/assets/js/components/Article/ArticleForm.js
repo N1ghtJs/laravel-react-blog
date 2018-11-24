@@ -5,6 +5,7 @@ const { TextArea } = Input;
 const Option = Select.Option;
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
+import styles from "./Article.css"
 
 export class ArticleForm extends React.Component {
   constructor(props) {
@@ -19,6 +20,9 @@ export class ArticleForm extends React.Component {
 
       //可选标签
       tagsArr: [],
+
+      //上传封面控件
+      loading: false
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -51,6 +55,43 @@ export class ArticleForm extends React.Component {
     this.state.tagsArr.map((tag) => {
       children.push(<Option key={tag}>{tag}</Option>)
     })
+    // editor 扩展控件
+    const extendControls = [
+      {
+        key: 'custom-modal',
+        type: 'modal',
+        text: '文章封面上传',
+        modal: {
+          id: 'my-moda-1',
+          title: '文章封面设置',
+          showFooter: false,
+          children: (
+            <div style={{width: 400, padding: '0 10px'}}>
+              <Upload
+                name="file"
+                listType="picture-card"
+                showUploadList={false}
+                className="article__cover-uploader"
+                action={window.apiURL+'upload'}
+                beforeUpload={this.beforeUpload}
+                onChange={this.handleChange}
+                headers={{
+                  'X-CSRF-TOKEN':document.head.querySelector('meta[name="csrf-token"]').content
+                }}
+              >
+                {this.state.cover&&!this.state.loading ?
+                  <img src={imageURL(this.state.cover)} alt="avatar" style={{width:'100%'}} /> :
+                  (<div style={{width:'100%'}}>
+                      <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                      <div className="ant-upload-text">Upload</div>
+                    </div>)
+                }
+              </Upload>
+            </div>
+          )
+        }
+      }
+    ]
 
     return (
       <Form>
@@ -80,6 +121,7 @@ export class ArticleForm extends React.Component {
             <BraftEditor
               value={this.state.editorState}
               onChange={this.handleEditorChange}
+              extendControls={extendControls}
               media={{
                 uploadFn:this.uploadFn,
                 accepts:{
@@ -160,6 +202,33 @@ export class ArticleForm extends React.Component {
     xhr.open('POST', serverURL, true)
     xhr.setRequestHeader('X-CSRF-TOKEN', document.head.querySelector('meta[name="csrf-token"]').content);
     xhr.send(fd)
+  }
+  //上传封面前的校验
+  beforeUpload = (file) => {
+    const allowType = ["image/png", "image/jpeg"];
+    const isJPGPNG = ~allowType.indexOf(file.type);
+    if (!isJPGPNG) {
+      message.error('仅支持上传JPG，PNG格式的图片！');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('仅支持上传小于2MB的图片！');
+    }
+    return isJPGPNG && isLt2M;
+  }
+  //上传封面
+  handleChange = (info) => {
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      this.setState({
+        cover: info.file.response,
+        loading: false,
+      });
+      message.success('上传成功，保存后生效哦！')
+    }
   }
   //new function
 }
