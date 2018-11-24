@@ -303,9 +303,6 @@ const DrawerImportForm  = Form.create()(
       const { getFieldDecorator } = this.props.form;
       return (
         <div>
-          <Button type="primary" onClick={this.showDrawer}>
-            Create
-          </Button>
           <Drawer
             title="从数据库导入文章"
             width={720}
