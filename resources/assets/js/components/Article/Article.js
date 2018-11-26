@@ -24,9 +24,6 @@ export class Article extends React.Component {
       top:null,
       key:null,
       loading:true,
-
-      //抽屉
-      visibleDrawerImport:false,
     };
   }
   componentWillMount() {
@@ -158,7 +155,7 @@ export class Article extends React.Component {
           onChange={this.handleTableChange}
           style={{marginTop:10}}/>
 
-        <DrawerImportForm visible={this.state.visibleDrawerImport} />
+        <DrawerImportForm wrappedComponentRef={ref => this.refDrawerImportForm = ref} />
       </div>
     )
   }
@@ -285,7 +282,7 @@ export class Article extends React.Component {
   //更多功能菜单处理
   handleMenuClick = (e) => {
     if (e.key == 'import') {
-      this.setState({visibleDrawerImport: true});
+      this.refDrawerImportForm.showDrawer();
     }
   }
   // new function
@@ -433,6 +430,9 @@ const DrawerImportForm  = Form.create()(
           </Drawer>
         </div>
       );
+    }
+    showDrawer = () => {
+      this.setState({visible: true});
     }
     onClose = () => {
       this.setState({visible: false});
