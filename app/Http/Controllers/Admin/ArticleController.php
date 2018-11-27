@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+USE Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Common\MyUpload;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -174,5 +175,37 @@ class ArticleController extends Controller
     public function uploadFileApi(Request $request)
     {
         return MyUpload::uploadFile($request->file);
+    }
+    /**
+    * 导入其他数据库文章
+    */
+    public function import(Request $request)
+    {
+        $inputs = $request->all();
+        
+        $articles = DB::table($inputs['table'])->get();
+        unset($inputs['table']);
+
+        foreach ($articles as $article) {
+            $newArticle = new Article;
+            foreach ($inputs as $key => $value) {
+
+                if($key == 'is_top' || $key == 'is_hidden'){
+                    $arr = explode('|', $value);
+                    $arr0 = $arr[0];//字段名
+                    $arr1 = $arr[1];//true值
+                    $newArticle->$key = $article->$arr0 == $arr1? 1:0;
+                }else if ($key == 'content') {
+                    $newArticle->content_raw = $newArticle->content_html = $article->$value;
+                }else {
+                    $newArticle->$key = $article->$value;
+                }
+            }
+            $newArticle->save();
+        }
+
+        return response()->json([
+          'message' => '导入成功！'
+        ]);
     }
 }

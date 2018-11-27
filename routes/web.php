@@ -32,6 +32,7 @@ Route::middleware(['auth', 'super'])->namespace('Admin')->prefix('admin-api')->g
   Route::post('/articles/markdown', 'ArticleController@markdown');
   Route::get('/articles/{id}', 'ArticleController@show');
   Route::post('/upload', 'ArticleController@uploadFileApi');
+  Route::post('/import', 'ArticleController@import');
 
   Route::get('/comments', 'CommentController@index');
   Route::get('/comments/delete/{id}', 'CommentController@destroy');

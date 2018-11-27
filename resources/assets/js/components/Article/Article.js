@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, message, Modal, Tooltip, Badge, Avatar, Select, Popover, Dropdown, Menu, Drawer, Form, Row, Col, DatePicker } from 'antd';
+import { Table, Input, Button, Icon, message, Modal, Tooltip, Badge, Avatar, Select, Popover, Dropdown, Menu, Drawer, Form, Row, Col, DatePicker, Alert } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
 const Option = Select.Option;
@@ -304,7 +304,7 @@ const DrawerImportForm  = Form.create()(
             title="从数据库导入文章"
             width={720}
             placement="right"
-            onClose={this.onClose}
+            onClose={this.closeDrawer}
             maskClosable={false}
             visible={this.state.visible}
             style={{
@@ -315,91 +315,73 @@ const DrawerImportForm  = Form.create()(
           >
             <Form layout="vertical" >
               <Row gutter={16}>
-                <Col span={12}>
-                  <Form.Item label="Name">
-                    {getFieldDecorator('name', {
-                      rules: [{ required: true, message: 'please enter user name' }],
-                    })(<Input placeholder="please enter user name" />)}
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label="Url">
-                    {getFieldDecorator('url', {
-                      rules: [{ required: true, message: 'please enter url' }],
-                    })(
-                      <Input
-                        style={{ width: '100%' }}
-                        addonBefore="http://"
-                        addonAfter=".com"
-                        placeholder="please enter url"
-                      />
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Form.Item label="Owner">
-                    {getFieldDecorator('owner', {
-                      rules: [{ required: true, message: 'Please select an owner' }],
-                    })(
-                      <Select placeholder="Please select an owner">
-                        <Option value="xiao">Xiaoxiao Fu</Option>
-                        <Option value="mao">Maomao Zhou</Option>
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label="Type">
-                    {getFieldDecorator('type', {
-                      rules: [{ required: true, message: 'Please choose the type' }],
-                    })(
-                      <Select placeholder="Please choose the type">
-                        <Option value="private">Private</Option>
-                        <Option value="public">Public</Option>
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Form.Item label="Approver">
-                    {getFieldDecorator('approver', {
-                      rules: [{ required: true, message: 'Please choose the approver' }],
-                    })(
-                      <Select placeholder="Please choose the approver">
-                        <Option value="jack">Jack Ma</Option>
-                        <Option value="tom">Tom Liu</Option>
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label="DateTime">
-                    {getFieldDecorator('dateTime', {
-                      rules: [{ required: true, message: 'Please choose the dateTime' }],
-                    })(
-                      <DatePicker.RangePicker
-                        style={{ width: '100%' }}
-                        getPopupContainer={trigger => trigger.parentNode}
-                      />
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
                 <Col span={24}>
-                  <Form.Item label="Description">
-                    {getFieldDecorator('description', {
-                      rules: [
-                        {
-                          required: true,
-                          message: 'please enter url description',
-                        },
-                      ],
-                    })(<Input.TextArea rows={4} placeholder="please enter url description" />)}
+                  <Alert message="仅支持导入当前数据库中其他数据表的数据。导入过程不可逆，请先备份好当前文章数据！" type="warning" showIcon style={{marginBottom:20}} />
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item label="数据表名">
+                    {getFieldDecorator('table', {
+                      rules: [{ required: true, message: '数据表名不能为空' }],
+                    })(<Input placeholder="要导入的数据表名称" />)}
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="标题字段">
+                    {getFieldDecorator('title', {
+                      rules: [{ required: true, message: '标题字段不能为空' }],
+                    })(<Input placeholder="存储标题的字段名" />)}
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item label="封面字段" extra={<Badge status="processing" text="不填则保存为默认封面" />}>
+                    {getFieldDecorator('cover', {
+                    })(<Input placeholder="存储封面的字段名" />)}
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="内容字段" extra={<Badge status="processing" text="非纯文本内容可能会破坏格式" />}>
+                    {getFieldDecorator('content', {
+                    })(<Input placeholder="存储文章正文内容的字段名" />)}
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item label="置顶字段" extra={<Badge status="processing" text="规则：字段名|置顶值，例：is_top|1" />}>
+                    {getFieldDecorator('is_top', {
+                    })(<Input placeholder="存储文章是否置顶的字段名与规则" />)}
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="隐藏字段" extra={<Badge status="processing" text="规则：字段名|隐藏值，例：is_hidden|1" />}>
+                    {getFieldDecorator('is_hidden', {
+                    })(<Input placeholder="存储文章是否隐藏的字段名与规则" />)}
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item label="浏览量字段" extra={<Badge status="processing" text="不填则保存为 0" />}>
+                    {getFieldDecorator('view', {
+                    })(<Input placeholder="存储文章浏览量的字段名" />)}
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item label="评论量字段" extra={<Badge status="processing" text="不填则保存为 0" />}>
+                    {getFieldDecorator('comment', {
+                    })(<Input placeholder="存储文章评论量的字段名" />)}
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item label="创建时间字段" extra={<Badge status="processing" text="不填则保存为 now" />}>
+                    {getFieldDecorator('created_at', {
+                    })(<Input placeholder="存储文章创建时间的字段名" />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -421,7 +403,7 @@ const DrawerImportForm  = Form.create()(
                 style={{
                   marginRight: 8,
                 }}
-                onClick={this.onClose}
+                onClick={this.closeDrawer}
               >
                 Cancel
               </Button>
@@ -434,18 +416,20 @@ const DrawerImportForm  = Form.create()(
     showDrawer = () => {
       this.setState({visible: true});
     }
-    onClose = () => {
+    closeDrawer = () => {
       this.setState({visible: false});
     }
     //表单提交
     handleSubmit = () => {
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          axios.post(window.apiURL + 'import', {})
-          .then(function (response) {
-            console.log(response);
+          axios.post(window.apiURL + 'import', values)
+          .then((response) => {
+            message.success(response.data.message);
+            this.closeDrawer();
+            this.fetchData();
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
             message.error('error');
           });
