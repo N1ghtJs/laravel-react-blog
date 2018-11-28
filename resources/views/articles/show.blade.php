@@ -15,7 +15,7 @@
             <h1 class="z-title">{{ $article->title }}</h1>
             <p class="z-info"><span style="margin-right:20px">{{$article->created_at_date}}</span>sad creeper</p>
             <div class="z-content">
-              {!! $article->content !!}
+              {!! $article->content_html !!}
             </div>
             <p class="z-counter">
               阅读 {{ $article->view }}

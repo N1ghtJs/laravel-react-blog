@@ -22,7 +22,7 @@ class ArticleController extends Controller
   {
     $articles = Article::where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
     for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content_html = str_limit(strip_tags($articles[$i]->content_html), 150);
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content_html), 150);
       $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
@@ -42,7 +42,7 @@ class ArticleController extends Controller
       return $query->where('title', 'like', '%'.$key.'%');
     })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
     for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content_html = str_limit(strip_tags($articles[$i]->content_html), 150);
+      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content_html), 150);
       $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
       $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
     }
@@ -59,7 +59,6 @@ class ArticleController extends Controller
   {
     $article = Article::findOrFail($id);
     $article->increment('view');
-    //Visit::record($request, '文章', $article->title);
     $article->created_at_date = $article->created_at->toDateString();
     $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
     for ($i=0; $i < sizeof($comments); $i++) {
