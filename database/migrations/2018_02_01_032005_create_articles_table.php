@@ -20,7 +20,9 @@ class CreateArticlesTable extends Migration
             $table->longText('content_raw')->nullable();
             $table->longText('content_html')->nullable();
             $table->boolean('is_top')->default(0);
-            $table->boolean('is_hidden')->default(0);
+            $table->boolean('is_hidden')->default(1);
+            $table->integer('view')->default(0);
+            $table->integer('comment')->default(0);
             $table->timestamps();
         });
     }
