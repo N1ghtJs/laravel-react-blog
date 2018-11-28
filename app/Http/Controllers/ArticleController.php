@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Session\DatabaseSessionHandler;
 use League\HTMLToMarkdown\HtmlConverter;
+use App\Common\MyUpload;
 use App\Article;
 use App\Comment;
 use App\Visit;
 use App\Tag;
+use App\User;
 use Auth;
 
 class ArticleController extends Controller
@@ -57,41 +59,62 @@ class ArticleController extends Controller
    */
   public function show(Request $request, $id)
   {
-    $article = Article::findOrFail($id);
-    $article->increment('view');
-    $article->created_at_date = $article->created_at->toDateString();
-    $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
-    for ($i=0; $i < sizeof($comments); $i++) {
-      $comments[$i]->created_at_diff = $comments[$i]->created_at->diffForHumans();
-      $comments[$i]->avatar_text = mb_substr($comments[$i]->name,0,1,'utf-8');
-      $replys = $comments[$i]->replys;
-      for ($j=0; $j < sizeof($replys); $j++) {
-        $replys[$j]->created_at_diff = $replys[$j]->created_at->diffForHumans();
-        $replys[$j]->avatar_text = mb_substr($replys[$j]->name,0,1,'utf-8');
+      $article = Article::findOrFail($id);
+      $article->increment('view');
+      $article->created_at = $article->created_at->toDateString();
+      $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
+
+      //处理评论，关联回复
+      foreach ($comments as $comment) {
+          $comment->created_at_diff = $comment->created_at->diffForHumans();
+          if ($comment->name) {
+              $comment->avatar = mb_substr($comment->name, 0, 1, 'utf-8');
+          }else {
+              $comment->avatar = '匿';
+              $comment->name = 'null';
+
+          }
+          if ($comment->user_id == 1) {
+              $comment->master = User::select('name', 'avatar')->findOrFail(1);
+              if ($comment->master->avatar) {
+                  $comment->master->avatar = MyUpload::generateUrl($comment->master->avatar);
+              }else {
+                  $comment->master->avatar = '/images/default-avatar.png';
+              }
+          }
+
+          // $comment->replys = $comment->replys;
+          foreach ($comment->replys as $reply) {
+              $reply->created_at_diff = $reply->created_at->diffForHumans();
+              $reply->target_name = Comment::findOrFail($reply->target_id)->name;
+              if ($reply->name) {
+                  $reply->avatar = mb_substr($reply->name, 0, 1, 'utf-8');
+              }else {
+                  $reply->avatar = '匿';
+                  $reply->name = 'null';
+
+              }
+              if ($reply->user_id == 1) {
+                  $reply->master = User::select('name', 'avatar')->findOrFail(1);
+                  if ($reply->master->avatar) {
+                      $reply->master->avatar = MyUpload::generateUrl($comment->master->avatar);
+                  }else {
+                      $reply->master->avatar = '/images/default-avatar.png';
+                  }
+              }
+          }
       }
-    }
-    $inputs = new CommentInputs;
-    if (Auth::id()) {
-      $inputs->name = Auth::user()->name;
-      $inputs->email = Auth::user()->email;
-      $inputs->website = Auth::user()->website;
-    }else {
-      $comment = Comment::where('ip', $request->ip())->orderBy('created_at', 'desc')->first();
-      if ($comment) {
-        $inputs->name = $comment->name;
-        $inputs->email = $comment->email;
-        $inputs->website = $comment->website;
+
+      //自动填写
+      $input = (object)[];
+      if (Auth::id()) {
+          $input = User::select('name', 'email', 'website')->findOrFail(Auth::id());
+      }else {
+          $comment = Comment::where('ip', $request->ip())->orderBy('created_at', 'desc')->select('name', 'email', 'website')->first();
+          $input = $comment ? $comment : $input;
       }
-    }
-    return view('articles.show', compact('article', 'comments', 'inputs'));
+
+      return view('articles.show', compact('article', 'comments', 'input'));
   }
 
-
-
-}
-
-class CommentInputs {
-  public $name = '';
-  public $email = '';
-  public $website = '';
 }

@@ -175,6 +175,9 @@
   }
   .z-counter{
     margin-top: 20px;
+    a{
+      float: right;
+    }
   }
 }
 
@@ -191,7 +194,7 @@
     height:30px;
     width:30px;
     border-radius:15px;
-    background-color:gray;
+    background-color:#bfbfbf;
     float:left;
     text-align:center;
     line-height:30px;

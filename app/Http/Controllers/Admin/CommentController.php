@@ -17,7 +17,7 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(2);
+        $comments = Comment::orderBy('created_at', 'desc')->paginate($request->pagesize);
         for ($i=0; $i < sizeof($comments); $i++) {
             $comments[$i]->key = $comments[$i]->id;
             $comments[$i]->article_name = $comments[$i]->article->title;

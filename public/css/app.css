@@ -8557,6 +8557,10 @@ button.close {
   margin-top: 20px;
 }
 
+.z-article-show .z-counter a {
+  float: right;
+}
+
 .z-comments .z-avatar {
   float: left;
   height: 30px;
@@ -8567,7 +8571,7 @@ button.close {
   height: 30px;
   width: 30px;
   border-radius: 15px;
-  background-color: gray;
+  background-color: #bfbfbf;
   float: left;
   text-align: center;
   line-height: 30px;
