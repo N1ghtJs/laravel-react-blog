@@ -8,6 +8,8 @@
     <title>TEST TITLE</title>
 </head>
 <body>
-    <h1>TEST</h1>
+    <h4>您发布的内容 “{{ $title }}” 收到了回复：</h4>
+    <p> {{ $comment->name }} ：{{ $comment->content }} </p>
+    <p><a href="{{ $url }}">点此查看</a></p>
 </body>
 </html>

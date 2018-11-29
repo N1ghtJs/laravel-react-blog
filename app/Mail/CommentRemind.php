@@ -16,9 +16,12 @@ class CommentRemind extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title, $comment, $url)
     {
-        //
+        $this->subject('Re:' . $title);
+        $this->title = $title;
+        $this->comment = $comment;
+        $this->url = $url;
     }
 
     /**
@@ -28,6 +31,11 @@ class CommentRemind extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.comments.remind');
+        return $this->view('emails.comments.remind')
+                    ->with([
+                        'title' => $this->title,
+                        'comment' => $this->comment,
+                        'url' => $this->url,
+                    ]);;
     }
 }

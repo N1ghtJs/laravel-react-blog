@@ -26,11 +26,9 @@ class CommentController extends Controller
         if ($request->parent_id) {
             $comment->parent_id = $request->parent_id;
             $comment->target_id = $request->target_id;
-            Mail::to(Comment::findOrFail($request->target_id)->email)->send(new CommentRemind);
         }else {
             $comment->parent_id = 0;
             $comment->target_id = 0;
-            Mail::to(User::findOrFail(1))->send(new CommentRemind);
         }
         $comment->article_id = $request->article_id;
         $comment->content = $request->content;
@@ -40,6 +38,22 @@ class CommentController extends Controller
         $comment->ip = $request->ip();
         // $comment->city = $city['region'].' '.$city['city'];
         $comment->save();
+
+        //发送邮件
+        if ($request->parent_id) {
+            $commentTarget = Comment::findOrFail($request->target_id);
+            $url = url("/articles/{$comment->article->id}#comment{$comment->id}");
+            try {
+                Mail::to($commentTarget->email)
+                    ->send(new CommentRemind($commentTarget->content, $comment, $url));
+            }catch (\Exception $e) {}
+        }else {
+            $url = url("/articles/{$comment->article->id}#comment{$comment->id}");
+            try {
+                Mail::to(User::findOrFail(1))
+                    ->send(new CommentRemind($comment->article->title, $comment, $url));
+            }catch (\Exception $e) {}
+        }
         return back()->with('message', '留言成功！');
     }
 }
