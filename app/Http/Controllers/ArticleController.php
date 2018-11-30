@@ -22,14 +22,16 @@ class ArticleController extends Controller
    */
   public function list()
   {
-    $articles = Article::where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
-    for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content_html), 150);
-      $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
-      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
-    }
-    $tags = Tag::all();
-    return view('articles.list', compact('articles', 'tags'));
+      $articles = Article::where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
+      foreach ($articles as $article) {
+          $article->cover = imageURL($article->cover);
+          $article->content = str_limit(strip_tags($article->content_html), 150);
+          $article->created_at_date = $article->created_at->toDateString();
+          $article->updated_at_diff = $article->updated_at->diffForHumans();
+      }
+
+      $tags = Tag::all();
+      return view('articles.list', compact('articles', 'tags'));
   }
 
   /**
@@ -39,17 +41,19 @@ class ArticleController extends Controller
    */
   public function search(Request $request)
   {
-    $key = $request->key;
-    $articles = Article::when($key, function($query) use ($key){
-      return $query->where('title', 'like', '%'.$key.'%');
-    })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
-    for ($i=0; $i < sizeof($articles); $i++) {
-      $articles[$i]->content = str_limit(strip_tags($articles[$i]->content_html), 150);
-      $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
-      $articles[$i]->updated_at_diff = $articles[$i]->updated_at->diffForHumans();
-    }
-    $tags = Tag::all();
-    return view('articles.list', compact('articles', 'tags'));
+      $key = $request->key;
+      $articles = Article::when($key, function($query) use ($key){
+          return $query->where('title', 'like', '%'.$key.'%');
+      })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
+      foreach ($articles as $article) {
+          $article->cover = imageURL($article->cover);
+          $article->content = str_limit(strip_tags($article->content_html), 150);
+          $article->created_at_date = $article->created_at->toDateString();
+          $article->updated_at_diff = $article->updated_at->diffForHumans();
+      }
+
+      $tags = Tag::all();
+      return view('articles.list', compact('articles', 'tags'));
   }
 
   /**
@@ -76,11 +80,7 @@ class ArticleController extends Controller
           }
           if ($comment->user_id == 1) {
               $comment->master = User::select('name', 'avatar')->findOrFail(1);
-              if ($comment->master->avatar) {
-                  $comment->master->avatar = MyUpload::generateUrl($comment->master->avatar);
-              }else {
-                  $comment->master->avatar = '/images/default-avatar.png';
-              }
+              $comment->master->avatar = imageURL($comment->master->avatar);
           }
 
           // $comment->replys = $comment->replys;
@@ -96,11 +96,7 @@ class ArticleController extends Controller
               }
               if ($reply->user_id == 1) {
                   $reply->master = User::select('name', 'avatar')->findOrFail(1);
-                  if ($reply->master->avatar) {
-                      $reply->master->avatar = MyUpload::generateUrl($comment->master->avatar);
-                  }else {
-                      $reply->master->avatar = '/images/default-avatar.png';
-                  }
+                  $reply->master->avatar = imageURL($reply->master->avatar);
               }
           }
       }

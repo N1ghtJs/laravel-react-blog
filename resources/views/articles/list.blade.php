@@ -29,7 +29,7 @@
                       </div>
                   </div>
                   <div class="col-xs-4" style="padding-left:0">
-                    <a href="{{ route('articles.show', $article->id) }}"><img src="{{ $article->cover == '' ? '/default.jpg' : $article->cover }}" class="img-responsive z-cover" alt="imax1"></a>
+                    <a href="{{ route('articles.show', $article->id) }}"><img src="{{ $article->cover or '/default.jpg' }}" class="img-responsive z-cover" alt="imax1"></a>
                   </div>
                 </div>
               </div>

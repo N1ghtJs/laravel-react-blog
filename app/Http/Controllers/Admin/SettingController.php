@@ -11,12 +11,7 @@ class SettingController extends Controller
 
     public function index(Request $request)
     {
-        $keys = explode(",", $request->keys);
-        $settings = Setting::whereIn('key', $keys)->get();
-        $data = [];
-        foreach ($settings as $setting) {
-            $data[$setting->key] = $setting->value;
-        }
+        $data = Setting::getSettings($request->keys);
         return response()->json([
             'data' => $data
         ]);

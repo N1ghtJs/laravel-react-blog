@@ -35,7 +35,7 @@
 
                 <!-- header -->
                 @if($comment->user_id == 1)
-                  <img src="{{ $comment->master->avatar }}" class="img-circle z-avatar">
+                  <img src="{{ $comment->master->avatar or '/images/default-avatar.png' }}" class="img-circle z-avatar">
                   <p class="z-name z-center-vertical">{{ $comment->master->name }}<span class="label label-info z-label">博 主</span></p>
                 @elseif($comment->website)
                   <p class="z-avatar-text">{{ $comment->avatar }}</p>
@@ -66,7 +66,7 @@
                     <div id="comment{{ $reply->id }}"></div>
                     <!-- header -->
                     @if( $reply->user_id == 1 )
-                      <img src="{{ $reply->master->avatar }}" class="img-circle z-avatar">
+                      <img src="{{ $reply->master->avatar or '/images/default-avatar.png' }}" class="img-circle z-avatar">
                       <p class="z-name z-center-vertical">{{ $reply->master->name }}<span class="label label-info z-label">博 主</span></p>
                     @elseif( $reply->website )
                       <p class="z-avatar-text">{{ $reply->avatar }}</p>

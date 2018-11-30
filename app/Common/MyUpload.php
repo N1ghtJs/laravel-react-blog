@@ -38,17 +38,4 @@ class MyUpload
 
         return $fileName;
     }
-
-    /**
-    * 根据设置的存储盘和相对路径生成绝对路径
-    */
-    static public function generateUrl($url)
-    {
-        $file_disk = Setting::where('key', 'file_disk')->value('value');
-        if ($file_disk == 'cos') {
-            return 'http://images-1253193383.cosbj.myqcloud.com/' . $url;
-        }else {
-            return '/storage/images/' . $url;
-        }
-    }
 }

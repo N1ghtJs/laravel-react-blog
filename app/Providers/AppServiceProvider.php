@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
+use App\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      \Carbon\Carbon::setLocale('zh');
+        \Carbon\Carbon::setLocale('zh');
     }
 
     /**
