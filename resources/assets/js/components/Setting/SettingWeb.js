@@ -73,7 +73,7 @@ class SettingWebForm extends React.Component {
     }else {
       return (
         <Form onSubmit={this.handleSubmit} style={{ paddingTop:20 }}>
-          <FormItem {...formItemLayout} label="网站名称">
+          <FormItem {...formItemLayout} label="网站名称" extra={<Alert message="网站名称不要轻易更换，影响SEO排名" type="warning" showIcon />}>
             {getFieldDecorator('web_name', {
               rules: [{
                 required: true,
