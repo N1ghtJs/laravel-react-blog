@@ -203,6 +203,7 @@ export class ArticleForm extends React.Component {
   //保存
   handleSubmit = () => {
     this.props.handleSubmit({
+      id:this.state.id,
       title:this.state.title,
       tags:this.state.tags,
       cover:this.state.cover,
