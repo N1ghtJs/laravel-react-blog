@@ -200,8 +200,15 @@ class ArticleController extends Controller
                     $arr0 = $arr[0];//字段名
                     $arr1 = $arr[1];//true值
                     $newArticle->$key = $article->$arr0 == $arr1? 1:0;
-                }else if ($key == 'content') {
+                }elseif ($key == 'content') {
                     $newArticle->content_raw = $newArticle->content_html = $article->$value;
+                }elseif ($key == 'cover') {
+                    $arr = explode('/', $article->$value);
+                    if (sizeof($arr)) {
+                        $newArticle->$key = $arr[sizeof($arr)-1];
+                    }else {
+                        $newArticle->$key = $article->$value;
+                    }
                 }else {
                     $newArticle->$key = $article->$value;
                 }
