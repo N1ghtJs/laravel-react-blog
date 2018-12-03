@@ -107,59 +107,61 @@ export class Article extends React.Component {
     },];
     return (
       <div style={{padding:20}}>
-        <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
-          <Option value="created_at">最新创建</Option>
-          <Option value="view">最多浏览</Option>
-          <Option value="comment">最多留言</Option>
-        </Select>
-        <Select placeholder="按发表状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
-          <Option value={0}>已发表</Option>
-          <Option value={1}>笔记</Option>
-        </Select>
-        <Select placeholder="按置顶状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeTop} allowClear>
-          <Option value={0}>未置顶</Option>
-          <Option value={1}>置顶</Option>
-        </Select>
-        <Search
-          placeholder="搜索标题"
-          onSearch={this.handleSearch}
-          style={{ width: 200, marginRight: 10 }}
-        />
+        <div style={{overflow:'hidden'}}>
+          <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
+            <Option value="created_at">最新创建</Option>
+            <Option value="view">最多浏览</Option>
+            <Option value="comment">最多留言</Option>
+          </Select>
+          <Select placeholder="按发表状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
+            <Option value={0}>已发表</Option>
+            <Option value={1}>笔记</Option>
+          </Select>
+          <Select placeholder="按置顶状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeTop} allowClear>
+            <Option value={0}>未置顶</Option>
+            <Option value={1}>置顶</Option>
+          </Select>
+          <Search
+            placeholder="搜索标题"
+            onSearch={this.handleSearch}
+            style={{ width: 200, marginRight: 10 }}
+          />
 
-        <Dropdown
-          placement="bottomRight"
-          trigger={['click']}
-          overlay={
-            <Menu>
-              <Menu.Item>
-                <Link to="/articles/create/richtext">
-                  <Icon type="file-word" /> 富文本编辑器
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to="/articles/create/markdown">
-                  <Icon type="file-markdown" /> Markdown编辑器
-                </Link>
-              </Menu.Item>
-            </Menu>
-          }>
-          <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
-        </Dropdown>
-        <Link to={'/tags'}>
-          <Button icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
-        </Link>
-        <Dropdown
-          placement="bottomCenter"
-          trigger={['click']}
-          overlay={
-            <Menu onClick={this.handleMenuClick}>
-              <Menu.Item key="import"><Icon type="select" />从数据库导入文章</Menu.Item>
-            </Menu>
-          }>
-          <Button style={{float: 'right', marginRight: 10}}>
-            <Icon type="ellipsis" />
-          </Button>
-        </Dropdown>
+          <Dropdown
+            placement="bottomRight"
+            trigger={['click']}
+            overlay={
+              <Menu>
+                <Menu.Item>
+                  <Link to="/articles/create/richtext">
+                    <Icon type="file-word" /> 富文本编辑器
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to="/articles/create/markdown">
+                    <Icon type="file-markdown" /> Markdown编辑器
+                  </Link>
+                </Menu.Item>
+              </Menu>
+            }>
+            <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
+          </Dropdown>
+          <Link to={'/tags'}>
+            <Button icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
+          </Link>
+          <Dropdown
+            placement="bottomCenter"
+            trigger={['click']}
+            overlay={
+              <Menu onClick={this.handleMenuClick}>
+                <Menu.Item key="import"><Icon type="select" />从数据库导入文章</Menu.Item>
+              </Menu>
+            }>
+            <Button style={{float: 'right', marginRight: 10}}>
+              <Icon type="ellipsis" />
+            </Button>
+          </Dropdown>
+        </div>
         <Table
           size="small"
           bordered
