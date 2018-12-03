@@ -43,16 +43,20 @@ class CommentController extends Controller
         if ($request->parent_id) {
             $commentTarget = Comment::findOrFail($request->target_id);
             $url = url("/articles/{$comment->article->id}#comment{$comment->id}");
-            try {
-                Mail::to($commentTarget->email)
-                    ->send(new CommentRemind($commentTarget->content, $comment, $url));
-            }catch (\Exception $e) {}
+            if (setting('reply_email')) {
+                try {
+                    Mail::to($commentTarget->email)
+                        ->send(new CommentRemind($commentTarget->content, $comment, $url));
+                }catch (\Exception $e) {}
+            }
         }else {
             $url = url("/articles/{$comment->article->id}#comment{$comment->id}");
-            try {
-                Mail::to(User::findOrFail(1))
-                    ->send(new CommentRemind($comment->article->title, $comment, $url));
-            }catch (\Exception $e) {}
+            if (setting('comment_email')) {
+                try {
+                    Mail::to(User::findOrFail(1))
+                        ->send(new CommentRemind($comment->article->title, $comment, $url));
+                }catch (\Exception $e) {}
+            }
         }
         return back()->with('message', '留言成功！');
     }

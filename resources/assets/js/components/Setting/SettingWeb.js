@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, message, Spin, Icon, Radio, Popover, Badge, Alert } from 'antd';
+import { Form, Input, Button, message, Spin, Icon, Radio, Popover, Badge, Alert, Switch } from 'antd';
 const FormItem = Form.Item;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -26,7 +26,9 @@ class SettingWebForm extends React.Component {
     loading: true,
     formData:{
       web_name:'',
-      file_disk:''
+      file_disk:'',
+      comment_email:0,
+      reply_email:0,
     }
   }
   componentWillMount() {
@@ -37,6 +39,7 @@ class SettingWebForm extends React.Component {
     }
     axios.get(window.apiURL + 'settings?keys='+ keys.join(','))
     .then((response) => {
+      console.log(response);
       this.setState({
         loading: false,
         formData: response.data.data
@@ -74,7 +77,7 @@ class SettingWebForm extends React.Component {
             {getFieldDecorator('file_disk', {
               rules: [{
                 required: true,
-                message: '图片存储位置不能为空！',
+                message: '请选择图片存储位置！',
               }],
               initialValue: formData.file_disk
             })(
@@ -97,6 +100,30 @@ class SettingWebForm extends React.Component {
                         <RadioButton value="cos">腾讯云静态存储COS</RadioButton>
                     </Popover>
                 </RadioGroup>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="文章评论邮件提醒" extra={<Alert message="开启后文章收到评论会发送邮件提醒" type="info" showIcon />}>
+            {getFieldDecorator('comment_email', {
+              rules: [{
+                required: true,
+                message: '请选择是否开启文章评论邮件提醒'
+              }],
+              initialValue: Boolean(parseInt(formData.comment_email)),
+              valuePropName: 'checked',
+            })(
+              <Switch checkedChildren="开" unCheckedChildren="关" />
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="评论回复邮件提醒" extra={<Alert message="开启后评论收到回复会发送邮件提醒" type="info" showIcon />}>
+            {getFieldDecorator('reply_email', {
+              rules: [{
+                required: true,
+                message: '请选择是否开启评论回复邮件提醒'
+              }],
+              initialValue: Boolean(parseInt(formData.reply_email)),
+              valuePropName: 'checked',
+            })(
+              <Switch checkedChildren="开" unCheckedChildren="关" />
             )}
           </FormItem>
           <FormItem {...formTailLayout}>
