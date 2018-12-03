@@ -34,15 +34,7 @@ export class ArticleUpdate extends React.Component {
       message.error('标题不能为空');
     }else {
       //更新文章
-      axios.post(window.apiURL + 'articles', {
-        id:this.state.id,
-        title:article.title,
-        tags:article.tags,
-        cover:article.cover,
-        content_raw:article.content_raw,
-        content_html:article.content_html,
-        content_markdown:article.content_markdown,
-      })
+      axios.post(window.apiURL + 'articles', article)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
@@ -69,7 +61,7 @@ export class ArticleUpdate extends React.Component {
           </Breadcrumb.Item>
         </Breadcrumb>
         <Spin spinning={this.state.loading}>
-          <ArticleForm article={this.state.article} tagsArr={this.state.tagsArr} handleSubmit={this.handleSubmit.bind(this)}/>
+          <ArticleForm article={this.state.article} tagsArr={this.state.tagsArr} isMarkdown={this.state.article.is_markdown} handleSubmit={this.handleSubmit.bind(this)}/>
         </Spin>
       </div>
     )

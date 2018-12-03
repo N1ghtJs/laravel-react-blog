@@ -39,6 +39,7 @@ export class ArticleForm extends React.Component {
         tags: nextProps.article.tags,
         cover: nextProps.article.cover,
         editorState: BraftEditor.createEditorState(nextProps.article.content_raw),
+        editorMarkdown: nextProps.article.content_markdown,
       });
     }
     if (nextProps.tagsArr) {
