@@ -193,6 +193,7 @@ class ArticleController extends Controller
 
         foreach ($articles as $article) {
             $newArticle = new Article;
+            $newArticle->id = $article->id;
             foreach ($inputs as $key => $value) {
 
                 if($key == 'is_top' || $key == 'is_hidden'){
