@@ -444,7 +444,7 @@ const DrawerImportForm  = Form.create()(
           .then((response) => {
             message.success(response.data.message);
             this.closeDrawer();
-            this.fetchData();
+            location.reload();
           })
           .catch((error) => {
             console.log(error);
