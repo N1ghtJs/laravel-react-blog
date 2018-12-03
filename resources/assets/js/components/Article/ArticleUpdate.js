@@ -41,6 +41,7 @@ export class ArticleUpdate extends React.Component {
         cover:article.cover,
         content_raw:article.content_raw,
         content_html:article.content_html,
+        content_markdown:article.content_markdown,
       })
       .then((response) => {
         console.log(response);

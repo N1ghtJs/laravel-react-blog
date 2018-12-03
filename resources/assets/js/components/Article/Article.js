@@ -5,7 +5,6 @@ const confirm = Modal.confirm;
 const Option = Select.Option;
 const Search = Input.Search;
 import { Link } from 'react-router-dom';
-import styles from "./Article.css"
 
 export class Article extends React.Component {
   constructor() {
@@ -127,9 +126,25 @@ export class Article extends React.Component {
           style={{ width: 200, marginRight: 10 }}
         />
 
-        <Link to={'/articles/create'}>
+        <Dropdown
+          placement="bottomRight"
+          trigger={['click']}
+          overlay={
+            <Menu>
+              <Menu.Item>
+                <Link to="/articles/create/richtext">
+                  <Icon type="file-word" /> 富文本编辑器
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/articles/create/markdown">
+                  <Icon type="file-markdown" /> Markdown编辑器
+                </Link>
+              </Menu.Item>
+            </Menu>
+          }>
           <Button type="primary" icon="edit" style={{float: 'right'}}>写文章</Button>
-        </Link>
+        </Dropdown>
         <Link to={'/tags'}>
           <Button icon="tag" style={{float: 'right', marginRight: 10}}>标签管理</Button>
         </Link>

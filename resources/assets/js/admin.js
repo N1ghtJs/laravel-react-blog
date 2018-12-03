@@ -33,7 +33,7 @@ window.imageURL = function(url){
     if (file_disk == 'cos') {
         return 'http://images-1253193383.cosbj.myqcloud.com/' + url;
     }else {
-        return '/storage/images/' + url;
+        return location.origin + '/storage/images/' + url;
     }
 }
 

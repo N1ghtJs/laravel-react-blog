@@ -49,20 +49,6 @@ class SettingWebForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const formData = this.state.formData;
-    //本地系统盘提示框
-    const fileDiskTipsLocal = (
-      <div>
-          <Badge status="default" text="无需配置，直接使用" /><br/>
-          <Badge status="warning" text="本地系统盘空间较小，不推荐使用系统盘存放图片！" />
-      </div>
-    );
-    //腾讯云COS提示框
-    const fileDiskTipsCOS = (
-      <div>
-          <Badge status="default" text="需要手动完成配置才能使用，配置方法见源码readme" /><br/>
-          <Badge status="processing" text="静态存储访问速度快，空间大，推荐使用此项！" />
-      </div>
-    );
 
     if (this.state.loading) {
       return (
@@ -92,11 +78,22 @@ class SettingWebForm extends React.Component {
               }],
               initialValue: formData.file_disk
             })(
-                <RadioGroup defaultValue="local">
-                    <Popover content={fileDiskTipsLocal} >
+                <RadioGroup>
+                    <Popover
+                      content={(
+                        <div>
+                            <Badge status="default" text="无需配置，直接使用" /><br/>
+                            <Badge status="warning" text="本地系统盘空间较小，不推荐使用系统盘存放图片！" />
+                        </div>
+                      )}>
                         <RadioButton value="local">本地系统盘</RadioButton>
                     </Popover>
-                    <Popover content={fileDiskTipsCOS}>
+                    <Popover content={(
+                        <div>
+                            <Badge status="default" text="需要手动完成配置才能使用，配置方法见源码readme" /><br/>
+                            <Badge status="processing" text="静态存储访问速度快，空间大，推荐使用此项！" />
+                        </div>
+                      )}>
                         <RadioButton value="cos">腾讯云静态存储COS</RadioButton>
                     </Popover>
                 </RadioGroup>

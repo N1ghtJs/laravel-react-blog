@@ -80,7 +80,12 @@ class ArticleController extends Controller
         }
         $article->title = $request->title;
         $article->cover = $request->cover;
-        $article->content_raw = $request->content_raw;
+        $article->is_markdown = $request->is_markdown;
+        if ($request->is_markdown) {
+            $article->content_markdown = $request->content_markdown;
+        }else {
+            $article->content_raw = $request->content_raw;
+        }
         $article->content_html = $request->content_html;
         $article->save();
         //处理标签
@@ -182,7 +187,7 @@ class ArticleController extends Controller
     public function import(Request $request)
     {
         $inputs = $request->all();
-        
+
         $articles = DB::table($inputs['table'])->get();
         unset($inputs['table']);
 

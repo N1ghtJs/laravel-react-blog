@@ -5,7 +5,6 @@ const FormItem = Form.Item;
 import { Route, Link } from 'react-router-dom'
 import { SettingWeb } from './SettingWeb';
 import { SettingPersonal } from './SettingPersonal';
-import styles from "./Setting.css"
 
 export class Setting extends React.Component {
   render(){

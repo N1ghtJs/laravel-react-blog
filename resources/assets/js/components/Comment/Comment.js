@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Table, Tooltip, Button, Modal, message, Badge, Dropdown, Menu, Icon } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
-import styles from "./Comment.css"
 
 export class Comment extends React.Component {
   constructor() {

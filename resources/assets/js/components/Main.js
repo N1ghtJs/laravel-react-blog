@@ -71,7 +71,7 @@ class SiderLayout extends React.Component {
                 <Switch>
                   <Route path="/" exact component={Dashboard}/>
                   <Route path="/articles" exact component={Article}/>
-                  <Route path="/articles/create" exact component={ArticleCreate}/>
+                  <Route path="/articles/create/:type" exact component={ArticleCreate}/>
                   <Route path="/articles/update/:id" component={ArticleUpdate}/>
                   <Route path="/tags" exact component={Tag}/>
                   <Route path="/comments" exact component={Comment}/>
