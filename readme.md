@@ -31,15 +31,15 @@
 
 如果你喜欢这个开源项目，按照下面操作部署到本地或者服务器就可以轻松拥有，顺便点个 star 拉，谢谢：）
 
-# 在服务器上安装，直接使用
+## 在服务器上安装，直接使用
 
 参考文章：[Laravel 部署到阿里云/腾讯云](http://dmmylove.cn/articles/12)
 
-# 在本地安装，进行开发
+## 在本地安装，进行开发
 
 本地开发建议使用 Homestead，配置 Homestead 参考官方文档：[Laravel 虚拟开发环境 Homestead](https://laravel-china.org/docs/laravel/5.5/homestead/1285)
 
-# 使用
+## 使用
 
 执行 seed 生成默认账号
 
@@ -49,7 +49,7 @@ php artisan db:seed --class=UsersTableSeeder
 
 访问 '根目录/admin' 进入后台
 
-使用默认账号：admin@qq.com admin，密码：admin 进行登录
+使用默认账号：admin@qq.com，密码：admin 进行登录
 
 ## 更新
 
