@@ -113,15 +113,15 @@
           </div>
           <div class="form-group">
             <label for="name">昵称</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="[选填] 怎么称呼？" value="{{ $input->name }}">
+            <input type="text" class="form-control" id="name" name="name" placeholder="[选填] 怎么称呼？" value="{{ $input->name or '' }}">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">邮箱</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="[选填] 如果有人回复，会收到邮件提醒" value="{{ $input->email }}">
+            <input type="email" class="form-control" id="email" name="email" placeholder="[选填] 如果有人回复，会收到邮件提醒" value="{{ $input->email or '' }}">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">个人网站</label>
-            <input type="text" class="form-control" id="website" name="website" placeholder="[选填] 包含 http:// 或 https:// 的完整域名" value="{{ $input->website }}">
+            <input type="text" class="form-control" id="website" name="website" placeholder="[选填] 包含 http:// 或 https:// 的完整域名" value="{{ $input->website or '' }}">
           </div>
           <input type="text" id="parent_id" name="parent_id" style="display:none">
           <input type="text" id="target_id" name="target_id" style="display:none">

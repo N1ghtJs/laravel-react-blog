@@ -18,10 +18,10 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         $comments = Comment::orderBy('created_at', 'desc')->paginate($request->pagesize);
-        for ($i=0; $i < sizeof($comments); $i++) {
-            $comments[$i]->key = $comments[$i]->id;
-            $comments[$i]->article_name = $comments[$i]->article->title;
-            $comments[$i]->location = '/articles/' . $comments[$i]->article_id . '#comment' .$comments[$i]->id;
+        foreach ($comments as $comment) {
+            $comment->key = $comment->id;
+            $comment->article_name = $comment->article->title;
+            $comment->location = '/articles/' . $comment->article_id . '$comment' . $comment->id;
         }
         return $comments;
     }
