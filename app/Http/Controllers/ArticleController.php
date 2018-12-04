@@ -65,7 +65,7 @@ class ArticleController extends Controller
   {
       $article = Article::findOrFail($id);
       $article->increment('view');
-      $article->created_at = $article->created_at->toDateString();
+      $article->created_at_date = $article->created_at->toDateString();
       $comments = $article->comments()->where('parent_id', 0)->orderBy('created_at', 'desc')->get();
 
       //处理评论，关联回复
