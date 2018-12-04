@@ -117,6 +117,10 @@ const avatarOnClick = function({key}){
 //头像下拉菜单
 const menu = (
   <Menu onClick={avatarOnClick}>
+    <Menu.Item key="version">
+      <Icon type="crown" />
+      <span>版本 1.0.1</span>
+    </Menu.Item>
     <Menu.Item key="personal">
       <Icon type="user" />
       <span>博主设置</span>

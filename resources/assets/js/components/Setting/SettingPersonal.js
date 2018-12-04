@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, message, Spin, Icon, Upload } from 'antd';
+import { Form, Input, Button, message, Spin, Icon, Upload, Alert } from 'antd';
 const FormItem = Form.Item;
 
 export class SettingPersonal extends React.Component {
@@ -18,11 +18,6 @@ class SettingPersonalForm extends React.Component {
     }
   }
   componentWillMount() {
-    let that = this;
-    let keys = [];
-    for(let i in this.state.formData){
-      keys.push(i);
-    }
     if (master) {
         this.setState({
             formData: master,
@@ -64,7 +59,7 @@ class SettingPersonalForm extends React.Component {
               <Input placeholder="请输入昵称" />
             )}
           </FormItem>
-          <FormItem {...formItemLayout} label="邮箱">
+          <FormItem {...formItemLayout} label="邮箱" extra={<Alert message="更换邮箱后，登录需使用新邮箱" type="warning" showIcon />}>
             {getFieldDecorator('email', {
               rules: [{
                   required: true,

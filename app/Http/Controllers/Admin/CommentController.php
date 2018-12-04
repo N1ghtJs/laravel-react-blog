@@ -21,7 +21,7 @@ class CommentController extends Controller
         foreach ($comments as $comment) {
             $comment->key = $comment->id;
             $comment->article_name = $comment->article->title;
-            $comment->location = '/articles/' . $comment->article_id . '$comment' . $comment->id;
+            $comment->location = '/articles/' . $comment->article_id . '#comment' . $comment->id;
         }
         return $comments;
     }
