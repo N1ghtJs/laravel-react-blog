@@ -33,12 +33,14 @@ Route::middleware(['auth', 'super'])->namespace('Admin')->prefix('admin-api')->g
   Route::get('/articles/{id}', 'ArticleController@show');
   Route::post('/upload', 'ArticleController@uploadFileApi');
   Route::post('/import', 'ArticleController@import');
+  Route::get('/tags', 'TagController@index');
+  Route::get('/tags/delete/{id}', 'TagController@destroy');
 
   Route::get('/comments', 'CommentController@index');
   Route::get('/comments/delete/{id}', 'CommentController@destroy');
-
-  Route::get('/tags', 'TagController@index');
-  Route::get('/tags/delete/{id}', 'TagController@destroy');
+  Route::get('/blacklist', 'BlacklistController@index');
+  Route::get('/blacklist/delete/{id}', 'BlacklistController@destroy');
+  Route::post('/blacklist', 'BlacklistController@store');
 
   Route::get('/settings', 'SettingController@index');
   Route::post('/settings', 'SettingController@store');

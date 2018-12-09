@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Tooltip, Button, Modal, message, Badge, Dropdown, Menu, Icon } from 'antd';
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
+import { Link } from 'react-router-dom';
 
 export class Comment extends React.Component {
   constructor() {
@@ -63,12 +64,18 @@ export class Comment extends React.Component {
             <Tooltip title="删除">
               <Button icon="delete" onClick={this.handleDelete.bind(this, record.id)}/>
             </Tooltip>
+            <Tooltip title="拉黑">
+              <Button icon="frown" onClick={this.handleBlack.bind(this, record.ip)}/>
+            </Tooltip>
           </ButtonGroup>
         </span>
       ),
     },];
     return (
       <div style={{padding:20}}>
+        <Link to={'/blacklist'}>
+          <Button icon="bars">黑名单管理</Button>
+        </Link>
         <Table
           size="small"
           bordered
@@ -76,7 +83,8 @@ export class Comment extends React.Component {
           loading={this.state.loading}
           columns={columns}
           pagination={this.state.pagination}
-          onChange={this.handleTableChange}/>
+          onChange={this.handleTableChange}
+          style={{marginTop:10}}/>
       </div>
     )
   }
@@ -130,6 +138,20 @@ export class Comment extends React.Component {
       onCancel:() => {
         console.log('取消删除');
       },
+    });
+  }
+  //拉黑 IP
+  handleBlack = (ip) =>{
+    axios.post(window.apiURL + 'blacklist/',{
+      ip:ip
+    })
+    .then((response) => {
+      if (response.status == 200) {
+        message.success(response.data.message)
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }
   //操作表格触发函数

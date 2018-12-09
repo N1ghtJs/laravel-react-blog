@@ -8,6 +8,7 @@ import { ArticleCreate } from './Article/ArticleCreate'
 import { ArticleUpdate } from './Article/ArticleUpdate'
 import { Tag } from './Article/Tag'
 import { Comment } from './Comment/Comment'
+import { Blacklist } from './Comment/Blacklist'
 import { Dashboard } from './Dashboard/Dashboard'
 import { Setting } from './Setting/Setting'
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -75,6 +76,7 @@ class SiderLayout extends React.Component {
                   <Route path="/articles/update/:id" component={ArticleUpdate}/>
                   <Route path="/tags" exact component={Tag}/>
                   <Route path="/comments" exact component={Comment}/>
+                  <Route path="/blacklist" exact component={Blacklist}/>
                   <Route path="/settings/:module" exact component={Setting}/>
                   <Redirect to="/" />
                 </Switch>
@@ -119,7 +121,7 @@ const menu = (
   <Menu onClick={avatarOnClick}>
     <Menu.Item key="version">
       <Icon type="crown" />
-      <span>版本 1.0.1</span>
+      <span>版本 1.0.2</span>
     </Menu.Item>
     <Menu.Item key="personal">
       <Icon type="user" />

@@ -8,6 +8,7 @@ use App\Mail\CommentRemind;
 use App\Common\MyFunction;
 use App\Comment;
 use App\User;
+use App\Blacklist;
 use Auth;
 
 class CommentController extends Controller
@@ -19,7 +20,11 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // $city = MyFunction::getCity($request->ip());
+        $ip = $request->ip();
+        if (Blacklist::check($ip)) {
+            return back()->with('error', '留言失败！');
+        }
+
         $comment = new Comment;
         $comment->user_id = Auth::id() ? Auth::id() : 0;
 
@@ -35,7 +40,7 @@ class CommentController extends Controller
         $comment->name = $request->name;
         $comment->email = $request->email;
         $comment->website = $request->website;
-        $comment->ip = $request->ip();
+        $comment->ip = $ip;
         // $comment->city = $city['region'].' '.$city['city'];
         $comment->save();
 
