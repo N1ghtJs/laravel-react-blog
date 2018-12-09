@@ -22,7 +22,7 @@ class CommentController extends Controller
     {
         $ip = $request->ip();
         if (Blacklist::check($ip)) {
-            return back()->with('error', '留言失败！');
+            return back()->with('error', '留言失败2333');
         }
 
         $comment = new Comment;
