@@ -25,6 +25,11 @@ class CommentController extends Controller
             return back()->with('error', '留言失败2333');
         }
 
+        $content = $request->content;
+        if(!preg_match('/[\x{4e00}-\x{9fa5}]/u', $content) && preg_match('/http:\/\/|https:\/\//u', $content)) {
+            return back()->with('error', '疑似广告');
+        }
+
         $comment = new Comment;
         $comment->user_id = Auth::id() ? Auth::id() : 0;
 
@@ -36,7 +41,7 @@ class CommentController extends Controller
             $comment->target_id = 0;
         }
         $comment->article_id = $request->article_id;
-        $comment->content = $request->content;
+        $comment->content = $content;
         $comment->name = $request->name;
         $comment->email = $request->email;
         $comment->website = $request->website;
