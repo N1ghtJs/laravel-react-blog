@@ -42,6 +42,46 @@
 
 本地开发建议使用 Homestead，配置 Homestead 参考官方文档：[Laravel 虚拟开发环境 Homestead](https://laravel-china.org/docs/laravel/5.5/homestead/1285)
 
+配置好 Homestead 并确保可以正确登录到虚拟机
+
+在共享目录下拉取代码（本机应该有一个目录，映射到 Homestead 虚拟机，用来存放 Laravel 工程的）
+
+拉取完毕后，进入项目目录，安装依赖
+
+```
+composer install
+```
+
+生成.env文件
+
+```
+cp .env.example .env
+```
+
+生成 laravel key
+
+```
+php artisan key:generate
+```
+
+然后修改 Homestead.yaml：
+
+在 sites 属性中增加两行（注意格式必须严格按照标准）
+```
+    - map: laravel-react-blog.test
+      to: /home/vagrant/code/laravel-react-blog/public
+```
+在 databases 属性中增加一行（注意格式必须严格按照标准）
+```
+    - laravel-react-blog
+```
+
+然后退出虚拟机，执行`vagrant provision`，该指令会重启虚拟机并更新配置
+
+重新进入虚拟机后，进入代码根目录，修改.env文件中数据库相关部分代码，然后执行`php artisan migrate`
+
+最后修改 hosts 文件，在最底部加一行`192.168.10.10 laravel-react-blog.test`
+
 ## 使用
 
 执行 seed 生成默认账号
