@@ -94,6 +94,14 @@ php artisan db:seed --class=UsersTableSeeder
 
 使用默认账号：admin@qq.com，密码：admin 进行登录
 
+文件存储有两种方式：系统盘和cos，如果要使用系统盘存储系统，还需要创建一个软连接
+
+```
+php artisan storage:link
+```
+
+如果要使用 COS，请参考下面【腾讯云 COS 配置】
+
 ## 更新
 
 在服务器项目根目录下依次执行下列命令即可完成更新同步：
