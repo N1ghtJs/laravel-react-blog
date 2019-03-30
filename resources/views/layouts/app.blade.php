@@ -112,6 +112,9 @@
         <footer class="z-footer">
             <p class="z-text">DESIGN & FRONT-END CODE BY</p>
             <p class="z-text-big">sad creeper</p>
+            @if(setting('web_icp', ''))
+              <a href="http://www.miitbeian.gov.cn" target="_blank">{{setting('web_icp', '')}}</a>
+            @endif
         </footer>
     </div>
 

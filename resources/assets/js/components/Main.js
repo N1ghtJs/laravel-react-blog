@@ -121,7 +121,7 @@ const menu = (
   <Menu onClick={avatarOnClick}>
     <Menu.Item key="version">
       <Icon type="crown" />
-      <span>版本 1.0.2</span>
+      <span>版本 1.0.4</span>
     </Menu.Item>
     <Menu.Item key="personal">
       <Icon type="user" />

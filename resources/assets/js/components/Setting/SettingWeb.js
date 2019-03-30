@@ -29,6 +29,7 @@ class SettingWebForm extends React.Component {
       file_disk:'',
       comment_email:0,
       reply_email:0,
+      web_icp:'',
     }
   }
   componentWillMount() {
@@ -124,6 +125,13 @@ class SettingWebForm extends React.Component {
               valuePropName: 'checked',
             })(
               <Switch checkedChildren="开" unCheckedChildren="关" />
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="网站备案号" extra={<Alert message="有些省份会要求在网站底部添加备案号，并链接到工信部，在这里填写就好，不填则不显示" type="info" showIcon />}>
+            {getFieldDecorator('web_icp', {
+              initialValue: formData.web_icp
+            })(
+              <Input placeholder="请输入网站备案号" />
             )}
           </FormItem>
           <FormItem {...formTailLayout}>
