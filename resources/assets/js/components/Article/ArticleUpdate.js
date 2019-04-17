@@ -22,7 +22,7 @@ export class ArticleUpdate extends React.Component {
       this.setState({
         article:response.data.article,
         loading:false,
-        tagsArr:response.data.tagsArr,
+        tagsArr:response.data.tags_arr,
       })
     })
     .catch((error) => {
