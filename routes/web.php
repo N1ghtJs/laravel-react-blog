@@ -20,7 +20,7 @@ Route::post('/articles/search', 'ArticleController@search')->name('articles.sear
 Route::get('/articles/list', 'ArticleController@list')->name('articles.list');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
-Route::resource('/tags', 'TagController');
+Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 
 Route::middleware(['auth', 'super'])->namespace('Admin')->prefix('admin-api')->group(function () {
 

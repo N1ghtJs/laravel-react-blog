@@ -6,12 +6,12 @@
 <div class="container" style="margin-bottom:20px">
     <div class="row">
         <div class="col-md-7 col-md-offset-1">
-          <div class="">
-            <span>热门关键词：</span>
-            @foreach($tags as $tag)
-              <a href="{{ route('tags.show', $tag->id) }}"><span style="margin-right:10px">{{ $tag->name }}</span></a>
-            @endforeach
-          </div>
+          	<div class="">
+            	<span>热门关键词：</span>
+            	@foreach($tags as $tag)
+              		<a href="{{ route('tags.show', $tag->name) }}"><span style="margin-right:10px">{{ $tag->name }}</span></a>
+            	@endforeach
+          	</div>
           @if(count($articles))
             @foreach ( $articles as $article)
               <div class="z-article-horizontal">

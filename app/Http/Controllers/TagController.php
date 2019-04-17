@@ -12,9 +12,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        $articles = Tag::findOrFail($id)->articles()->where('is_hidden', 0)->orderBy('view', 'desc')->paginate(10);
+        $articles = Tag::where('name', $name)->first()->articles()->where('is_hidden', 0)->orderBy('view', 'desc')->paginate(10);
         for ($i=0; $i < sizeof($articles); $i++) {
             $articles[$i]->content = str_limit(strip_tags($articles[$i]->content), 150);
             $articles[$i]->created_at_date = $articles[$i]->created_at->toDateString();
