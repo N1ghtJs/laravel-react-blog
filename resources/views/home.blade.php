@@ -24,6 +24,11 @@
               </div>
           </div>
           @endforeach
+		  @if(count($articles) == 10)
+			  <a href="{{ route('articles.list') }}" class="z-home-more-articles">
+			  	更多文章 >>
+			  </a>
+		  @endif
         </div>
         <!-- <div class="col-md-4">
 
