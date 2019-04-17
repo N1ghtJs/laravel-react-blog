@@ -44,7 +44,7 @@
                     </a>
 
                     <div class="navbar-brand visible-xs-block" style="padding:4px 0 0 50px">
-                      <form class="navbar-form navbar-left search" style="margin:0;border:0;float:right" role="search" action="{{ route('articles.search') }}" method="post">
+                      <form class="navbar-form navbar-left search" style="margin:0;border:0;float:right" role="search" action="{{ route('articles.search.post') }}" method="post">
                           {{ csrf_field() }}
                           <div class="form-group">
                               <span class="glyphicon glyphicon-search" style="line-height:inherit"></span>
@@ -64,7 +64,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden-xs" style="margin-top:6px">
-                            <form class="navbar-form navbar-left search" role="search" action="{{ route('articles.search') }}" method="post">
+                            <form class="navbar-form navbar-left search" role="search" action="{{ route('articles.search.post') }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <span class="glyphicon glyphicon-search"></span>

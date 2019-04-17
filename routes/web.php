@@ -16,7 +16,8 @@ Auth::routes();
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
-Route::post('/articles/search', 'ArticleController@search')->name('articles.search');
+Route::get('/articles/search/{key}', 'ArticleController@search')->name('articles.search.get');
+Route::post('/articles/search', 'ArticleController@search')->name('articles.search.post');
 Route::get('/articles/list', 'ArticleController@list')->name('articles.list');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');

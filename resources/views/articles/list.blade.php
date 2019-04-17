@@ -7,10 +7,19 @@
     <div class="row">
         <div class="col-md-7 col-md-offset-1">
           	<div class="">
-            	<span>热门关键词：</span>
-            	@foreach($tags as $tag)
-              		<a href="{{ route('tags.show', $tag->name) }}"><span style="margin-right:10px">{{ $tag->name }}</span></a>
-            	@endforeach
+				@isset($tags)
+					<span>热门关键词：</span>
+					@foreach($tags as $tag)
+						<a href="{{ route('tags.show', $tag->name) }}"><span style="margin-right:10px">{{ $tag->name }}</span></a>
+					@endforeach
+				@endisset
+
+				@isset($searches)
+					<span>搜索最多：</span>
+					@foreach($searches as $search)
+						<a href="{{ route('articles.search.get', $search->name) }}"><span style="margin-right:10px">{{ $search->name }}</span></a>
+					@endforeach
+				@endisset
           	</div>
           @if(count($articles))
             @foreach ( $articles as $article)

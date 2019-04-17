@@ -11,6 +11,7 @@ use App\Comment;
 use App\Visit;
 use App\Tag;
 use App\User;
+use App\Search;
 use Auth;
 
 class ArticleController extends Controller
@@ -42,6 +43,16 @@ class ArticleController extends Controller
   public function search(Request $request)
   {
       $key = $request->key;
+
+	  // 保存（更新）搜索关键词
+	  $search = Search::where('name', $key)->first();
+	  if (!$search) {
+	  	$search = new Search;
+		$search->name = $key;
+		$search->save();
+	  }
+	  $search->increment('search_num');
+
       $articles = Article::when($key, function($query) use ($key){
           return $query->where('title', 'like', '%'.$key.'%');
       })->where('is_hidden', 0)->orderBy('created_at', 'desc')->paginate(10);
@@ -52,8 +63,8 @@ class ArticleController extends Controller
           $article->updated_at_diff = $article->updated_at->diffForHumans();
       }
 
-      $tags = Tag::all();
-      return view('articles.list', compact('articles', 'tags'));
+	  $searches = Search::where('search_num', '>', 1)->orderBy('search_num')->limit(10)->get();
+      return view('articles.list', compact('articles', 'searches'));
   }
 
   /**
