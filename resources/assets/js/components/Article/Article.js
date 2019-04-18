@@ -108,7 +108,7 @@ export class Article extends React.Component {
     return (
       <div style={{padding:20}}>
         <div style={{overflow:'hidden'}}>
-          <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
+          <Select defaultValue="created_at_desc" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
 						<Option value="created_at_desc">最新创建</Option>
             <Option value="created_at">最早创建</Option>
             <Option value="view_desc">最多浏览</Option>
