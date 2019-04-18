@@ -17,9 +17,9 @@ class TagController extends Controller
         $articles = Tag::where('name', $name)->first()->articles()->where('is_hidden', 0)->orderBy('view', 'desc')->paginate(10);
 		foreach ($articles as $article) {
 			$article->cover = imageURL($article->cover);
-            $articles->content = str_limit(strip_tags($articles[$i]->content), 150);
-            $articles->created_at_date = $articles->created_at->toDateString();
-            $articles->updated_at_diff = $articles->updated_at->diffForHumans();
+            $article->content = str_limit(strip_tags($article->content), 150);
+            $article->created_at_date = $article->created_at->toDateString();
+            $article->updated_at_diff = $article->updated_at->diffForHumans();
 		}
         $tags = Tag::all();
         return view('articles.list', compact('articles', 'tags'));
