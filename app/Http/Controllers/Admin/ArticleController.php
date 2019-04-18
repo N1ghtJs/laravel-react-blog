@@ -12,6 +12,7 @@ use App\Comment;
 use App\Visit;
 use App\Tag;
 use Auth;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class ArticleController extends Controller
 {
@@ -83,10 +84,11 @@ class ArticleController extends Controller
         $article->is_markdown = $request->is_markdown;
         if ($request->is_markdown) {
             $article->content_markdown = $request->content_markdown;
+			$article->content_html = Markdown::convertToHtml($request->content_markdown);
         }else {
             $article->content_raw = $request->content_raw;
+			$article->content_html = $request->content_html;
         }
-        $article->content_html = $request->content_html;
         $article->save();
         //处理标签
         //先删除文章关联的所有标签

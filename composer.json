@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
+        "graham-campbell/markdown": "^10.3",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
@@ -57,5 +58,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
     }
 }
