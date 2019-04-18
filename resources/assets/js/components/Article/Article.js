@@ -109,9 +109,10 @@ export class Article extends React.Component {
       <div style={{padding:20}}>
         <div style={{overflow:'hidden'}}>
           <Select defaultValue="created_at" style={{ width: 120, marginRight: 10 }} onChange={this.handleChangeOrder}>
-            <Option value="created_at">最新创建</Option>
-            <Option value="view">最多浏览</Option>
-            <Option value="comment">最多留言</Option>
+						<Option value="created_at_desc">最新创建</Option>
+            <Option value="created_at">最早创建</Option>
+            <Option value="view_desc">最多浏览</Option>
+            <Option value="comment_desc">最多留言</Option>
           </Select>
           <Select placeholder="按发表状态筛选" style={{ width: 140, marginRight: 10 }} onChange={this.handleChangeStatus} allowClear>
             <Option value={0}>已发表</Option>

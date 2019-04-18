@@ -34,7 +34,14 @@ class ArticleController extends Controller
                     })->when(isset($search), function ($query) use ($search) {
                         return $query->where('title', 'like', '%'.$search.'%');
                     })->when(isset($order), function ($query) use ($order) {
-                        return $query->orderBy($order, 'desc');
+						$arr = explode('_', $order);
+						$isDesc = end($arr) == 'desc';
+						if ($isDesc == 'desc') {
+							array_pop($arr);
+							return $query->orderBy(join('_', $arr), 'desc');
+						}else {
+							return $query->orderBy($order);
+						}
                     })->paginate($request->pagesize);
 
         for ($i=0; $i < sizeof($articles); $i++) {
