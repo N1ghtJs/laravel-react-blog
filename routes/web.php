@@ -21,7 +21,7 @@ Route::post('/articles/search', 'ArticleController@search')->name('articles.sear
 Route::get('/articles/list', 'ArticleController@list')->name('articles.list');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
-Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
+Route::get('/tags/{name}', 'TagController@show')->name('tags.show')->where('name', '.*');
 
 Route::middleware(['auth', 'super'])->namespace('Admin')->prefix('admin-api')->group(function () {
 
