@@ -18,7 +18,7 @@ export class Article extends React.Component {
         defaultCurrent:1,
         defaultPageSize:10
       },
-      order:'created_at',
+      order:'created_at_desc',
       status:null,
       top:null,
       key:null,
