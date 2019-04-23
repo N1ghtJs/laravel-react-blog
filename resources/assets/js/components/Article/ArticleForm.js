@@ -3,6 +3,7 @@ import { Icon, Form, Input, Button, Upload, message, Modal, Badge, Select, Switc
 import BraftEditor from 'braft-editor';
 import ReactMarkdown from 'react-markdown';
 import {markdown} from 'markdown';
+import upndown from 'upndown';
 import 'braft-editor/dist/index.css'
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -86,6 +87,13 @@ export class ArticleForm extends React.Component {
         </Upload>
       </div>
     )
+		const ExportMarkdown = () => {
+			return (
+				<div style={{width: 400, padding: 10}}>
+					<TextArea rows={6} value={this.state.html2markdown || ''} />
+				</div>
+			)
+		}
     // editor 扩展控件
     const extendControls = [
       {
@@ -98,6 +106,30 @@ export class ArticleForm extends React.Component {
           showFooter: false,
           children: CoverUploader,
         }
+      },
+			{
+        key: 'custom-modal2',
+        type: 'modal',
+        text: '导出 Markdown',
+        modal: {
+          id: 'my-moda-2',
+          title: '导出 Markdown',
+          showFooter: false,
+          children: <ExportMarkdown />,
+				},
+				onClick: () => {
+					var und = new upndown();
+					und.convert(this.state.editorState.toHTML(), (err, markdown) => {
+					    if(err) {
+								console.log(err);
+							}
+					    else {
+								this.setState({
+									html2markdown: markdown
+								})
+							}
+					});
+				}
       }
     ]
 
