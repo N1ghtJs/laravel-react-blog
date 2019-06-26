@@ -49,8 +49,11 @@ class Test extends Command
 		$articles = Article::all();
 
 		foreach ($articles as $article) {
-			$article->content_raw = str_replace('http://images-1253193383.cosbj.myqcloud.com/', '/', $article->content_raw);
-			$article->content_html = str_replace('http://images-1253193383.cosbj.myqcloud.com/', '/', $article->content_html);
+			$article->content_raw = str_replace('http://images-1253193383.cosbj.myqcloud.com/', '/storage/images/', $article->content_raw);
+			$article->content_html = str_replace('http://images-1253193383.cosbj.myqcloud.com/', '/storage/images/', $article->content_html);
+			$article->content_raw = str_replace('http://images-1253193383.cos.ap-beijing.myqcloud.com/', '/storage/images/', $article->content_raw);
+			$article->content_html = str_replace('http://images-1253193383.cos.ap-beijing.myqcloud.com/', '/storage/images/', $article->content_html);
+
 			$article->save();
 		}
 	}
