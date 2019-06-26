@@ -37,7 +37,7 @@ class Test extends Command
      */
     public function handle()
     {
-
+		$this->changeImageUrlInArticle();
     }
 
 	/**
